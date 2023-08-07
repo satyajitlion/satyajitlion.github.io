@@ -1,0 +1,321 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth !important;
+}
+
+section {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*Sections */
+
+#sec-1 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.32)),
+    url(jades.png);
+  background-position: center;
+}
+
+#about-me {
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.358),
+      rgba(127, 255, 212, 0.132),
+      rgba(0, 0, 0, 0.916)
+    ),
+    url(jades.png);
+  background-position: center;
+}
+
+#projects {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.52)),
+    url(jades.png);
+  background-position: center;
+}
+
+body {
+  margin: 0px;
+  background-color: black;
+  animation: transitionIn 1s;
+}
+
+/* Glass Effect for background*/
+/*
+.glass {
+  background: linear-gradient(
+    135deg,
+    rgba(149, 255, 195, 0.221),
+    rgba(112, 249, 192, 0.6)
+  );
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  border-radius: 2em;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+*/
+/*Formatting*/
+
+.glass {
+  padding-top: 1rem;
+  padding-left: 15rem;
+  padding-right: 15rem;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+  color: #f0f8ff;
+  font-family: "Overlock";
+}
+.logo {
+  float: left;
+  display: flex;
+  filter: invert(85%) sepia(38%) saturate(127%) hue-rotate(192deg)
+    brightness(103%) contrast(107%);
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
+  border-radius: 20%;
+  color: #f0f8ff;
+  transition: 0.2s ease;
+}
+
+.column-top {
+  display: flex;
+}
+
+.header-container {
+  color: aliceblue;
+  font-size: xx-large;
+}
+
+.hello {
+  color: aliceblue;
+  font-family: "Overlock";
+}
+
+/*Margin bot doesn't seem to work here?*/
+.spc-effects {
+  color: aliceblue;
+  font-family: "Sarina";
+}
+
+.text2 {
+  font-family: sans-serif;
+  letter-spacing: 6px;
+  padding-right: 1rem;
+}
+
+.text span {
+  color: aliceblue;
+  font-family: "Sarina";
+  position: relative;
+}
+
+.text span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 150%;
+  background: rgba(0, 0, 0, 0.907);
+  border-left: 5px solid aliceblue;
+  animation: typing 2s infinite, cursor 0.4s infinite;
+}
+
+.nav-items {
+  float: right;
+  color: aliceblue;
+  text-decoration: none;
+}
+
+nav {
+  height: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem calc((100vw -1300px) / 2);
+}
+
+nav a {
+  font-family: "Overlock";
+  font-weight: bold;
+  text-decoration: none;
+  color: aliceblue;
+  padding: 0 1.5rem;
+}
+
+.about {
+  font-family: "Bagel Fat One";
+  display: flex;
+  color: aliceblue;
+  font-size: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.desc {
+  color: aliceblue;
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.prj {
+  font-family: "Bagel Fat One";
+  display: flex;
+  font-size: 50px;
+  color: aliceblue;
+  align-items: center;
+  justify-content: center;
+}
+
+.desc2 {
+  color: aliceblue;
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover animation */
+
+.logo:hover {
+  cursor: pointer;
+  color: hsl(160, 100%, 72%);
+}
+
+nav a:hover {
+  transform: scale(1.1);
+  color: #79ffc7;
+}
+
+.spc-effects:hover {
+  color: aquamarine;
+  cursor: pointer;
+}
+
+.scroll-down {
+  height: 50px;
+  width: 30px;
+  border: 2px solid aliceblue;
+  position: absolute;
+  left: 50%;
+  bottom: 50px;
+  border-radius: 50px;
+  transform: translateX(-50%);
+  cursor: pointer;
+  animation: transitionIn 1s;
+}
+
+/* Scroll-down Button*/
+a#scroll-btn {
+  position: absolute;
+  height: 4em;
+  width: 2.5em;
+  border: 0.25em solid aliceblue;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 2.5em;
+  border-radius: 3em;
+}
+
+a#scroll-btn::before {
+  position: absolute;
+  content: "";
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0.5em;
+  height: 0.65em;
+  width: 0.65em;
+  background-color: aliceblue;
+  border-radius: 50%;
+  animation: move-down 2s infinite;
+}
+
+a#scroll-btn::after {
+  position: absolute;
+  font-family: "Overlock";
+  content: "Scroll Down";
+  width: 12em;
+  display: flex;
+  text-align: center;
+  left: -2.15em;
+  bottom: -2em;
+  font-size: 1.25em;
+  color: aliceblue;
+  letter-spacing: 2px;
+}
+
+/*Custom Scrollbar*/
+
+::-webkit-scrollbar {
+  width: 10px;
+  background: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: aquamarine;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(aquamarine, rgb(223, 184, 255));
+}
+
+@keyframes move-down {
+  80% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(2em);
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  scroll-down {
+    font-size: 12px;
+  }
+}
+
+@keyframes transitionIn {
+  from {
+    opacity: 0;
+    transform: rotateX(-10deg);
+    transform: rotateY(-10deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotateX(0deg);
+    transform: rotateY(0deg);
+  }
+}
+
+/*Cursor blinking for text-animation*/
+
+@keyframes cursor {
+  50% {
+    border-color: transparent;
+  }
+}
+
+/*Typing effect text-animation*/
+
+@keyframes typing {
+  100% {
+    left: 100%;
+    margin: 0 -35px 0 35px;
+  }
+}

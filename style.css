@@ -27,17 +27,20 @@ section {
 #about-me {
   background-image: linear-gradient(
       rgba(0, 0, 0, 0.358),
-      rgba(127, 255, 212, 0.132),
+      rgb(127, 255, 212,0.12),
       rgba(0, 0, 0, 0.916)
     ),
     url(jades.png);
-  background-position: center;
+  padding-left: 50px;
+  padding-right: 50px;  
 }
 
 #projects {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.52)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgb(127, 255, 212,0.1),rgba(0, 0, 0, 0.9)),
     url(jades.png);
   background-position: center;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 body {
@@ -46,35 +49,32 @@ body {
   animation: transitionIn 1s;
 }
 
-/* Glass Effect for background*/
-/*
-.glass {
-  background: linear-gradient(
-    135deg,
-    rgba(149, 255, 195, 0.221),
-    rgba(112, 249, 192, 0.6)
-  );
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
-  border-radius: 2em;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+.g1{
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border:1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
-*/
-/*Formatting*/
-
-.glass {
-  padding-top: 1rem;
-  padding-left: 15rem;
-  padding-right: 15rem;
-  align-items: center;
-  text-align: center;
+.g2{
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border:1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 h1 {
   color: #f0f8ff;
   font-family: "Overlock";
 }
+
 .logo {
   float: left;
   display: flex;
@@ -87,6 +87,10 @@ h1 {
   border-radius: 20%;
   color: #f0f8ff;
   transition: 0.2s ease;
+  text-shadow:
+  1px 1px 2px red,
+  0 0 2.5em aquamarine,
+  0 0 0.2em aquamarine;
 }
 
 .column-top {
@@ -107,31 +111,54 @@ h1 {
 .spc-effects {
   color: aliceblue;
   font-family: "Sarina";
+  text-shadow:
+  1px 1px 2px red,
+  0 0 2.5em aquamarine,
+  0 0 0.2em aquamarine;
 }
 
 .text2 {
-  font-family: sans-serif;
+  font-family: "Jua";
   letter-spacing: 6px;
   padding-right: 1rem;
+  text-shadow:
+  1px 1px 2px red,
+  0 0 2.5em aquamarine,
+  0 0 0.2em aquamarine;
 }
 
 .text span {
   color: aliceblue;
   font-family: "Sarina";
   position: relative;
+  text-shadow:
+  1px 1px 2px red,
+  0 0 2.5em aquamarine,
+  0 0 0.2em aquamarine;
 }
 
+.column-top {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid aliceblue; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 2.0s steps(2000, end),
+    blink-caret .75s step-end infinite;
+}
+/*
 .text span::after {
   content: "";
   position: absolute;
-  left: 0;
-  height: 100%;
+  left: -150px;
+  height: 110%;
   width: 150%;
-  background: rgba(0, 0, 0, 0.907);
+  
   border-left: 5px solid aliceblue;
   animation: typing 2s infinite, cursor 0.4s infinite;
 }
-
+*/
 .nav-items {
   float: right;
   color: aliceblue;
@@ -144,6 +171,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 0rem calc((100vw -1300px) / 2);
+  
 }
 
 nav a {
@@ -152,29 +180,59 @@ nav a {
   text-decoration: none;
   color: aliceblue;
   padding: 0 1.5rem;
+  text-shadow:
+  1px 1px 2px red,
+  0 0 1em aquamarine,
+  0 0 0.2em aquamarine;
 }
 
 .about {
-  font-family: "Bagel Fat One";
+  font-family: "Overclock";
   display: flex;
   color: aliceblue;
+  text-shadow:
+  1px 1px 2px red,
+  0 0 1em aquamarine,
+  0 0 0.2em aquamarine; 
   font-size: 50px;
+  padding-bottom: 20px;
   align-items: center;
   justify-content: center;
 }
 
 .desc {
   color: aliceblue;
-  font-size: 20px;
+  font-size: 25px;
   align-items: center;
   justify-content: center;
+  padding-left: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.repos{
+
+  color: aliceblue;
+  font-size: 15px;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20px;
+
 }
 
 .prj {
-  font-family: "Bagel Fat One";
+  font-family: "Overlock";
   display: flex;
   font-size: 50px;
   color: aliceblue;
+  text-shadow:
+  1px 1px 2px red,
+  0 0 1em aquamarine,
+  0 0 0.2em aquamarine;
+  /* padding-bottom: 20px;*/
   align-items: center;
   justify-content: center;
 }
@@ -303,19 +361,271 @@ a#scroll-btn::after {
   }
 }
 
-/*Cursor blinking for text-animation*/
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  75% { border-color: aliceblue; }
+}
 
-@keyframes cursor {
-  50% {
-    border-color: transparent;
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* STUFF FOR REPOS*/
+
+@media (prefers-color-scheme: light) {
+  :root {
+      --text: black;
+      --accent: aquamarine;
   }
 }
 
-/*Typing effect text-animation*/
-
-@keyframes typing {
-  100% {
-    left: 100%;
-    margin: 0 -35px 0 35px;
+@media (prefers-color-scheme: dark) {
+  :root {
+      --text: aliceblue;
+      --accent: aquamarine;
   }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 90%;
+  max-width: 1280px;
+}
+
+.hide {
+  /* '!important' is to make sure that when we add the class using JS, it takes precendence */
+  display: none !important;
+}
+
+small {
+  width: 100%;
+  text-align: center;
+  display: block;
+  margin-bottom: 0px;
+}
+
+h2 {
+  font-family: "Overclock";
+  width: 100%;
+  color: var(--text);
+  margin: 0;
+}
+
+img {
+  border: 2px solid var(--accent);
+  box-shadow:
+      0 0px 6px var(--accent),
+      0 0px 6px var(--accent);
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  font-family: "Overclock";
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--text);
+}
+
+.github-img {
+  width: 45px;
+  margin-right: 8px;
+}
+
+ul {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  list-style: none;
+  padding: 0;
+}
+
+.user-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: var(--bg-user);
+  color: var(--text);
+  font-size: 20px;
+  padding: 1em;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.user-info figure {
+  width: 90%;
+  max-width: 200px;
+}
+
+.user-info img {
+  border-radius: 100%;
+}
+
+.user-info div {
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  padding-left  : 5%;
+}
+
+.user-info div p {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--text);
+  padding-bottom: 0px;
+}
+
+.filter-repos {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 0px; /* Adjust this number for vertical spacing */
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.repo-list {
+  margin: 0;
+  padding: 0;
+  min-height: 450px; /* fixing repo-list height */
+  list-style: none;
+}
+
+.repo-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0px; /* nice compact spacing */
+}
+
+.filter-repos,
+input {
+  background: var(--bg-user);
+  width: 50%;
+  border-radius: 20px;
+  min-width: 600px; /*Change this to change size of search bar*/
+  padding: 0.5em;
+  margin-bottom: 0em;
+  border: 2px solid var(--accent);
+  color: var(--text);
+  text-align: center;
+}
+
+::placeholder {
+  color: aquamarine;
+  opacity: 1; /* Firefox */
+}
+
+.repos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: var(--bg-repo);
+  margin-top: 0px;
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-bottom: 2em;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-bottom: 4em;
+}
+
+h3 {
+  font-family: "Jua";
+  margin: 4px;
+  width: 100%;
+  text-align: center;
+  color: var(--accent);
+}
+
+.repo-list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.repo-list li {
+  width: 100%;
+  min-height: 200px;
+  border-radius: 10px;
+  margin: 0.5em 0;
+  border: 1px solid var(--accent);
+  padding: 0.5em;
+  text-align: center;
+  background-color: var(--bg-user);
+}
+
+.repo-list li:hover {
+  background-color: var(--bg-main);
+  box-shadow:
+      0 3px 6px var(--accent),
+      0 3px 6px var(--accent);
+}
+
+.link-btn {
+  display: inline-block;
+  margin: 1em 0.5em;
+  padding: 10px 20px;
+  background: var(--bg-main);
+  border-radius: 30px;
+  border: 2px solid var(--accent);
+  color: var(--text);
+}
+
+.link-btn:hover {
+  background: var(--accent);
+  border: 2px solid var(--text);
+  transform: scale(1.1);
+}
+
+.repo-list p {
+  padding: 0.5em;
+  margin: 0.5em 0;
+}
+
+@media (min-width: 700px) {
+  .user-info div {
+      width: 45%;
+      text-align: left;
+  }
+
+  .repo-list {
+      justify-content: space-between;
+  }
+
+  .repo-list li {
+      width: 48%;
+  }
+}
+
+@media (max-width: 700px) {
+  .user-info div p {
+      margin: 10px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .repo-list li {
+      width: 32%;
+  }
+}
+
+.repo-name {
+  font-size: 1.25em;
+}
+
+.repo-descriptopn {
+  font-size: 1em;
 }

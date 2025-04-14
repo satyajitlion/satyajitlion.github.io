@@ -87,10 +87,6 @@ h1 {
   border-radius: 20%;
   color: #f0f8ff;
   transition: 0.2s ease;
-  text-shadow:
-  1px 1px 2px red,
-  0 0 2.5em aquamarine,
-  0 0 0.2em aquamarine;
 }
 
 .column-top {

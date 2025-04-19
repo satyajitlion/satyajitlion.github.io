@@ -1,6 +1,7 @@
+/* Base Reset */
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -8,307 +9,162 @@ html {
   scroll-behavior: smooth !important;
 }
 
-section {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/* Font Styling */
 
-/*Sections */
-
-#sec-1 {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.32)),
-    url(jades.png);
-  background-position: center;
-}
-
-#about-me {
-  background-image: linear-gradient(
-      rgba(0, 0, 0, 0.358),
-      rgb(127, 255, 212,0.12),
-      rgba(0, 0, 0, 0.916)
-    ),
-    url(jades.png);
-  padding-left: 50px;
-  padding-right: 50px;  
-}
-
-#projects {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgb(127, 255, 212,0.1),rgba(0, 0, 0, 0.9)),
-    url(jades.png);
-  background-position: center;
-  padding-left: 50px;
-  padding-right: 50px;
-}
+/* Body Styling */
 
 body {
-  margin: 0px;
-  background-color: black;
-  animation: transitionIn 1s;
+  background-color: #000435; /* Dark navy background */
+  color: #b8ddffdd; /* Bright white text */
+  font-family: 'Martel','Geneva', Verdana, sans-serif;
+  line-height: 1.6;
+  padding: 2rem;
 }
 
-.g1{
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border:1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-.g2{
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border:1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  padding-top: 20px;
-  padding-bottom: 20px;
+a {
+  text-decoration: none;
+  color: aliceblue;
 }
 
-h1 {
-  color: #f0f8ff;
-  font-family: "Overlock";
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+
+/* Header Styling */
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical centering */
+  align-items: center;     /* horizontal centering */
+  height: 100vh;           /* full viewport height */
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+header h1 {
+  font-family: 'Mr Bedfort','Geneva', Verdana, sans-serif;
+  font-size: 3rem;
+  margin-bottom: 0.25rem;
+}
+.name{
+  color: #eef4ed;
+}
+.key1{
+  color: #eef4ed
+}
+.key2{
+  color: #eef4ed
+}
+
+header p {
+  font-family: 'Averia Serif Libre','Geneva', Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #b8ddffdd;
+}
+
+/* Navigation Styling */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #ffffff;
+  transition: width 0.3s;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* Section Styling */
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical centering */
+  align-items: center;     /* horizontal centering */
+  height: 100vh;           /* full viewport height */
+  text-align: center;
+  margin-bottom: 4rem;
+
+  max-width: 800px;
+  margin: 0 auto 4rem auto;
+  padding: 2rem;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+section:hover {
+  transform: translateY(-5px);
+}
+
+/* Project Cards */
+.project {
+  margin-bottom: 2rem;
+}
+
+.project h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.project p {
+  color: #dddddd;
+  margin-bottom: 0.5rem;
+}
+
+.project a {
+  color: #1e90ff;
+  text-decoration: none;
+}
+
+.project a:hover {
+  text-decoration: underline;
 }
 
 .logo {
-  float: left;
   display: flex;
   filter: invert(85%) sepia(38%) saturate(127%) hue-rotate(192deg)
     brightness(103%) contrast(107%);
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  height: 2.0rem;
   object-fit: cover;
   border-radius: 20%;
-  color: #f0f8ff;
+  color: #eef4ed;
+  margin-bottom: 4px;
   transition: 0.2s ease;
 }
 
-.column-top {
-  display: flex;
-}
-
-.header-container {
-  color: aliceblue;
-  font-size: xx-large;
-}
-
-.hello {
-  color: aliceblue;
-  font-family: "Overlock";
-}
-
-/*Margin bot doesn't seem to work here?*/
-.spc-effects {
-  color: aliceblue;
-  font-family: "Sarina";
-  text-shadow:
-  1px 1px 2px red,
-  0 0 2.5em aquamarine,
-  0 0 0.2em aquamarine;
-}
-
-.text2 {
-  font-family: "Jua";
-  letter-spacing: 6px;
-  padding-right: 1rem;
-  text-shadow:
-  1px 1px 2px red,
-  0 0 2.5em aquamarine,
-  0 0 0.2em aquamarine;
-}
-
-.text span {
-  color: aliceblue;
-  font-family: "Sarina";
-  position: relative;
-  text-shadow:
-  1px 1px 2px red,
-  0 0 2.5em aquamarine,
-  0 0 0.2em aquamarine;
-}
-
-.column-top {
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid aliceblue; /* The typwriter cursor */
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em; /* Adjust as needed */
-  animation: 
-    typing 2.0s steps(2000, end),
-    blink-caret .75s step-end infinite;
-}
-/*
-.text span::after {
-  content: "";
-  position: absolute;
-  left: -150px;
-  height: 110%;
-  width: 150%;
-  
-  border-left: 5px solid aliceblue;
-  animation: typing 2s infinite, cursor 0.4s infinite;
-}
-*/
-.nav-items {
-  float: right;
-  color: aliceblue;
-  text-decoration: none;
-}
-
-nav {
-  height: 55px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0rem calc((100vw -1300px) / 2);
-  
-}
-
-nav a {
-  font-family: "Overlock";
-  font-weight: bold;
-  text-decoration: none;
-  color: aliceblue;
-  padding: 0 1.5rem;
-  text-shadow:
-  1px 1px 2px red,
-  0 0 1em aquamarine,
-  0 0 0.2em aquamarine;
-}
-
-.about {
-  font-family: "Overclock";
-  display: flex;
-  color: aliceblue;
-  text-shadow:
-  1px 1px 2px red,
-  0 0 1em aquamarine,
-  0 0 0.2em aquamarine; 
-  font-size: 50px;
-  padding-bottom: 20px;
-  align-items: center;
-  justify-content: center;
-}
-
-.desc {
-  color: aliceblue;
-  font-size: 25px;
-  align-items: center;
-  justify-content: center;
-  padding-left: 20px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-.repos{
-
-  color: aliceblue;
-  font-size: 15px;
-  align-items: center;
-  justify-content: center;
-  padding-left: 20px;
-
-}
-
-.prj {
-  font-family: "Overlock";
-  display: flex;
-  font-size: 50px;
-  color: aliceblue;
-  text-shadow:
-  1px 1px 2px red,
-  0 0 1em aquamarine,
-  0 0 0.2em aquamarine;
-  /* padding-bottom: 20px;*/
-  align-items: center;
-  justify-content: center;
-}
-
-.desc2 {
-  color: aliceblue;
-  font-size: 20px;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Hover animation */
-
-.logo:hover {
-  cursor: pointer;
-  color: hsl(160, 100%, 72%);
-}
-
-nav a:hover {
-  transform: scale(1.1);
-  color: #79ffc7;
-}
-
-.spc-effects:hover {
-  color: aquamarine;
-  cursor: pointer;
-}
-
-.scroll-down {
-  height: 50px;
-  width: 30px;
-  border: 2px solid aliceblue;
-  position: absolute;
-  left: 50%;
-  bottom: 50px;
-  border-radius: 50px;
-  transform: translateX(-50%);
-  cursor: pointer;
-  animation: transitionIn 1s;
-}
-
-/* Scroll-down Button*/
-a#scroll-btn {
-  position: absolute;
-  height: 4em;
-  width: 2.5em;
-  border: 0.25em solid aliceblue;
-  margin: auto;
-  left: 0;
-  right: 0;
-  bottom: 2.5em;
-  border-radius: 3em;
-}
-
-a#scroll-btn::before {
-  position: absolute;
-  content: "";
-  margin: auto;
-  left: 0;
-  right: 0;
-  top: 0.5em;
-  height: 0.65em;
-  width: 0.65em;
-  background-color: aliceblue;
-  border-radius: 50%;
-  animation: move-down 2s infinite;
-}
-
-a#scroll-btn::after {
-  position: absolute;
-  font-family: "Overlock";
-  content: "Scroll Down";
-  width: 12em;
-  display: flex;
+/* Footer Styling */
+footer {
   text-align: center;
-  left: -2.15em;
-  bottom: -2em;
-  font-size: 1.25em;
-  color: aliceblue;
-  letter-spacing: 2px;
+  color: #eef4ed;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+.footp{
+  float: center;
+  display: flex;
+  justify-content: center;
+  
+  transition: 0.2s ease;
 }
 
 /*Custom Scrollbar*/
@@ -319,12 +175,13 @@ a#scroll-btn::after {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: aquamarine;
-  border-radius: 8px;
+  background: #b8ddffdd;
+  border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(aquamarine, rgb(223, 184, 255));
+  background: linear-gradient(rgba(184, 221, 255, 0.7),
+  rgba(184, 221, 255, 0.7),rgba(184, 221, 255, 0.7));
 }
 
 @keyframes move-down {
@@ -355,273 +212,4 @@ a#scroll-btn::after {
     transform: rotateX(0deg);
     transform: rotateY(0deg);
   }
-}
-
-/* The typewriter cursor effect */
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  75% { border-color: aliceblue; }
-}
-
-/* The typing effect */
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-/* STUFF FOR REPOS*/
-
-@media (prefers-color-scheme: light) {
-  :root {
-      --text: black;
-      --accent: aquamarine;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-      --text: aliceblue;
-      --accent: aquamarine;
-  }
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  width: 90%;
-  max-width: 1280px;
-}
-
-.hide {
-  /* '!important' is to make sure that when we add the class using JS, it takes precendence */
-  display: none !important;
-}
-
-small {
-  width: 100%;
-  text-align: center;
-  display: block;
-  margin-bottom: 0px;
-}
-
-h2 {
-  font-family: "Overclock";
-  width: 100%;
-  color: var(--text);
-  margin: 0;
-}
-
-img {
-  border: 2px solid var(--accent);
-  box-shadow:
-      0 0px 6px var(--accent),
-      0 0px 6px var(--accent);
-  max-width: 100%;
-  height: auto;
-}
-
-a {
-  font-family: "Overclock";
-  color: var(--accent);
-  text-decoration: none;
-}
-
-a:hover {
-  color: var(--text);
-}
-
-.github-img {
-  width: 45px;
-  margin-right: 8px;
-}
-
-ul {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  list-style: none;
-  padding: 0;
-}
-
-.user-info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  background-color: var(--bg-user);
-  color: var(--text);
-  font-size: 20px;
-  padding: 1em;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-}
-
-.user-info figure {
-  width: 90%;
-  max-width: 200px;
-}
-
-.user-info img {
-  border-radius: 100%;
-}
-
-.user-info div {
-  display: flex;
-  text-align: center;
-  flex-wrap: wrap;
-  align-items: center;
-  width: 100%;
-  padding-left  : 5%;
-}
-
-.user-info div p {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  border-bottom: 1px solid var(--text);
-  padding-bottom: 0px;
-}
-
-.filter-repos {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 0px; /* Adjust this number for vertical spacing */
-  font-size: 16px;
-  box-sizing: border-box;
-}
-
-.repo-list {
-  margin: 0;
-  padding: 0;
-  min-height: 450px; /* fixing repo-list height */
-  list-style: none;
-}
-
-.repo-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0px; /* nice compact spacing */
-}
-
-.filter-repos,
-input {
-  background: var(--bg-user);
-  width: 50%;
-  border-radius: 20px;
-  min-width: 600px; /*Change this to change size of search bar*/
-  padding: 0.5em;
-  margin-bottom: 0em;
-  border: 2px solid var(--accent);
-  color: var(--text);
-  text-align: center;
-}
-
-::placeholder {
-  color: aquamarine;
-  opacity: 1; /* Firefox */
-}
-
-.repos {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  background-color: var(--bg-repo);
-  margin-top: 0px;
-  padding-left: 2em;
-  padding-right: 2em;
-  padding-bottom: 2em;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  margin-bottom: 4em;
-}
-
-h3 {
-  font-family: "Jua";
-  margin: 4px;
-  width: 100%;
-  text-align: center;
-  color: var(--accent);
-}
-
-.repo-list {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.repo-list li {
-  width: 100%;
-  min-height: 200px;
-  border-radius: 10px;
-  margin: 0.5em 0;
-  border: 1px solid var(--accent);
-  padding: 0.5em;
-  text-align: center;
-  background-color: var(--bg-user);
-}
-
-.repo-list li:hover {
-  background-color: var(--bg-main);
-  box-shadow:
-      0 3px 6px var(--accent),
-      0 3px 6px var(--accent);
-}
-
-.link-btn {
-  display: inline-block;
-  margin: 1em 0.5em;
-  padding: 10px 20px;
-  background: var(--bg-main);
-  border-radius: 30px;
-  border: 2px solid var(--accent);
-  color: var(--text);
-}
-
-.link-btn:hover {
-  background: var(--accent);
-  border: 2px solid var(--text);
-  transform: scale(1.1);
-}
-
-.repo-list p {
-  padding: 0.5em;
-  margin: 0.5em 0;
-}
-
-@media (min-width: 700px) {
-  .user-info div {
-      width: 45%;
-      text-align: left;
-  }
-
-  .repo-list {
-      justify-content: space-between;
-  }
-
-  .repo-list li {
-      width: 48%;
-  }
-}
-
-@media (max-width: 700px) {
-  .user-info div p {
-      margin: 10px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .repo-list li {
-      width: 32%;
-  }
-}
-
-.repo-name {
-  font-size: 1.25em;
-}
-
-.repo-descriptopn {
-  font-size: 1em;
 }

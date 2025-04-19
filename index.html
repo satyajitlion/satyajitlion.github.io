@@ -17,10 +17,8 @@
   
   <header>
     <h1>Hi, I'm <span class="name">Chris!</span></h1>
-    <p>I'm a <span class="key1">Senior at Rutgers University</span> who is </p> 
-    <p> addicted to
-      <span class="key2"> Pandas</span> and <span class="key2"> Strawberry Matcha Boba</span> </p> 
-    <p> with a crippling love for <span class="key2">Data Science</span>. </p>
+    <p> A <span class="key1">Data</span> nerd and <span class="key1">Panda</span> enthusiast 
+      <br/> fueled by <span class="key1">Strawberry Match Boba</span>. </p> 
   </header>
 
   
@@ -39,34 +37,29 @@
   <section id="about">
     <h2>Get to Know Me!</h2>
     <p>I am a senior at Rutgers University—New Brunswick studying Astrophysics, 
-      with a math minors. In terms of research, I am primarily interested in 
+      with a math minor. In terms of research, I am primarily interested in 
       Gravitational Lensing & Gravitational Physics, Compact Objects, Cosmology, 
       and anything pertaining to Computational Astrophysics.</p>
   </section>
-  <!--
+  
   <section id="projects">
-    <h2>Projects</h2>
-    <div class="project">
-      <h3>Project Title 1</h3>
-      <p>Brief description of the project. Tools used: Python, Pandas, scikit-learn.</p>
-      <a href="#">View on GitHub</a>
-    </div>
-    <div class="project">
-      <h3>Project Title 2</h3>
-      <p>Another brief description. Tools used: SQL, Tableau, Power BI.</p>
-      <a href="#">View Dashboard</a>
-    </div>
+    <h2>My Projects</h2>
+    <div id="projects-list" class="projects-grid"></div>
   </section>
-  -->
 
   <section id="skills">
     <h2>Skills</h2>
-    <ul>
-      <li>Machine Learning (Neural Networks)</li>
+    <ul class="skillz">
+      <li>Neural Networks</li>
+      <li>Machine Learning</li>
       <li>Data Visualization</li>
-      <li>Libraries: NumPy, SciPy, AstroPy, Matplotlib, Pandas,</li>
+      <li>NumPy</li>
+      <li>SciPy</li>
+      <li>AstroPy</li>
+      <li>Matplotlib</li>
+      <li>Pandas</li>
       <li>Python</li>
-      <li>Analytical Skills (stemming from Astrophysics)</li>
+      <li>Data Analysis</li>
       <li>HTML</li>
       <li>CSS</li>
       <li>LaTeX</li>
@@ -74,21 +67,33 @@
   </section>
 
   <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:satyajitlion@gmail.com">satyajitlion@gmail.com</a></p>
-    <p>LinkedIn: <a href="https://linkedin.com/in/satyajitgade/" target="_blank">Satyajit Gade</a></p>
-    <p>GitHub: <a href="https://github.com/satyajitlion" target="_blank">satyajitlion</a></p>
+    <h2>Let's Connect!</h2>
+    <p2>Want to chat or share boba recs?</p2>
+    <div class="contact-container">
+      <a href="mailto:satyajitlion@gmail.com" class="contact-card">
+        <i class="fas fa-envelope"></i>
+        <span>Email Me</span>
+      </a>
+      <a href="https://linkedin.com/in/satyajitgade/" class="contact-card" target="_blank">
+        <i class="fab fa-linkedin"></i>
+        <span> LinkedIn</span>
+      </a>
+      <a href="https://github.com/satyajitlion" class="contact-card" target="_blank">
+        <i class="fab fa-github"></i>
+        <span> GitHub</span>
+      </a>
+    </div>
   </section>
 
   <footer>
-    <div class="logo">
-      <img src="logo.png"/>
+    <div class="foot">
+      <div class="logo">
+        <img src="logo.png" alt="Chris Gade logo"/>
+      </div>
+      <span class="footp">Chris Gade.</span>
     </div>
-    <span class="footp">Chris Gade.</span>
   </footer>
 </body>
-</html>
-
 
 <style>
   body {
@@ -103,7 +108,7 @@
       width: 100%;
       height: 100%;
       background-image: url("jades.png");
-      background-size: cover;
+      background-size: contain;
       background-repeat: repeat;
       background-position: center;
       opacity: 0.5; /* Adjust this for the transparency level you want */
@@ -111,3 +116,8 @@
       pointer-events: none; /* Ensures it doesn't block clicks */
   }
 </style>
+
+<script src="script.js"></script> 
+
+
+</html>

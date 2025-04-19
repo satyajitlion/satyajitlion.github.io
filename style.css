@@ -3,10 +3,17 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: 0.2s ease;
 }
 
 html {
   scroll-behavior: smooth !important;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  height: 100%; /* Ensure body and html take full height */
 }
 
 /* Font Styling */
@@ -18,7 +25,7 @@ body {
   color: #b8ddffdd; /* Bright white text */
   font-family: 'Martel','Geneva', Verdana, sans-serif;
   line-height: 1.6;
-  padding: 2rem;
+  overflow-x: hidden;
 }
 
 a {
@@ -39,7 +46,7 @@ header {
   align-items: center;     /* horizontal centering */
   height: 100vh;           /* full viewport height */
   text-align: center;
-  margin-bottom: 4rem;
+  animation: fadeIn 1s ease-out forwards; /* Apply the fade-in effect */
 }
 
 header h1 {
@@ -63,8 +70,11 @@ header p {
   font-size: 1.2rem;
   color: #b8ddffdd;
 }
+section p2{
+  color: aliceblue;
+}
 
-/* Navigation Styling */
+/* Navigation Styling
 nav {
   display: flex;
   justify-content: center;
@@ -92,29 +102,36 @@ nav a::after {
 
 nav a:hover::after {
   width: 100%;
-}
+}*/
 
 /* Section Styling */
 section {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* vertical centering */
-  align-items: center;     /* horizontal centering */
-  height: 100vh;           /* full viewport height */
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;         /* Reduced from 100vh */
   text-align: center;
-  margin-bottom: 4rem;
-
   max-width: 800px;
-  margin: 0 auto 4rem auto;
-  padding: 2rem;
+  margin: 0 auto 2rem auto; /* Reduced vertical spacing */
+  padding: 1rem;          /* Slightly reduced padding */
   border-radius: 8px;
   transition: transform 0.3s;
+  margin-bottom: 0.1rem;
+  animation: transitionIn 1s ease forwards;
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards; /* Apply the fade-in effect */
 }
 
+section.appear{
+  opacity: 1;
+}
+
+/*
 section:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
 }
-
+*/
 /* Project Cards */
 .project {
   margin-bottom: 2rem;
@@ -139,26 +156,21 @@ section:hover {
   text-decoration: underline;
 }
 
-.logo {
-  display: flex;
-  filter: invert(85%) sepia(38%) saturate(127%) hue-rotate(192deg)
-    brightness(103%) contrast(107%);
-  justify-content: center;
-  height: 2.0rem;
-  object-fit: cover;
-  border-radius: 20%;
-  color: #eef4ed;
-  margin-bottom: 4px;
-  transition: 0.2s ease;
-}
-
 /* Footer Styling */
 footer {
   text-align: center;
   color: #eef4ed;
   font-size: 1rem;
-  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
+
+.foot{
+  position: relative;
+  left: 1em;
+  margin-bottom: 6px;
+  transition: 0.2s ease; 
+}
+
 .footp{
   float: center;
   display: flex;
@@ -166,6 +178,138 @@ footer {
   
   transition: 0.2s ease;
 }
+
+.logo {
+  display: flex;
+  position: relative;
+  top: 1.75em;  /* Moves the image down by 10px */
+  left: -4.5em; /* Moves the image left by 10px */
+  filter: invert(85%) sepia(38%) saturate(127%) hue-rotate(192deg)
+    brightness(103%) contrast(107%);
+  justify-content: center;
+  height: 2.0rem;
+  color: #eef4ed;
+}
+
+ul.skillz {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  list-style-type: none;
+  padding: 1em;
+}
+
+ul.skillz li {
+  background-color: rgba(184, 221, 255, 0.1);
+  border: 1px solid #b8ddff99;
+  color: #eef4ed;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+ul.skillz li:hover {
+  transform: scale(1.15);
+}
+
+
+/* CONTACT SECTION*/
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.contact-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(184, 221, 255, 0.3);
+  padding: 0.75rem 1rem;
+  border-radius: 25px; /* More rounded corners */
+  text-align: center;
+  color: #eef4ed;
+  text-decoration: none;
+  width: 140px;
+  height: auto;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  box-shadow: 0 0 10px rgba(184, 221, 255, 0.05); /* soft glow */
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(184, 221, 255, 0.3);
+  background-color: rgba(184, 221, 255, 0.08);
+}
+
+.contact-card i {
+  font-size: 1.5rem;
+}
+
+.contact-card span {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Projects Grid Layout */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1000px;
+  padding: 1rem;
+}
+
+/* Individual Project Card */
+.project-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(184, 221, 255, 0.3);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  transition: all 0.3s ease;
+  text-align: left;
+  box-shadow: 0 0 10px rgba(184, 221, 255, 0.05);
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  background-color: rgba(184, 221, 255, 0.08);
+  box-shadow: 0 0 15px rgba(184, 221, 255, 0.3);
+}
+
+.project-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #eef4ed;
+}
+
+.project-card p {
+  font-size: 0.95rem;
+  color: #b8ddffcc;
+  margin-bottom: 0.75rem;
+  min-height: 3.5em;
+}
+
+.project-card a {
+  color: #80dfff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.project-card a:hover {
+  color: hotpink;
+  text-decoration: underline;
+}
+
 
 /*Custom Scrollbar*/
 
@@ -183,6 +327,20 @@ footer {
   background: linear-gradient(rgba(184, 221, 255, 0.7),
   rgba(184, 221, 255, 0.7),rgba(184, 221, 255, 0.7));
 }
+
+
+/* Define the fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px); /* Start off-screen slightly */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* End at normal position */
+  }
+}
+
 
 @keyframes move-down {
   80% {

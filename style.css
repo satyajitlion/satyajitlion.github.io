@@ -132,27 +132,50 @@ section:hover {
   transform: translateY(-10px);
 }
 */
-/* Project Cards */
-.project {
-  margin-bottom: 2rem;
-}
 
-.project h3 {
+
+/* Project */
+#projects h2 {
   font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1em; /* or whatever value you prefer */
 }
 
-.project p {
-  color: #dddddd;
-  margin-bottom: 0.5rem;
+#projects h3 {
+  margin-bottom: 1em; /* or whatever value you prefer */
 }
 
-.project a {
-  color: #1e90ff;
+#projects img {
+  margin-bottom: 2em; /* adds space after each image */
+}
+
+/* Projects Section Styling */
+#projects {
+  padding: 2rem 1rem;
+}
+
+.project img {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+  max-width: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.project:hover img {
+  transform: scale(1.02);
+}
+
+.project-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  margin-bottom: 05rem;
+  color: #6ee7b7;
+  font-weight: bold;
   text-decoration: none;
 }
 
-.project a:hover {
+.project-link:hover {
+  color: #3b82f6;
   text-decoration: underline;
 }
 
@@ -258,57 +281,6 @@ ul.skillz li:hover {
   font-weight: 500;
 }
 
-/* Projects Grid Layout */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 1000px;
-  padding: 1rem;
-}
-
-/* Individual Project Card */
-.project-card {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(184, 221, 255, 0.3);
-  border-radius: 1rem;
-  padding: 1.25rem;
-  transition: all 0.3s ease;
-  text-align: left;
-  box-shadow: 0 0 10px rgba(184, 221, 255, 0.05);
-}
-
-.project-card:hover {
-  transform: translateY(-5px);
-  background-color: rgba(184, 221, 255, 0.08);
-  box-shadow: 0 0 15px rgba(184, 221, 255, 0.3);
-}
-
-.project-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: #eef4ed;
-}
-
-.project-card p {
-  font-size: 0.95rem;
-  color: #b8ddffcc;
-  margin-bottom: 0.75rem;
-  min-height: 3.5em;
-}
-
-.project-card a {
-  color: #80dfff;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.project-card a:hover {
-  color: hotpink;
-  text-decoration: underline;
-}
 
 
 /*Custom Scrollbar*/

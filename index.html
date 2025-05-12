@@ -11,14 +11,30 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Martel:wght@200;300;400;600;700;800;900&family=Mr+Bedfort&display=swap" rel="stylesheet">
-
 </head>
 <body>
-  
   <header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <h1>Hi, I'm <span class="name">Chris!</span></h1>
     <p> A <span class="key1">Data</span> nerd and <span class="key1">Panda</span> enthusiast 
       <br/> fueled by <span class="key1">Strawberry Match Boba</span>. </p> 
+  
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      #plot {
+        width: 600px;
+        height: 600px;
+        margin: 0 auto;
+      }
+      .slider {
+        margin: 20px;
+      }
+    </style>
   </header>
 
   
@@ -43,8 +59,23 @@
   </section>
   
   <section id="projects">
-    <h2>My Projects</h2>
-    <div id="projects-list" class="projects-grid"></div>
+    <h2>Some Example Projects I've Done </h2>
+    
+    <div class="project">
+      <div class="highlight-left"></div>
+      <h3 id="LorentzT">Lorentz Transform Visual Demonstration</h3>
+      <img src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/LorentzAnimation.gif" alt="LorentzTransform">
+      <p>A Python simulation demonstrating relativistic effects using Matplotlib.</p>
+      <a href="https://github.com/satyajitlion/PhysicsSimulations" class="project-link">View Project →</a>
+    </div>
+    
+    <div class="project">
+      <div class="highlight-left"></div>
+      <h3 id="SolarS">Solar System Simulation</h3>
+      <img src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/SolarSystemAnimation.gif" alt="SolarSys">
+      <p>An interactive orbital mechanics simulation built with Python.</p>
+      <a href="https://github.com/satyajitlion/PhysicsSimulations" class="project-link">View Project →</a>
+    </div>
   </section>
 
   <section id="skills">

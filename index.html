@@ -1,165 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chris Gade</title>
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- F O N T S-->
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chris Gade | Astrophysics & Data Science</title>
+  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Martel:wght@200;300;400;600;700;800;900&family=Mr+Bedfort&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h1>Hi, I'm <span class="name">Chris!</span></h1>
-    <p> A <span class="key1">Data</span> nerd and <span class="key1">Panda</span> enthusiast 
-      <br/> fueled by <span class="key1">Strawberry Match Boba</span>. </p> 
+  <!-- Animated Background -->
+  <div class="particle-background"></div>
   
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-      }
-      #plot {
-        width: 600px;
-        height: 600px;
-        margin: 0 auto;
-      }
-      .slider {
-        margin: 20px;
-      }
-    </style>
-  </header>
-
-  
-  <!--
-
-  <nav>
-    <ul>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+  <!-- Floating Navigation -->
+  <nav class="glass-nav">
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <img src="logo.png" width="25" height="auto">
+      </a>
+      <div class="nav-links">
+        <a href="#about"><span>01.</span> About</a>
+        <a href="#projects"><span>02.</span> Projects</a>
+        <a href="#contact"><span>03.</span> Contact</a>
+      </div>
+      <button class="menu-toggle">
+        <div class="hamburger"></div>
+      </button>
+    </div>
   </nav>
 
-  -->
-
-  <section id="about">
-    <div class="big-box">
-      <h2>Get to Know Me!</h2>
-      <div class="box">
-        <p>I am a senior at Rutgers University—New Brunswick studying Astrophysics, 
-        with a math minor. In terms of research, I am primarily interested in 
-        Gravitational Lensing & Gravitational Physics, Compact Objects, Cosmology, 
-        and anything pertaining to Computational Astrophysics.</p>
-      </div>
-    </div>
-  </section>
-  
-  <section id="projects">
-    <div class="big-box2">
-      <h2>Some Example Projects I've Done </h2>
-      <div class="project">
-        <div class="highlight-left"></div>
-        <h3 id="LorentzT">Lorentz Transform Visual Demonstration</h3>
-        <div class="LorT">
-          <img src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/LorentzAnimation.gif" alt="LorentzTransform">
-        </div>
-        <p>A Python simulation demonstrating relativistic effects using Matplotlib.</p>
-        <a href="https://github.com/satyajitlion/PhysicsSimulations" class="project-link">View Project →</a>
-      </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h4 class="intro">Hi, my name is</h4>
+      <h1 class="name">Chris Gade.</h1>
+      <h2 class="tagline">
+        I'm a passionate <span class="colorn">Researcher</span>
+        interested in <span class="colorn"> Cosmology</span>, 
+        <span class="colorn">Computation</span>, and <span class="colorn">Data Science</span>
+      </h2>
+      <h3 class="tag2">
+        >>> def <span class="func">my_identity</span>():<br>
+        ... &nbsp;&nbsp;<span class="kw">return</span> {<br> 
+        ... &nbsp;&nbsp;&nbsp;&nbsp;"<span class="var">language</span>": "<span class="colorn">Python</span>",<br>
+        ... &nbsp;&nbsp;&nbsp;&nbsp;"<span class="var">companion</span>": "<span class="colorn">Dr. Bubbles</span>",<br>
+        ... &nbsp;&nbsp;&nbsp;&nbsp;"<span class="var">fuel</span>": "<span class="colorn">Strawberry Matcha Boba</span>"<br>
+        ... &nbsp;&nbsp;}<span class="blinking-cursor"></span>
+      </h3>
       
-      <div class="project">
-        <div class="highlight-left"></div>
-        <h3 id="SolarS">Solar System Simulation</h3>
-        <div class="imgSolarSys">
-          <img src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/SolarSystemAnimation.gif" alt="SolarSys">
+    </div>
+    <div class="hero-visual">
+      <div class="gradient-circle"></div>
+      <div class="profile-pic-container">
+        <img src="panda.png" alt="Profile Photo" loading="lazy" class="circular-image">
+      </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section">
+    <div class="section-header">
+      <h2><span>01.</span> About Me</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Hello! I'm Satyajit, or Chris, a New-Grad student from Rutgers University--New Brunswick 
+          with a B.S. in Astrophysics and minor in Mathematics. My previous research was on 
+          the application of Machine Learning in Gravitational Lens Modeling.
+        </p>
+        <p>
+          Here are a few technologies I've been working with recently:
+        </p>
+        <ul class="skills-list">
+          <li>Python</li>
+          <li>NumPy/SciPy</li>
+          <li>AstroPy</li>
+          <li>Pandas</li>
+          <li>Matplotlib</li>
+          <li>Keras</li>
+          <li>SQL</li>
+        </ul>
+      </div>
+      <div class="about-image">
+        <div class="image-frame">
+          <img src="about-image.jpg" alt="Chris working">
+          <div class="frame-decoration"></div>
         </div>
-        <p>An interactive orbital mechanics simulation built with Python.</p>
-        <a href="https://github.com/satyajitlion/PhysicsSimulations" class="project-link">View Project →</a>
       </div>
     </div>
   </section>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="box2">
-      <ul class="skillz">
-        <li>Neural Networks</li>
-        <li>Machine Learning</li>
-        <li>Data Visualization</li>
-        <li>NumPy</li>
-        <li>SciPy</li>
-        <li>AstroPy</li>
-        <li>Matplotlib</li>
-        <li>Pandas</li>
-        <li>Python</li>
-        <li>Data Analysis</li>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>LaTeX</li>
-      </ul>
+  <!-- Projects Section -->
+  <section id="projects" class="section">
+    <div class="section-header">
+      <h2><span>02.</span> Featured Projects</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="projects-container">
+      <!-- Project 1 -->
+      <article class="project-card">
+        <div class="project-media">
+          <div class="media-container">
+            <img src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/LorentzAnimation.gif" alt="Lorentz Transform" class="project-gif">
+            <div class="media-overlay">
+              <a href="#" class="view-button">View Demo</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-info">
+          <h3>Lorentz Transform Visualizer</h3>
+          <p class="project-description">
+            A Python simulation demonstrating relativistic effects using 
+            Matplotlib animations to visualize length contraction and 
+            time dilation.
+          </p>
+          <ul class="tech-tags">
+            <li>Python</li>
+            <li>Matplotlib</li>
+            <li>Special Relativity</li>
+          </ul>
+          <div class="project-links">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Project 2 -->
+      <article class="project-card reversed">
+        <div class="project-media">
+          <div class="media-container">
+            <img src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/SolarSystemAnimation.gif" alt="Solar System" class="project-gif">
+            <div class="media-overlay">
+              <a href="#" class="view-button">View Demo</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-info">
+          <h3>Solar System Simulator</h3>
+          <p class="project-description">
+            Interactive N-body simulation of our solar system with accurate 
+            orbital mechanics and real-time parameter adjustments.
+          </p>
+          <ul class="tech-tags">
+            <li>Python</li>
+            <li>NumPy</li>
+            <li>Orbital Mechanics</li>
+          </ul>
+          <div class="project-links">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
-  <section id="contact">
-    <h2>Let's Connect!</h2>
-    <p2>Want to chat or share boba recs?</p2>
+  <!-- Contact Section -->
+  <section id="contact" class="section">
     <div class="contact-container">
-      <a href="mailto:satyajitlion@gmail.com" class="contact-card">
-        <i class="fas fa-envelope"></i>
-        <span>Email Me</span>
+      <h4><span>03.</span> What's Next?</h4>
+      <h2>Get In Touch</h2>
+      <p>
+        I'm currently looking for research opportunities and collaborations in 
+        computational astrophysics. Whether you have a question or just want to 
+        share boba recommendations, I'll do my best to get back to you!
+      </p>
+      <a href="mailto:satyajitlion@gmail.com" class="contact-button">
+        Say Hello
       </a>
-      <a href="https://linkedin.com/in/satyajitgade/" class="contact-card" target="_blank">
-        <i class="fab fa-linkedin"></i>
-        <span> LinkedIn</span>
-      </a>
-      <a href="https://github.com/satyajitlion" class="contact-card" target="_blank">
-        <i class="fab fa-github"></i>
-        <span> GitHub</span>
-      </a>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fas fa-envelope"></i></a>
+      </div>
     </div>
   </section>
 
   <footer>
-    <div class="foot">
-      <div class="logo">
-        <img src="logo.png" alt="Chris Gade logo"/>
-      </div>
-      <span class="footp">Chris Gade.</span>
+    <div class="footer-content">
+      <p>Designed & Built by Chris Gade</p>
+      <p>© <span id="year"></span> All Rights Reserved</p>
     </div>
   </footer>
+
+  <script>
+    // Update year
+    document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    });
+  </script>
 </body>
-
-<style>
-  body {
-      position: relative;
-      margin: 0;
-  }
-  body::before {
-      content: "";
-      position: fixed; /* or absolute, depending on your layout */
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url("jades.png");
-      background-size: contain;
-      background-repeat: repeat;
-      background-position: center;
-      opacity: 0.5; /* Adjust this for the transparency level you want */
-      z-index: -1; /* Puts it behind other content */
-      pointer-events: none; /* Ensures it doesn't block clicks */
-  }
-</style>
-
-<script src="script.js"></script> 
-
-
 </html>

@@ -214,7 +214,7 @@ section {
 
 .intro {
   color: var(--accent);
-  font-size: 1rem;
+  font-size: 1.25rem;
   margin-bottom: 1rem;
   font-weight: 400;
 }
@@ -231,7 +231,7 @@ section {
   margin-bottom: 1.5rem;
 }
 .var {
-  color: var(--accent); /* Classic IDE blue for variables */
+  color: rgb(255, 255, 255); /* Classic IDE blue for variables */
 }
 .tag2 {
   font-family: 'Courier New', monospace;
@@ -256,11 +256,22 @@ section {
   50% { background: var(--text-primary) }
 }
 
+.kw{
+  color: var(--text-secondary)
+}
+
 .colorn {
   color: var(--text-secondary);
 }
 .colorn2 {
   color: var(--text-secondary); /* Classic IDE string orange */
+}
+
+.colorstr {
+  color: #FA5053; /* Classic IDE string orange */
+}
+.colormat {
+  color: #97dd7d; /* Classic IDE string orange */
 }
 
 .indent {
@@ -351,7 +362,6 @@ section {
 
 .circular-image:hover {
   border-color: #64ffda;
-  transform: scale(1.05);
 }
 
 .profile-pic-container {

@@ -711,7 +711,7 @@ section {
 footer {
   text-align: center;
   padding: 2rem 5%;
-  background-color: var(--light-bg);
+  background-color: var(--dark-bg);
 }
 
 .footer-content p {
@@ -825,5 +825,64 @@ footer {
   
   .social-links {
     gap: 1.5rem;
+  }
+}
+
+/* ===== Mobile Responsiveness Fixes ===== */
+@media (max-width: 768px) {
+  /* Prevent horizontal overflow */
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
+  /* Adjust hero section spacing */
+  .hero {
+    padding-top: 120px;
+    min-height: auto;
+  }
+  
+  /* Make circular images smaller on mobile */
+  .circular-image, 
+  .circular-image2 {
+    width: 250px;
+    height: 250px;
+  }
+  
+  /* Improve navigation menu */
+  .nav-links {
+    width: 80%;
+    padding: 2rem;
+  }
+  
+  .nav-links a {
+    font-size: 1.1rem;
+    padding: 0.75rem 0;
+  }
+  
+  /* Make code block scrollable */
+  .tag2 {
+    overflow-x: auto;
+    white-space: pre;
+    max-width: 100%;
+    display: block;
+    font-size: 0.9rem;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Ensure headers wrap properly */
+  .section-header h2 {
+    white-space: normal;
+  }
+  
+  /* Adjust main heading sizes */
+  .name {
+    font-size: 2.3rem;
+  }
+  
+  .tagline {
+    font-size: 1.3rem;
   }
 }

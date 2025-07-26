@@ -908,7 +908,7 @@ footer {
     white-space: normal;
     max-width: 200%;
     display: block;
-    font-size: 0.75rem; /* Slightly smaller on very small screens */
+    font-size: 0.7rem; /* Slightly smaller on very small screens */
     padding: 1rem; /* Tighter padding */
     text-align: left; /* Removes centering */
     margin-left: 0;   /* Removes any auto-centering margins */

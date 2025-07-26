@@ -905,16 +905,15 @@ footer {
   /* Make code block scrollable */
   .tag2 {
     overflow-x: auto;
-    white-space: unset;
-    max-width: 100%;
+    white-space: normal;
+    max-width: 200%;
     display: block;
-    font-size: 0.65rem; /* Slightly smaller on very small screens */
+    font-size: 0.9rem; /* Slightly smaller on very small screens */
     padding: 1rem; /* Tighter padding */
     text-align: left; /* Removes centering */
     margin-left: 0;   /* Removes any auto-centering margins */
     margin-right: auto; /* Ensures left alignment */
     width: fit-content; /* Shrinks to content width */
-    max-width: 100%; /* But never exceeds container */
   }
 
 }

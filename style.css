@@ -364,20 +364,24 @@ section {
   display: flex;
   justify-content: center;
   margin: 0 auto;
+
+  width: 400px;
+  height: 400px;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(100, 255, 218, 0.3);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 .circular-image {
-  width: 400px;
-  height: 400px;
+  width: 140%;
+  height: 140%;
   object-fit: cover;
-  object-position: 50% 10%;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(100, 255, 218, 0.3);
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+  object-position: 70% 10%;
+  transition: transform 0.3s ease;
 }
-
 .circular-image:hover {
   border-color: #64ffda;
 }

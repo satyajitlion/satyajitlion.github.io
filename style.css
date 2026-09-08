@@ -23,6 +23,8 @@
   * { animation: none !important; transition: none !important; }
   html { scroll-behavior: auto !important; }
   #lens-field { display: none; }
+  #lens-cursor { display: none !important; }
+  body.has-lens-cursor, body.has-lens-cursor a, body.has-lens-cursor button { cursor: auto; }
 }
 
 /* ===== Base ===== */
@@ -44,13 +46,74 @@ body {
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
 }
 
-body > *:not(#lens-field) {
-  position: relative;
-  z-index: 1;
+/* Hidden by default; only shown (via JS) on fine-pointer devices with
+   motion enabled, once we know a real mouse is present. */
+#lens-cursor {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  border: 1.5px solid var(--lens);
+  background: rgba(123, 110, 246, 0.12);
+  box-shadow: 0 0 10px 1px rgba(123, 110, 246, 0.35);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: width 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+              height 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+              margin 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color 0.25s ease,
+              background-color 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+#lens-cursor .lens-cursor-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--ink);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease;
+}
+
+body.has-lens-cursor,
+body.has-lens-cursor a,
+body.has-lens-cursor button {
+  cursor: none;
+}
+
+body.has-lens-cursor #lens-cursor {
+  display: block;
+}
+
+#lens-cursor.is-hover {
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  border-color: var(--accent);
+  background: rgba(227, 168, 87, 0.1);
+  box-shadow: 0 0 24px 6px rgba(227, 168, 87, 0.4);
+}
+
+#lens-cursor.is-hover .lens-cursor-core {
+  opacity: 0;
+}
+
+#lens-cursor.is-pressed {
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
 }
 
 h1, h2, h3 {

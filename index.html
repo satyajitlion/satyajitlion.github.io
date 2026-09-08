@@ -16,6 +16,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
 
   <canvas id="lens-field" aria-hidden="true"></canvas>
+  <div id="lens-cursor" aria-hidden="true"><span class="lens-cursor-core"></span></div>
 
   <!-- Navigation -->
   <header class="site-nav">
@@ -52,7 +53,7 @@
         </div>
         <div class="hero-visual">
           <div class="profile-frame">
-            <img src="Satyajit.jpg" alt="Portrait of Satyajit Gade" loading="lazy">
+            <img src="edited-photo.png" alt="Portrait of Satyajit Gade" loading="lazy">
           </div>
           <p class="hero-caption">with my research companion, Dr. Bubbles</p>
         </div>
@@ -190,6 +191,213 @@
     <p>© <span id="year"></span></p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // ===== Footer year =====
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // ===== Mobile nav =====
+    // Guarded with a null-check: if either element is missing, this used
+    // to throw and silently kill every script below it on the page —
+    // including the starfield further down.
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('active', isOpen);
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('active');
+          menuToggle.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    } else {
+      console.warn('[nav] .menu-toggle or .nav-links not found — mobile menu disabled.');
+    }
+
+    // ===== Gravitational-lens starfield =====
+    // A starfield that bends around the cursor, loosely inspired by how
+    // gravitational lensing deflects light around a mass. Not a physically
+    // exact simulation — a visual nod to the subject.
+    try {
+      const canvas = document.getElementById('lens-field');
+      if (!canvas) {
+        console.warn('[lens] #lens-field canvas not found in the page.');
+      } else {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduceMotion) {
+          console.log('[lens] prefers-reduced-motion is on — starfield disabled.');
+        } else {
+          const ctx = canvas.getContext('2d');
+          let width, height, dpr;
+          let stars = [];
+          let pointer = { x: null, y: null, active: false };
+          let resizeTimer;
+
+          // The canvas is position:fixed, so it is viewport-relative and
+          // never scrolls. It only needs to be as big as the viewport —
+          // sizing it to page height wasted space AND caused the lens to
+          // drift out of sync with the cursor once the page scrolled.
+          const LENS_RADIUS = 260;
+          const STAR_DENSITY = 3200; // px^2 per star — lower = more stars
+
+          function resize() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            initStars();
+          }
+
+          function initStars() {
+            const count = Math.floor((width * height) / STAR_DENSITY);
+            stars = new Array(count).fill(0).map(() => ({
+              x: Math.random() * width,
+              y: Math.random() * height,
+              r: Math.random() * 1.4 + 0.6,
+              baseAlpha: Math.random() * 0.5 + 0.45,
+              phase: Math.random() * Math.PI * 2,
+              speed: Math.random() * 0.015 + 0.005
+            }));
+          }
+
+          function draw(time) {
+            ctx.clearRect(0, 0, width, height);
+
+            for (const s of stars) {
+              let drawX = s.x;
+              let drawY = s.y;
+
+              if (pointer.active) {
+                const dx = s.x - pointer.x;
+                const dy = s.y - pointer.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < LENS_RADIUS && dist > 0.01) {
+                  const strength = 1 - dist / LENS_RADIUS;
+                  const bend = strength * strength * 34;
+                  drawX += (dx / dist) * bend;
+                  drawY += (dy / dist) * bend;
+                }
+              }
+
+              const twinkle = 0.5 + 0.5 * Math.sin(time * s.speed + s.phase);
+              const alpha = s.baseAlpha * (0.6 + 0.4 * twinkle);
+
+              ctx.beginPath();
+              ctx.arc(drawX, drawY, s.r, 0, Math.PI * 2);
+              ctx.fillStyle = `rgba(243, 239, 234, ${alpha.toFixed(3)})`;
+              ctx.fill();
+            }
+
+            if (pointer.active) {
+              const ringRadius = LENS_RADIUS * 0.62;
+              ctx.beginPath();
+              ctx.arc(pointer.x, pointer.y, ringRadius, 0, Math.PI * 2);
+              ctx.strokeStyle = 'rgba(123, 110, 246, 0.28)';
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+
+            requestAnimationFrame(draw);
+          }
+
+          // Coordinates are viewport-relative (clientX/clientY) to match
+          // the fixed, viewport-sized canvas — no scroll offset.
+          window.addEventListener('pointermove', (e) => {
+            pointer.x = e.clientX;
+            pointer.y = e.clientY;
+            pointer.active = true;
+          });
+
+          window.addEventListener('pointerleave', () => { pointer.active = false; });
+          window.addEventListener('blur', () => { pointer.active = false; });
+
+          window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(resize, 100);
+          });
+
+          resize();
+          requestAnimationFrame(draw);
+          console.log('[lens] starfield initialized:', stars.length, 'stars');
+        }
+      }
+    } catch (err) {
+      console.error('[lens] starfield failed to start:', err);
+    }
+
+    // ===== Custom lensing cursor =====
+    // A small "point mass" cursor: a tight ring around a core dot, echoing
+    // the same lensing idea as the starfield — it widens and glows over
+    // anything interactive, as if light were bending around it more
+    // strongly. Activates the first time we see a real mouse pointermove
+    // event (checked via e.pointerType), rather than guessing from
+    // matchMedia('pointer: fine') — that query reflects a device's
+    // hardware capability, not what's actually being used, and reports
+    // false on plenty of touch-capable laptops even while a mouse is
+    // driving the page. Falls back to the native cursor if a touch event
+    // ever fires, so hybrid devices switch cleanly either way. Stays off
+    // entirely under reduced motion.
+    try {
+      const cursorEl = document.getElementById('lens-cursor');
+      const reduceMotionCursor = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!cursorEl) {
+        console.warn('[cursor] #lens-cursor element not found in the page.');
+      } else if (reduceMotionCursor) {
+        console.log('[cursor] prefers-reduced-motion is on — using the native cursor.');
+      } else {
+        let activated = false;
+
+        function activateCursor() {
+          if (activated) return;
+          activated = true;
+          document.body.classList.add('has-lens-cursor');
+          console.log('[cursor] real mouse detected — lensing cursor activated');
+        }
+
+        function deactivateCursor() {
+          if (!activated) return;
+          activated = false;
+          document.body.classList.remove('has-lens-cursor');
+          console.log('[cursor] touch input detected — reverted to native cursor');
+        }
+
+        window.addEventListener('pointermove', (e) => {
+          if (e.pointerType === 'mouse') {
+            activateCursor();
+            cursorEl.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+          }
+        });
+
+        window.addEventListener('touchstart', deactivateCursor, { passive: true });
+
+        window.addEventListener('pointerdown', (e) => {
+          if (e.pointerType === 'mouse') cursorEl.classList.add('is-pressed');
+        });
+        window.addEventListener('pointerup', () => cursorEl.classList.remove('is-pressed'));
+
+        const hoverTargets = document.querySelectorAll('a, button');
+        hoverTargets.forEach((el) => {
+          el.addEventListener('mouseenter', () => cursorEl.classList.add('is-hover'));
+          el.addEventListener('mouseleave', () => cursorEl.classList.remove('is-hover'));
+        });
+
+        console.log('[cursor] listening for a real mouse on', hoverTargets.length, 'interactive elements');
+      }
+    } catch (err) {
+      console.error('[cursor] lensing cursor failed to start:', err);
+    }
+  </script>
 </body>
 </html>

@@ -1,92 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Satyajit "Chris" Gade — Astrophysics &amp; Data Science</title>
-  <meta name="description" content="Portfolio of Satyajit (Chris) Gade — astrophysics research and data science.">
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Satyajit "Chris" Gade - Astrophysics & Data Science
+  </title>
+
+  <meta
+    name="description"
+    content="Portfolio of Satyajit (Chris) Gade — astrophysics research and data science."
+  >
+
+  <!-- Main stylesheet -->
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+  <!-- JavaScript -->
+  <!-- IMPORTANT:
+       This is the ONLY JavaScript file loaded by the page.
+       Do NOT add another inline <script> block at the bottom.
+  -->
+  <script
+    src="script.js"
+    defer
+  ></script>
+
+  <!-- Google Fonts -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  >
 </head>
+
+
 <body>
 
-  <a class="skip-link" href="#main">Skip to content</a>
+  <!-- Accessibility -->
+  <a
+    class="skip-link"
+    href="#main"
+  >
+    Skip to content
+  </a>
 
-  <canvas id="lens-field" aria-hidden="true"></canvas>
-  <div id="lens-cursor" aria-hidden="true"><span class="lens-cursor-core"></span></div>
 
-  <!-- Navigation -->
+  <!-- =====================================================
+       GRAVITATIONAL LENS BACKGROUND
+       ===================================================== -->
+
+  <canvas
+    id="lens-field"
+    aria-hidden="true"
+  ></canvas>
+
+
+  <!-- =====================================================
+       CUSTOM LENSING CURSOR
+       ===================================================== -->
+
+  <div
+    id="lens-cursor"
+    aria-hidden="true"
+  >
+    <span class="lens-cursor-core"></span>
+  </div>
+
+
+  <!-- =====================================================
+       NAVIGATION
+       ===================================================== -->
+
   <header class="site-nav">
+
     <div class="nav-container">
-      <a href="#top" class="logo">SG</a>
-      <nav class="nav-links" id="nav-links">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+
+      <a
+        href="#top"
+        class="logo"
+        aria-label="Home"
+      >
+        SG
+      </a>
+
+
+      <nav
+        class="nav-links"
+        id="nav-links"
+        aria-label="Primary navigation"
+      >
+
+        <a href="#about">
+          About
+        </a>
+
+        <a href="#projects">
+          Projects
+        </a>
+
+        <a href="#contact">
+          Contact
+        </a>
+
       </nav>
-      <button class="menu-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="nav-links"
+        aria-label="Toggle menu"
+      >
+
         <span class="hamburger"></span>
+
       </button>
+
     </div>
+
   </header>
+
+
+  <!-- =====================================================
+       MAIN CONTENT
+       ===================================================== -->
 
   <main id="main">
 
-    <!-- Hero -->
-    <section id="top" class="hero">
+
+    <!-- ===================================================
+         HERO
+         =================================================== -->
+
+    <section
+      id="top"
+      class="hero"
+    >
+
       <div class="hero-grid">
+
+
+        <!-- HERO TEXT -->
+
         <div class="hero-copy">
-          <p class="eyebrow">Astrophysics &amp; Data Science</p>
-          <h1>Satyajit<br>“Chris” Gade</h1>
-          <p class="hero-lede">
-            I build data-driven tools to study the universe — currently
-            exploring machine learning approaches to gravitational lens
-            modeling, and looking for my next research or data science role.
+
+          <p class="eyebrow">
+            Astrophysics &amp; Data Science
           </p>
+
+
+          <h1>
+            Satyajit<br>
+            “Chris” Gade
+          </h1>
+
+
+          <p class="hero-lede">
+
+            I build data-driven tools to study the universe —
+            currently exploring machine learning approaches to
+            gravitational lens modeling, and looking for my next
+            research or data science role.
+
+          </p>
+
+
           <div class="hero-actions">
-            <a href="#projects" class="btn-primary">See my work</a>
-            <a href="mailto:satyajitlion@gmail.com" class="btn-ghost">Get in touch</a>
+
+            <a
+              href="#projects"
+              class="btn-primary"
+            >
+              See my work
+            </a>
+
+
+            <a
+              href="mailto:satyajitlion@gmail.com"
+              class="btn-ghost"
+            >
+              Get in touch
+            </a>
+
           </div>
+
         </div>
+
+
+        <!-- HERO IMAGE -->
+
         <div class="hero-visual">
+
           <div class="profile-frame">
-            <img src="edited-photo.png" alt="Portrait of Satyajit Gade" loading="lazy">
+
+            <img
+              src="edited-photo.png"
+              alt="Portrait of Satyajit Gade"
+              fetchpriority="high"
+            >
+
           </div>
-          <p class="hero-caption">with my research companion, Dr. Bubbles</p>
+
+
+          <p class="hero-caption">
+            with my research companion, Dr. Bubbles
+          </p>
+
         </div>
+
       </div>
-      <p class="hero-hint">move your cursor — the field bends like light around mass</p>
+
+
+      <p class="hero-hint">
+        move your cursor — magnify the stars and bend the background
+        <button id="lens-toggle" type="button" aria-pressed="false" hidden>Cursor lens: off</button>
+      </p>
+
     </section>
 
-    <div class="divider" role="presentation">
-      <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0,20 Q600,0 1200,20" /></svg>
+
+    <!-- DIVIDER -->
+
+    <div
+      class="divider"
+      role="presentation"
+      aria-hidden="true"
+    >
+
+      <svg
+        viewBox="0 0 1200 40"
+        preserveAspectRatio="none"
+      >
+
+        <path
+          d="M0,20 Q600,0 1200,20"
+        ></path>
+
+      </svg>
+
     </div>
 
-    <!-- About -->
-    <section id="about" class="section">
+
+    <!-- ===================================================
+         ABOUT
+         =================================================== -->
+
+    <section
+      id="about"
+      class="section"
+    >
+
       <div class="about-grid">
+
+
         <div class="about-text">
-          <h2>About</h2>
+
+          <h2>
+            About
+          </h2>
+
+
           <p>
-            My name is <span class="hl">Satyajit</span> — most people call me
-            <span class="hl">Chris</span>. I recently graduated from Rutgers
-            University–New Brunswick with a <span class="hl">B.S. in Astrophysics</span>
-            and a <span class="hl">minor in Mathematics</span>, where my research
-            focused on applying machine learning to gravitational lens modeling.
-            I'm now looking for entry-level roles in astrophysics research and
-            data science, where I can put data-driven methods to work on hard
-            problems.
+
+            My name is
+            <span class="hl">
+              Satyajit
+            </span>
+            — most people call me
+            <span class="hl">
+              Chris
+            </span>.
+
+            I recently graduated from Rutgers
+            University–New Brunswick with a
+            <span class="hl">
+              B.S. in Astrophysics
+            </span>
+            and a
+            <span class="hl">
+              minor in Mathematics
+            </span>,
+
+            where my research focused on applying
+            machine learning to gravitational lens modeling.
+
+            I'm now looking for entry-level roles in
+            astrophysics research and data science,
+            where I can put data-driven methods to work
+            on hard problems.
+
           </p>
+
+
           <p>
-            Outside of coding and coursework, I recharge with music and long
-            brainstorming sessions with my panda plush and morale officer,
-            Dr. Bubbles — usually with a strawberry matcha boba close by.
+
+            Outside of coding and coursework, I recharge
+            with music and long brainstorming sessions
+            with my panda plush and morale officer,
+            Dr. Bubbles — usually with a strawberry
+            matcha boba close by.
+
           </p>
-          <h3 class="tools-heading">Tools I work with</h3>
+
+
+          <h3 class="tools-heading">
+            Tools I work with
+          </h3>
+
+
           <ul class="skills-list">
+
             <li>Python</li>
             <li>NumPy</li>
             <li>SciPy</li>
@@ -96,308 +345,360 @@
             <li>Seaborn</li>
             <li>Keras</li>
             <li>SQL</li>
+
           </ul>
+
         </div>
+
+
         <div class="about-image">
+
           <div class="image-frame">
-            <img src="drBubbles.jpg" alt="Dr. Bubbles, a panda plush">
+
+            <img
+              src="drBubbles.jpg"
+              alt="Dr. Bubbles, a panda plush"
+              loading="lazy"
+            >
+
           </div>
+
         </div>
+
       </div>
+
     </section>
 
-    <div class="divider" role="presentation">
-      <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0,20 Q600,40 1200,20" /></svg>
+
+    <!-- DIVIDER -->
+
+    <div
+      class="divider"
+      role="presentation"
+      aria-hidden="true"
+    >
+
+      <svg
+        viewBox="0 0 1200 40"
+        preserveAspectRatio="none"
+      >
+
+        <path
+          d="M0,20 Q600,40 1200,20"
+        ></path>
+
+      </svg>
+
     </div>
 
-    <!-- Projects -->
-    <section id="projects" class="section">
-      <h2>Selected projects</h2>
+
+    <!-- ===================================================
+         PROJECTS
+         =================================================== -->
+
+    <section
+      id="projects"
+      class="section"
+    >
+
+      <h2>
+        Selected projects
+      </h2>
+
 
       <div class="projects-list">
 
+
+        <!-- PROJECT 1 -->
+
         <article class="project-row">
+
           <div class="project-media">
-            <img src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/LorentzAnimation.gif" alt="Animation of relativistic length contraction and time dilation" loading="lazy">
+
+            <img
+              src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/LorentzAnimation.gif"
+              alt="Animation of relativistic length contraction and time dilation"
+              loading="lazy"
+            >
+
           </div>
+
+
           <div class="project-body">
-            <h3>Lorentz Transform Visualizer</h3>
+
+            <h3>
+              Lorentz Transform Visualizer
+            </h3>
+
+
             <p>
-              A Python simulation demonstrating relativistic effects, using
-              Matplotlib animations to visualize length contraction and time
-              dilation as observers approach the speed of light.
+
+              A Python simulation demonstrating relativistic
+              effects, using Matplotlib animations to visualize
+              length contraction and time dilation as observers
+              approach the speed of light.
+
             </p>
+
+
             <ul class="tech-tags">
+
               <li>Python</li>
               <li>Matplotlib</li>
               <li>Special Relativity</li>
+
             </ul>
+
+
             <div class="project-links">
-              <a href="https://github.com/satyajitlion/PhysicsSimulations" aria-label="View code on GitHub"><i class="fab fa-github"></i> Code</a>
-              <a href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Lorentz%20Transformation%20Visualization.ipynb" aria-label="Open notebook"><i class="fas fa-external-link-alt"></i> Notebook</a>
+
+              <a
+                href="https://github.com/satyajitlion/PhysicsSimulations"
+                aria-label="View PhysicsSimulations code on GitHub"
+              >
+                <i
+                  class="fab fa-github"
+                  aria-hidden="true"
+                ></i>
+
+                Code
+
+              </a>
+
+
+              <a
+                href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Lorentz%20Transformation%20Visualization.ipynb"
+                aria-label="Open Lorentz Transformation notebook"
+              >
+                <i
+                  class="fas fa-external-link-alt"
+                  aria-hidden="true"
+                ></i>
+
+                Notebook
+
+              </a>
+
             </div>
+
           </div>
+
         </article>
 
+
+        <!-- PROJECT 2 -->
+
         <article class="project-row">
+
           <div class="project-media">
-            <img src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/SolarSystemAnimation.gif" alt="Animated N-body simulation of the solar system" loading="lazy">
+
+            <img
+              src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/SolarSystemAnimation.gif"
+              alt="Animated N-body simulation of the solar system"
+              loading="lazy"
+            >
+
           </div>
+
+
           <div class="project-body">
-            <h3>Solar System Simulator</h3>
+
+            <h3>
+              Solar System Simulator
+            </h3>
+
+
             <p>
-              An interactive N-body simulation of our solar system with
-              accurate orbital mechanics and real-time parameter adjustments.
+
+              An interactive N-body simulation of our solar
+              system with accurate orbital mechanics and
+              real-time parameter adjustments.
+
             </p>
+
+
             <ul class="tech-tags">
+
               <li>Python</li>
               <li>NumPy</li>
               <li>Orbital Mechanics</li>
+
             </ul>
+
+
             <div class="project-links">
-              <a href="https://github.com/satyajitlion/PhysicsSimulations" aria-label="View code on GitHub"><i class="fab fa-github"></i> Code</a>
-              <a href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Solar%20System%20Simulation.ipynb" aria-label="Open notebook"><i class="fas fa-external-link-alt"></i> Notebook</a>
+
+              <a
+                href="https://github.com/satyajitlion/PhysicsSimulations"
+                aria-label="View PhysicsSimulations code on GitHub"
+              >
+
+                <i
+                  class="fab fa-github"
+                  aria-hidden="true"
+                ></i>
+
+                Code
+
+              </a>
+
+
+              <a
+                href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Solar%20System%20Simulation.ipynb"
+                aria-label="Open Solar System notebook"
+              >
+
+                <i
+                  class="fas fa-external-link-alt"
+                  aria-hidden="true"
+                ></i>
+
+                Notebook
+
+              </a>
+
             </div>
+
           </div>
+
         </article>
 
+
       </div>
+
     </section>
 
-    <div class="divider" role="presentation">
-      <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0,20 Q600,0 1200,20" /></svg>
+
+    <!-- DIVIDER -->
+
+    <div
+      class="divider"
+      role="presentation"
+      aria-hidden="true"
+    >
+
+      <svg
+        viewBox="0 0 1200 40"
+        preserveAspectRatio="none"
+      >
+
+        <path
+          d="M0,20 Q600,0 1200,20"
+        ></path>
+
+      </svg>
+
     </div>
 
-    <!-- Contact -->
-    <section id="contact" class="section contact-section">
-      <h2>Get in touch</h2>
+
+    <!-- ===================================================
+         CONTACT
+         =================================================== -->
+
+    <section
+      id="contact"
+      class="section contact-section"
+    >
+
+      <h2>
+        Get in touch
+      </h2>
+
+
       <p>
-        I'm currently looking for research opportunities and collaborations
-        in computational astrophysics. Whether you have a question or just
-        want to share boba recommendations, I'll do my best to get back to you.
+
+        I'm currently looking for research opportunities
+        and collaborations in computational astrophysics.
+
+        Whether you have a question or just want to share
+        boba recommendations, I'll do my best to get back
+        to you.
+
       </p>
-      <a href="mailto:satyajitlion@gmail.com" class="btn-primary">Say hello</a>
-      <div class="social-links">
-        <a href="https://github.com/satyajitlion" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/satyajitgade/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        <a href="mailto:satyajitlion@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+
+
+      <a
+        href="mailto:satyajitlion@gmail.com"
+        class="btn-primary"
+      >
+        Say hello
+      </a>
+
+
+      <div
+        class="social-links"
+        aria-label="Social links"
+      >
+
+        <a
+          href="https://github.com/satyajitlion"
+          aria-label="GitHub"
+        >
+
+          <i
+            class="fab fa-github"
+            aria-hidden="true"
+          ></i>
+
+        </a>
+
+
+        <a
+          href="https://www.linkedin.com/in/satyajitgade/"
+          aria-label="LinkedIn"
+        >
+
+          <i
+            class="fab fa-linkedin-in"
+            aria-hidden="true"
+          ></i>
+
+        </a>
+
+
+        <a
+          href="mailto:satyajitlion@gmail.com"
+          aria-label="Email"
+        >
+
+          <i
+            class="fas fa-envelope"
+            aria-hidden="true"
+          ></i>
+
+        </a>
+
       </div>
+
     </section>
 
   </main>
 
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+
   <footer>
-    <p>Designed &amp; built by Chris Gade</p>
-    <p>© <span id="year"></span></p>
+
+    <p>
+      Designed &amp; built by Chris Gade
+    </p>
+
+    <p>
+      ©
+      <span id="year"></span>
+    </p>
+
   </footer>
 
-  <script>
-    // ===== Footer year =====
-    const yearEl = document.getElementById('year');
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // ===== Mobile nav =====
-    // Guarded with a null-check: if either element is missing, this used
-    // to throw and silently kill every script below it on the page —
-    // including the starfield further down.
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
+  <!-- =====================================================
+       IMPORTANT:
+       No inline JavaScript goes here.
+       script.js is loaded from <head> with defer.
+       ===================================================== -->
 
-    if (menuToggle && navLinks) {
-      menuToggle.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('active');
-        menuToggle.classList.toggle('active', isOpen);
-        menuToggle.setAttribute('aria-expanded', String(isOpen));
-      });
-
-      navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          navLinks.classList.remove('active');
-          menuToggle.classList.remove('active');
-          menuToggle.setAttribute('aria-expanded', 'false');
-        });
-      });
-    } else {
-      console.warn('[nav] .menu-toggle or .nav-links not found — mobile menu disabled.');
-    }
-
-    // ===== Gravitational-lens starfield =====
-    // A starfield that bends around the cursor, loosely inspired by how
-    // gravitational lensing deflects light around a mass. Not a physically
-    // exact simulation — a visual nod to the subject.
-    try {
-      const canvas = document.getElementById('lens-field');
-      if (!canvas) {
-        console.warn('[lens] #lens-field canvas not found in the page.');
-      } else {
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (reduceMotion) {
-          console.log('[lens] prefers-reduced-motion is on — starfield disabled.');
-        } else {
-          const ctx = canvas.getContext('2d');
-          let width, height, dpr;
-          let stars = [];
-          let pointer = { x: null, y: null, active: false };
-          let resizeTimer;
-
-          // The canvas is position:fixed, so it is viewport-relative and
-          // never scrolls. It only needs to be as big as the viewport —
-          // sizing it to page height wasted space AND caused the lens to
-          // drift out of sync with the cursor once the page scrolled.
-          const LENS_RADIUS = 260;
-          const STAR_DENSITY = 3200; // px^2 per star — lower = more stars
-
-          function resize() {
-            dpr = Math.min(window.devicePixelRatio || 1, 2);
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width * dpr;
-            canvas.height = height * dpr;
-            canvas.style.width = width + 'px';
-            canvas.style.height = height + 'px';
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-            initStars();
-          }
-
-          function initStars() {
-            const count = Math.floor((width * height) / STAR_DENSITY);
-            stars = new Array(count).fill(0).map(() => ({
-              x: Math.random() * width,
-              y: Math.random() * height,
-              r: Math.random() * 1.4 + 0.6,
-              baseAlpha: Math.random() * 0.5 + 0.45,
-              phase: Math.random() * Math.PI * 2,
-              speed: Math.random() * 0.015 + 0.005
-            }));
-          }
-
-          function draw(time) {
-            ctx.clearRect(0, 0, width, height);
-
-            for (const s of stars) {
-              let drawX = s.x;
-              let drawY = s.y;
-
-              if (pointer.active) {
-                const dx = s.x - pointer.x;
-                const dy = s.y - pointer.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < LENS_RADIUS && dist > 0.01) {
-                  const strength = 1 - dist / LENS_RADIUS;
-                  const bend = strength * strength * 34;
-                  drawX += (dx / dist) * bend;
-                  drawY += (dy / dist) * bend;
-                }
-              }
-
-              const twinkle = 0.5 + 0.5 * Math.sin(time * s.speed + s.phase);
-              const alpha = s.baseAlpha * (0.6 + 0.4 * twinkle);
-
-              ctx.beginPath();
-              ctx.arc(drawX, drawY, s.r, 0, Math.PI * 2);
-              ctx.fillStyle = `rgba(243, 239, 234, ${alpha.toFixed(3)})`;
-              ctx.fill();
-            }
-
-            if (pointer.active) {
-              const ringRadius = LENS_RADIUS * 0.62;
-              ctx.beginPath();
-              ctx.arc(pointer.x, pointer.y, ringRadius, 0, Math.PI * 2);
-              ctx.strokeStyle = 'rgba(123, 110, 246, 0.28)';
-              ctx.lineWidth = 1;
-              ctx.stroke();
-            }
-
-            requestAnimationFrame(draw);
-          }
-
-          // Coordinates are viewport-relative (clientX/clientY) to match
-          // the fixed, viewport-sized canvas — no scroll offset.
-          window.addEventListener('pointermove', (e) => {
-            pointer.x = e.clientX;
-            pointer.y = e.clientY;
-            pointer.active = true;
-          });
-
-          window.addEventListener('pointerleave', () => { pointer.active = false; });
-          window.addEventListener('blur', () => { pointer.active = false; });
-
-          window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(resize, 100);
-          });
-
-          resize();
-          requestAnimationFrame(draw);
-          console.log('[lens] starfield initialized:', stars.length, 'stars');
-        }
-      }
-    } catch (err) {
-      console.error('[lens] starfield failed to start:', err);
-    }
-
-    // ===== Custom lensing cursor =====
-    // A small "point mass" cursor: a tight ring around a core dot, echoing
-    // the same lensing idea as the starfield — it widens and glows over
-    // anything interactive, as if light were bending around it more
-    // strongly. Activates the first time we see a real mouse pointermove
-    // event (checked via e.pointerType), rather than guessing from
-    // matchMedia('pointer: fine') — that query reflects a device's
-    // hardware capability, not what's actually being used, and reports
-    // false on plenty of touch-capable laptops even while a mouse is
-    // driving the page. Falls back to the native cursor if a touch event
-    // ever fires, so hybrid devices switch cleanly either way. Stays off
-    // entirely under reduced motion.
-    try {
-      const cursorEl = document.getElementById('lens-cursor');
-      const reduceMotionCursor = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      if (!cursorEl) {
-        console.warn('[cursor] #lens-cursor element not found in the page.');
-      } else if (reduceMotionCursor) {
-        console.log('[cursor] prefers-reduced-motion is on — using the native cursor.');
-      } else {
-        let activated = false;
-
-        function activateCursor() {
-          if (activated) return;
-          activated = true;
-          document.body.classList.add('has-lens-cursor');
-          console.log('[cursor] real mouse detected — lensing cursor activated');
-        }
-
-        function deactivateCursor() {
-          if (!activated) return;
-          activated = false;
-          document.body.classList.remove('has-lens-cursor');
-          console.log('[cursor] touch input detected — reverted to native cursor');
-        }
-
-        window.addEventListener('pointermove', (e) => {
-          if (e.pointerType === 'mouse') {
-            activateCursor();
-            cursorEl.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-          }
-        });
-
-        window.addEventListener('touchstart', deactivateCursor, { passive: true });
-
-        window.addEventListener('pointerdown', (e) => {
-          if (e.pointerType === 'mouse') cursorEl.classList.add('is-pressed');
-        });
-        window.addEventListener('pointerup', () => cursorEl.classList.remove('is-pressed'));
-
-        const hoverTargets = document.querySelectorAll('a, button');
-        hoverTargets.forEach((el) => {
-          el.addEventListener('mouseenter', () => cursorEl.classList.add('is-hover'));
-          el.addEventListener('mouseleave', () => cursorEl.classList.remove('is-hover'));
-        });
-
-        console.log('[cursor] listening for a real mouse on', hoverTargets.length, 'interactive elements');
-      }
-    } catch (err) {
-      console.error('[cursor] lensing cursor failed to start:', err);
-    }
-  </script>
 </body>
+
 </html>

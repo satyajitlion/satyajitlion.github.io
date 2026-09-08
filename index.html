@@ -2,223 +2,194 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Satyajit "Chris" Gade | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satyajit "Chris" Gade — Astrophysics &amp; Data Science</title>
+  <meta name="description" content="Portfolio of Satyajit (Chris) Gade — astrophysics research and data science.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Animated Background 
-  <div class="particle-background"></div> -->
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="parallax-bg">
-    <div class="stars-layer"></div>
-    <div class="nebula-layer"></div>
-    <div class="planet-layer">
-      <img src="planet.png" class="planet-1" style="top:20%; left:10%">
-      <img src="planet.png" class="planet-2" style="top:60%; right:15%">
-    </div>
-  </div>  
-  
-  <!-- Floating Navigation -->
-  <nav class="glass-nav">
+  <canvas id="lens-field" aria-hidden="true"></canvas>
+
+  <!-- Navigation -->
+  <header class="site-nav">
     <div class="nav-container">
-      <a href="#heroo" class="logo">
-        <img src="logo.png" width="25" height="auto">
-      </a>
-      <div class="nav-links">
-        <a href="#about"><span>01.</span> About</a>
-        <a href="#projects"><span>02.</span> Projects</a>
-        <a href="#contact"><span>03.</span> Contact</a>
-      </div>
-      <button class="menu-toggle">
-        <div class="hamburger"></div>
+      <a href="#top" class="logo">SG</a>
+      <nav class="nav-links" id="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+        <span class="hamburger"></span>
       </button>
     </div>
-  </nav>
+  </header>
 
-  <!-- Hero Section -->
-  <section id = "heroo" class="hero">
-    <div class="hero-content">
-      <h1 class="name">Hi, I'm Chris Gade.</h1>
-      <h2 class="tagline">
-        I'm a passionate <span class="colorn">Researcher</span>
-        interested in <span class="colorn"> Cosmology</span>, 
-        <span class="colorn">Computation</span>, and <span class="colorn">Data Science</span>
-      </h2>
-      <h3 class="tag2">
-        >>><span class="kw"> def</span> <span class="func">my_identity</span>():<br>
-        ... &nbsp;&nbsp;<span class="kw">return</span> {<br> 
-        ... &nbsp;&nbsp;&nbsp;&nbsp;"<span class="var">language</span>" : "<span class="var">Python</span>",<br>
-        ... &nbsp;&nbsp;&nbsp;&nbsp;"<span class="var">companion</span>" : "<span class="var">Dr. Bubbles</span>",<br>
-        ... &nbsp;&nbsp;&nbsp;&nbsp;"<span class="var">fuel</span>" : "<span class="var"><span class="colorstr">Strawberry</span> <span class="colormat">Matcha</span> Boba</span>"<br>
-        ... &nbsp;&nbsp;}<span class="blinking-cursor"></span>
-      </h3>
-      
-    </div>
-    <div class="hero-visual">
-      <div class="gradient-circle"></div>
-      <div class="profile-pic-container">
-        <img src="Satyajit.jpg" alt="Profile Photo" loading="lazy" class="circular-image">
-      </div>
-  </section>
+  <main id="main">
 
-  <!-- About Section -->
-  <section id="about" class="section">
-    <div class="section-header">
-      <h2><span>01.</span> Welcome to my corner of the internet! </h2>
-      <div class="divider"></div>
-    </div>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>
-          My name is <span class="sp">Satyajit</span> (but you can call me <span class="sp">Chris</span>). I recently graduated from 
-          Rutgers University—New Brunswick with a <span class="sp">B.S. in Astrophysics</span> and a 
-          <span class="sp">minor in Mathematics</span>, where I explored the applications of machine learning in 
-          gravitational lens modeling. Currently, I’m pursuing <span class="sp">entry-level roles</span> in <span class="sp">Astrophysics research</span> 
-          and <span class="sp">Data Science</span> to tackle complex problems with data-driven solutions.
-        </p>
-        <p>Outside of coding and studying, I recharge by listening to music or having 
-          creative brainstorming sessions alongside my trusty panda plush 
-          (and morale officer), <span class="sp2">Dr. Bubbles</span>. </p>
-        <p class="ptitle">
-          Here are a few technologies I've been working with recently:
-        </p>
-        <ul class="skills-list">
-          <li>Python</li>
-          <li>NumPy</li>
-          <li>SciPy</li>
-          <li>AstroPy</li>
-          <li>Pandas</li>
-          <li>Matplotlib</li>
-          <li>Seaborn</li>
-          <li>Keras</li>
-          <li>SQL</li>
-        </ul>
-      </div>
-      <div class="about-image">
-        <div class="profile-pic-container2">
-          <img src="drBubbles.jpg" alt="Dr. Bubbles" class="circular-image2">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="section">
-    <div class="section-header">
-      <h2><span>02.</span> Featured Projects</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="projects-container">
-
-      <!-- Project 1 -->
-      <article class="project-card">
-        <div class="project-media">
-          <div class="media-container">
-            <img src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/LorentzAnimation.gif" alt="Lorentz Transform" class="project-gif">
-            <div class="media-overlay">
-              <a href="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/LorentzAnimation.gif" class="view-button">View Gif</a>
-            </div>
-          </div>
-        </div>
-        <div class="project-info">
-          <h3>Lorentz Transform Visualizer</h3>
-          <p class="project-description">
-            A Python simulation demonstrating relativistic effects using 
-            Matplotlib animations to visualize length contraction and 
-            time dilation.
+    <!-- Hero -->
+    <section id="top" class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Astrophysics &amp; Data Science</p>
+          <h1>Satyajit<br>“Chris” Gade</h1>
+          <p class="hero-lede">
+            I build data-driven tools to study the universe — currently
+            exploring machine learning approaches to gravitational lens
+            modeling, and looking for my next research or data science role.
           </p>
-          <ul class="tech-tags">
-            <li>Python</li>
-            <li>Matplotlib</li>
-            <li>Special Relativity</li>
-          </ul>
-          <div class="project-links">
-            <a href="https://github.com/satyajitlion/PhysicsSimulations"><i class="fab fa-github"></i></a>
-            <a href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Lorentz%20Transformation%20Visualization.ipynb"><i class="fas fa-external-link-alt"></i></a>
+          <div class="hero-actions">
+            <a href="#projects" class="btn-primary">See my work</a>
+            <a href="mailto:satyajitlion@gmail.com" class="btn-ghost">Get in touch</a>
           </div>
         </div>
-      </article>
-      
-      <!-- Project 2 -->
-      <article class="project-card reversed">
-        <div class="project-media">
-          <div class="media-container">
-            <img src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/SolarSystemAnimation.gif" alt="Solar System" class="project-gif">
-            <div class="media-overlay">
-              <a href="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/SolarSystemAnimation.gif" class="view-button">View Gif</a>
-            </div>
+        <div class="hero-visual">
+          <div class="profile-frame">
+            <img src="Satyajit.jpg" alt="Portrait of Satyajit Gade" loading="lazy">
           </div>
+          <p class="hero-caption">with my research companion, Dr. Bubbles</p>
         </div>
-        <div class="project-info">
-          <h3>Solar System Simulator</h3>
-          <p class="project-description">
-              Interactive N-body simulation of our solar system with accurate 
-              orbital mechanics and real-time parameter adjustments. 
+      </div>
+      <p class="hero-hint">move your cursor — the field bends like light around mass</p>
+    </section>
+
+    <div class="divider" role="presentation">
+      <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0,20 Q600,0 1200,20" /></svg>
+    </div>
+
+    <!-- About -->
+    <section id="about" class="section">
+      <div class="about-grid">
+        <div class="about-text">
+          <h2>About</h2>
+          <p>
+            My name is <span class="hl">Satyajit</span> — most people call me
+            <span class="hl">Chris</span>. I recently graduated from Rutgers
+            University–New Brunswick with a <span class="hl">B.S. in Astrophysics</span>
+            and a <span class="hl">minor in Mathematics</span>, where my research
+            focused on applying machine learning to gravitational lens modeling.
+            I'm now looking for entry-level roles in astrophysics research and
+            data science, where I can put data-driven methods to work on hard
+            problems.
           </p>
-          <ul class="tech-tags">
+          <p>
+            Outside of coding and coursework, I recharge with music and long
+            brainstorming sessions with my panda plush and morale officer,
+            Dr. Bubbles — usually with a strawberry matcha boba close by.
+          </p>
+          <h3 class="tools-heading">Tools I work with</h3>
+          <ul class="skills-list">
             <li>Python</li>
             <li>NumPy</li>
-            <li>Orbital Mechanics</li>
+            <li>SciPy</li>
+            <li>AstroPy</li>
+            <li>Pandas</li>
+            <li>Matplotlib</li>
+            <li>Seaborn</li>
+            <li>Keras</li>
+            <li>SQL</li>
           </ul>
-          <div class="project-links">
-            <a href="https://github.com/satyajitlion/PhysicsSimulations"><i class="fab fa-github"></i></a>
-            <a href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Solar%20System%20Simulation.ipynb"><i class="fas fa-external-link-alt"></i></a>
+        </div>
+        <div class="about-image">
+          <div class="image-frame">
+            <img src="drBubbles.jpg" alt="Dr. Bubbles, a panda plush">
           </div>
         </div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="section">
-    <div class="contact-container">
-      <h4><span>03.</span> What's Next?</h4>
-      <h2>Get In Touch</h2>
-      <p>
-        I'm currently looking for research opportunities and collaborations in 
-        computational astrophysics. Whether you have a question or just want to 
-        share boba recommendations, I'll do my best to get back to you!
-      </p>
-      <a href="mailto:satyajitlion@gmail.com" class="contact-button">
-        Say Hello
-      </a>
-      <div class="social-links">
-        <a href="https://github.com/satyajitlion"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/satyajitgade/"><i class="fab fa-linkedin-in"></i></a>
-        <a href="mailto:#satyajitlion@gmail.com"><i class="fas fa-envelope"></i></a>
       </div>
+    </section>
+
+    <div class="divider" role="presentation">
+      <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0,20 Q600,40 1200,20" /></svg>
     </div>
-  </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section">
+      <h2>Selected projects</h2>
+
+      <div class="projects-list">
+
+        <article class="project-row">
+          <div class="project-media">
+            <img src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/LorentzAnimation.gif" alt="Animation of relativistic length contraction and time dilation" loading="lazy">
+          </div>
+          <div class="project-body">
+            <h3>Lorentz Transform Visualizer</h3>
+            <p>
+              A Python simulation demonstrating relativistic effects, using
+              Matplotlib animations to visualize length contraction and time
+              dilation as observers approach the speed of light.
+            </p>
+            <ul class="tech-tags">
+              <li>Python</li>
+              <li>Matplotlib</li>
+              <li>Special Relativity</li>
+            </ul>
+            <div class="project-links">
+              <a href="https://github.com/satyajitlion/PhysicsSimulations" aria-label="View code on GitHub"><i class="fab fa-github"></i> Code</a>
+              <a href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Lorentz%20Transformation%20Visualization.ipynb" aria-label="Open notebook"><i class="fas fa-external-link-alt"></i> Notebook</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-row">
+          <div class="project-media">
+            <img src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/SolarSystemAnimation.gif" alt="Animated N-body simulation of the solar system" loading="lazy">
+          </div>
+          <div class="project-body">
+            <h3>Solar System Simulator</h3>
+            <p>
+              An interactive N-body simulation of our solar system with
+              accurate orbital mechanics and real-time parameter adjustments.
+            </p>
+            <ul class="tech-tags">
+              <li>Python</li>
+              <li>NumPy</li>
+              <li>Orbital Mechanics</li>
+            </ul>
+            <div class="project-links">
+              <a href="https://github.com/satyajitlion/PhysicsSimulations" aria-label="View code on GitHub"><i class="fab fa-github"></i> Code</a>
+              <a href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Solar%20System%20Simulation.ipynb" aria-label="Open notebook"><i class="fas fa-external-link-alt"></i> Notebook</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <div class="divider" role="presentation">
+      <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0,20 Q600,0 1200,20" /></svg>
+    </div>
+
+    <!-- Contact -->
+    <section id="contact" class="section contact-section">
+      <h2>Get in touch</h2>
+      <p>
+        I'm currently looking for research opportunities and collaborations
+        in computational astrophysics. Whether you have a question or just
+        want to share boba recommendations, I'll do my best to get back to you.
+      </p>
+      <a href="mailto:satyajitlion@gmail.com" class="btn-primary">Say hello</a>
+      <div class="social-links">
+        <a href="https://github.com/satyajitlion" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/satyajitgade/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:satyajitlion@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </section>
+
+  </main>
 
   <footer>
-    <div class="footer-content">
-      <p>Designed & Built by Chris Gade</p>
-      <p>© <span id="year"></span> All Rights Reserved</p>
-    </div>
+    <p>Designed &amp; built by Chris Gade</p>
+    <p>© <span id="year"></span></p>
   </footer>
 
-  <script>
-    // Update year
-    document.getElementById('year').textContent = new Date().getFullYear();
-    
-    // Mobile menu toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      menuToggle.classList.toggle('active');
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

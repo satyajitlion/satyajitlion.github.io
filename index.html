@@ -1,699 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>
-    Chris Gade - Astrophysics & Data Science
-  </title>
-
-  <meta
-    name="description"
-    content="Portfolio of Satyajit (Chris) Gade."
-  >
-
-  <!-- Main stylesheet -->
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
-
-  <!-- JavaScript -->
-  <!-- IMPORTANT:
-       This is the ONLY JavaScript file loaded by the page.
-       Do NOT add another inline <script> block at the bottom.
-  -->
-  <script
-    src="script.js"
-    defer
-  ></script>
-
-  <!-- Google Fonts -->
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
-    rel="stylesheet"
-  >
-
-  <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  >
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chris Gade</title>
+<meta name="description" content="Astrophysics Research &amp; Data Science.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
 </head>
-
-
 <body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="lensf" filterUnits="userSpaceOnUse" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB"><feImage id="lfi" x="0" y="0" width="1" height="1" preserveAspectRatio="none" result="m"/><feDisplacementMap id="lfd" in="SourceGraphic" in2="m" scale="0" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<header class="nav"><div class="w"><a class="logo" href="#home" aria-label="Home">SG</a>
+<nav aria-label="Primary"><a href="#about">About</a><a href="#research">Research</a><a href="#projects">Projects</a><a href="#contact">Contact</a><a class="cta-nav" href="#contact">Hire me</a></nav></div></header>
 
-  <!-- Accessibility -->
-  <a
-    class="skip-link"
-    href="#main"
-  >
-    Skip to content
-  </a>
+<main>
+<section class="page" id="p-home"><div class="w hero"><div>
+  <p class="eye">Astrophysics &amp; Data Science</p><h1>Satyajit “Chris” Gade</h1>
+  <p class="tag">I like Data Analysis and Computational Astrophysics</p>
+  <p class="lede">I am interested in astrophysical research and computation. I have worked primarily on simulating lens systems and I have built machine learning models that attempt to understand the physics behind those systems.</p>
+  <a class="btn p" href="#research">See my work</a><a class="btn g" href="#contact">Hire me</a>
+  <p class="hint">The sky and my photo sit behind a gravitational lens. Move your mouse to bend them, or click anywhere for a gravitational ripple.</p></div>
+  <div class="pt"><img id="ptimg" src="edited-photo.png" alt="Portrait of Satyajit Gade"><canvas id="ptc" width="380" height="460" aria-hidden="true"></canvas></div></div>
+  <div class="w stats"><div><b>300,000</b><span>mock lensed systems generated on an HPC cluster</span></div><div><b>0.045</b><span>validation MAE for the best lens network</span></div><div><b>R² 0.9999</b><span>physics network trained on 1M trajectories</span></div></div>
+  <div class="w dual"><div><h3>Work I've done as a researcher...</h3><ul><li>Gravitational lens modeling: SIS, SIE and external shear</li><li>Shear and ellipticity drawn from Oguri &amp; Marshall (2010)</li><li>MCMC with emcee, Honors in Astronomy, Paul Robeson Scholar</li><li>Contributed talk at Rutgers, March 2025</li></ul></div><div><h3>Work I've done as a data nerd...</h3><ul><li>Keras, TensorFlow, PyTorch and scikit-learn</li><li>Datasets of 300,000 to 1,000,000 samples</li><li>HPC with SLURM on Rutgers’ Amarel cluster</li><li>Held-out tests, residual and Q-Q diagnostics</li></ul></div></div>
+  <div class="w"><p class="vp">I work on both halves together, so every model is checked against the physics it is meant to capture.</p><div class="next"><span>Where should you start? Explore who I am, what work I have done, what projects I have worked on, and future collaboration opportunities.</span><a class="btn p" href="#about">Begin with chapter 1</a></div></div>
+</section>
 
+<section class="page" id="p-about" hidden><div class="w">
+  <div class="ph"><p class="eye">Chapter 1 · Who I am</p><h2>The person behind the models</h2></div>
+  <div class="two"><div>
+    <p>My name is <span class="hl">Satyajit</span>, and most people call me <span class="hl">Chris</span>. I graduated from Rutgers–New Brunswick with Honors in Astrophysics, a minor in Mathematics, and a thesis on applying machine learning to gravitational lens modeling.</p>
+    <p> I'm now looking for entry-level roles in astrophysics research and data science, where I can put data-driven methods to work on hard problems.</p>
+    <p>Outside of coding and research, I spend my time listening to music, drawing, and gaming. When working, I research alongside my panda plush, Dr. Bubbles, who keeps me focused even during times of stress. I also frequent MeeTu and Utepia for bubble tea where I get an iced shaken matcha or strawberry matcha. </p></div>
+    <figure class="bub"><img src="drBubbles.jpg" alt="Dr. Bubbles, a panda plush holding a bamboo shoot" loading="lazy"><figcaption>Dr. Bubbles, my research companion.</figcaption></figure></div>
+  <h3 class="k">Education</h3>
+  <div class="edu"><div><h3>M.S. Data Science</h3><p>Monroe University, New Rochelle, NY. Started September 2026.</p></div><div><h3>B.S. Astrophysics, Honors</h3><p>Rutgers University, 2021–2025. Thesis: Applying Machine Learning to Gravitational Lens Modeling. Honors in Astronomy, SAS Paul Robeson Scholar, Dean’s List (Fall 2021, 2023, 2024).</p></div></div>
+  <h3 class="k">Toolkit</h3>
+  <div class="kit"><div><h4>Languages</h4><p>Python, SQL, MATLAB, Bash, LaTeX, Mathematica</p></div><div><h4>Machine learning</h4><p>TensorFlow, Keras, PyTorch, scikit-learn, feature engineering, hyperparameter tuning, cross-validation</p></div><div><h4>Statistics</h4><p>Hypothesis testing, residual analysis, MCMC with emcee, Monte Carlo</p></div><div><h4>Data and compute</h4><p>pandas, NumPy, SciPy, Astropy, Matplotlib, Git, Linux, SLURM</p></div></div>
+<div class="next"><span>Next, chapter 2: the research.</span><a class="btn p" href="#research">See the research</a></div></div></section>
 
-  <!-- =====================================================
-       GRAVITATIONAL LENS BACKGROUND
-       ===================================================== -->
-
-  <canvas
-    id="lens-field"
-    aria-hidden="true"
-  ></canvas>
-
-
-  <!-- =====================================================
-       CUSTOM LENSING CURSOR
-       ===================================================== -->
-
-  <div
-    id="lens-cursor"
-    aria-hidden="true"
-  >
-    <span class="lens-cursor-core"></span>
+<section class="page" id="p-research" hidden><div class="w">
+  <div class="ph"><p class="eye">Chapter 2 · My work</p><h2>Teaching networks to learn physics.</h2><p class="sub">Two years of gravitational lens modeling at Rutgers, from thesis to cluster-scale simulation.</p></div>
+  <div class="res"><div>
+    <div class="job"><h3>Post-Baccalaureate Researcher</h3><p class="when">Rutgers Physics &amp; Astronomy · Sep 2025 – Jun 2026</p><ul>
+      <li>Scaled mock-lens generation from a laptop to the Amarel cluster with SLURM job arrays: 300,000 raw systems (100,000 each of SIS+shear, SIE and SIE+shear), curated to 79,398 shear-model systems with a magnification threshold.</li>
+      <li>Designed three Keras networks matched to lens multiplicity (4-, 7- and 13-feature inputs), trained with Adam, batch normalization and early stopping to a best validation loss of 0.0032 and MAE of 0.045 in 94–139 epochs.</li>
+      <li>Tested a network trained on one lens model against another and measured the drop to MAE 0.85–0.92, marking the limit of transfer across the isothermal family.</li>
+      <li>Built diagnostics (residual histograms, Q-Q plots, skew tests) and rotation and translation augmentation.</li></ul></div>
+    <div class="job"><h3>Undergraduate Student Researcher</h3><p class="when">Rutgers Physics &amp; Astronomy · Sep 2024 – May 2025</p><ul>
+      <li>Built a Python pipeline on the group’s gravlens library, drawing shear and ellipticity from Oguri &amp; Marshall (2010) distributions for 9,000 simulated lenses across three isothermal models.</li>
+      <li>Mapped correlations across five lens parameters in corner plots, showing the learnable structure that motivated the neural network approach.</li></ul></div>
+    <div class="job"><h3>Contributed talk</h3><p class="when">Rutgers Physics &amp; Astronomy · March 2025</p><ul><li>Presented the full pipeline, from dataset generation to validation, to faculty, postdocs and students.</li></ul></div>
   </div>
+  <aside class="demo"><h3>Try a lens model</h3><p>An isothermal lens plus external shear, one of the model families I simulated. Drag on the image to move the background galaxy: off-center gives two images, and shear can split them into four.</p>
+    <canvas id="demo" width="340" height="340" aria-label="Interactive gravitational lens simulation"></canvas>
+    <label>Einstein radius<input id="e" type="range" min="40" max="100" value="68"></label>
+    <label>Shear strength<input id="g" type="range" min="0" max="0.3" step="0.01" value="0.12"></label>
+    <label>Shear angle<input id="a" type="range" min="0" max="180" value="35"></label></aside></div>
+<div class="next"><span>Next, chapter 3: the work.</span><a class="btn p" href="#projects">Open the case studies</a></div></div></section>
+
+<section class="page" id="p-projects" hidden><div class="w"><div class="ph"><p class="eye">Chapter 3 · My Personal Projects</p><h2>Case studies</h2><p class="sub">Open a case study to see the question, the method and the result. The first two are my research; the others show the same habits on other problems.</p></div><details class="cs" open><summary><h3>Lens modeling at scale</h3><p>Can a neural network recover lens parameters from simulated lensed systems? Keras, SLURM, gravlens.</p><i>+</i></summary><div class="body"><div><h4>The question</h4><p>Can neural networks learn to recover lens parameters from simulated lensed systems, and how far can that be trusted?</p></div><div><h4>The approach</h4><p>Simulated lenses with the group’s gravlens library, scaled to the Amarel cluster with SLURM job arrays, then trained three Keras networks matched to lens multiplicity (4-, 7- and 13-feature inputs to 3, 6 and 12 outputs).</p></div><div><h4>The result</h4><p>Best validation loss 0.0032 and MAE 0.045 in 94–139 epochs, checked with residual histograms, Q-Q plots, skew tests, and rotation and translation augmentation.</p></div><div class="bars"><div class="bar"><span>Raw systems</span><s style="--w:100%"></s><b>300,000</b></div><div class="bar"><span>Curated (shear model)</span><s style="--w:26.5%"></s><b>79,398</b></div></div></div></details><details class="cs"><summary><h3>Where the network stops generalizing</h3><p>A cross-model test that defined the transfer limit across isothermal lenses.</p><i>+</i></summary><div class="body"><div><h4>The question</h4><p>How far does a network trained on one lens model carry over to another?</p></div><div><h4>The approach</h4><p>Trained on SIS+shear systems, then tested on SIE systems from the same isothermal family, using the same residual and Q-Q diagnostics.</p></div><div><h4>The result</h4><p>Error rose from an MAE of 0.045 to 0.85–0.92, which defined the transfer limit across the isothermal model family.</p></div><div class="bars"><div class="bar"><span>Same model (validation)</span><s style="--w:5%"></s><b>0.045</b></div><div class="bar"><span>Cross-model (SIE)</span><s style="--w:92%"></s><b>0.85–0.92</b></div></div></div></details><details class="cs"><summary><h3>Physics as a validation set</h3><p>A projectile network checked against the closed-form solution.</p><i>+</i></summary><div class="body"><div><h4>The question</h4><p>Does a neural network recover known physics, rather than just fit data?</p></div><div><h4>The approach</h4><p>A three-hidden-layer (64-neuron, ReLU) Keras regressor trained on 1,000,000 simulated trajectories to predict range from velocity and launch angle.</p></div><div><h4>The result</h4><p>Validated on 100,000 held-out trajectories against the kinematic solution: R² of 0.9999 and MAE of 0.86 m, converging in 10 epochs.</p></div><div class="bars"><div class="bar"><span>Training trajectories</span><s style="--w:100%"></s><b>1,000,000</b></div><div class="bar"><span>Held-out test</span><s style="--w:10%"></s><b>100,000</b></div></div></div></details><details class="cs"><summary><h3>What makes a track popular</h3><p>Exploratory analysis of 586,672 Spotify tracks in pandas.</p><i>+</i></summary><div class="body"><div><h4>The question</h4><p>What separates the most popular tracks from the rest?</p></div><div><h4>The approach</h4><p>Cleaned a Kaggle dataset, engineered a year field, and compared 736 top-tier tracks (popularity above 80) with 585,936 others across six audio features using box plots, KDEs and a heatmap.</p></div><div><h4>The result</h4><p>Acousticness (r = −0.37) and loudness (r = 0.33) correlated most strongly with popularity, reported as correlation only.</p></div></div></details><div class="row" style="margin-top:0;border-bottom:0"><h3>Lorentz transform visualizer</h3><div><p>A Matplotlib animation of length contraction and time dilation as observers approach light speed.</p><ul class="tags"><li>Python</li><li>Special relativity</li></ul></div><div class="lk"><a href="https://github.com/satyajitlion/PhysicsSimulations">Code</a><a href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Lorentz%20Transformation%20Visualization.ipynb">Notebook</a></div></div><div class="row"><h3>Solar system simulator</h3><div><p>An N-body simulation of the solar system with accurate orbital mechanics and adjustable parameters.</p><ul class="tags"><li>Python</li><li>NumPy</li><li>Orbital mechanics</li></ul></div><div class="lk"><a href="https://github.com/satyajitlion/PhysicsSimulations">Code</a><a href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Solar%20System%20Simulation.ipynb">Notebook</a></div></div><div class="next"><span>Next, chapter 4: working together.</span><a class="btn p" href="#contact">Hire me or collaborate</a></div></div></section>
+
+<section class="page" id="p-contact" hidden><div class="w"><div class="ph"><p class="eye">Chapter 4 · Collaboration Opportunities</p><h2>Let’s work together</h2><p class="sub">I’m looking for entry-level roles in astrophysics research and data science, and for collaborations in computational astrophysics. Pick the path that fits and the email opens ready to send.</p></div>
+<div class="paths"><a href="mailto:satyajitlion@gmail.com?subject=Hiring%20inquiry"><h3>Hire me</h3><p>Data science, machine learning or research roles.</p></a><a href="mailto:satyajitlion@gmail.com?subject=Research%20collaboration"><h3>Collaborate</h3><p>Computational astrophysics, lens modeling, or machine learning for physics.</p></a><a href="mailto:satyajitlion@gmail.com?subject=Resume%20request"><h3>Request my resume</h3><p>I’ll send you the latest version.</p></a></div>
+<p style="margin:48px 0 14px;color:var(--mut)">Or write to me directly. Based in New Jersey, studying for an M.S. in Data Science at Monroe University.</p>
+<a class="big" href="mailto:satyajitlion@gmail.com">satyajitlion@gmail.com</a><p class="soc" style="margin-top:30px"><a href="https://github.com/satyajitlion">GitHub</a><a href="https://www.linkedin.com/in/satyajitgade/">LinkedIn</a></p></div></section>
+</main>
+<footer>Designed and built by Chris Gade · <span id="yr"></span></footer>
 
-
-  <!-- =====================================================
-       NAVIGATION
-       ===================================================== -->
-
-  <header class="site-nav">
-
-    <div class="nav-container">
-
-      <a
-        href="#top"
-        class="logo"
-        aria-label="Home"
-      >
-        SG
-      </a>
-
-
-      <nav
-        class="nav-links"
-        id="nav-links"
-        aria-label="Primary navigation"
-      >
-
-        <a href="#about">
-          About
-        </a>
-
-        <a href="#projects">
-          Projects
-        </a>
-
-        <a href="#contact">
-          Contact
-        </a>
-
-      </nav>
-
-
-      <button
-        class="menu-toggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="nav-links"
-        aria-label="Toggle menu"
-      >
-
-        <span class="hamburger"></span>
-
-      </button>
-
-    </div>
-
-  </header>
-
-
-  <!-- =====================================================
-       MAIN CONTENT
-       ===================================================== -->
-
-  <main id="main">
-
-
-    <!-- ===================================================
-         HERO
-         =================================================== -->
-
-    <section
-      id="top"
-      class="hero"
-    >
-
-      <div class="hero-grid">
-
-
-        <!-- HERO TEXT -->
-
-        <div class="hero-copy">
-
-          <p class="eyebrow">
-            Astrophysics &amp; Data Science
-          </p>
-
-
-          <h1>
-            Satyajit “Chris” Gade
-          </h1>
-
-
-          <p class="hero-lede">
-
-            I am interested in using computation to study the universe. I am
-            currently exploring machine learning approaches to
-            gravitational lens modeling, while looking for my next
-            research or data science role.
-
-          </p>
-
-
-          <div class="hero-actions">
-
-            <a
-              href="#projects"
-              class="btn-primary"
-            >
-              See my work
-            </a>
-
-
-            <a
-              href="mailto:satyajitlion@gmail.com"
-              class="btn-ghost"
-            >
-              Get in touch
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <!-- HERO IMAGE -->
-
-        <div class="hero-visual">
-
-          <div class="profile-frame">
-
-            <img
-              src="edited-photo.png"
-              alt="Portrait of Satyajit Gade"
-              fetchpriority="high"
-            >
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <p class="hero-hint">
-        Click this and move your cursor over the background stars and space:
-        <button id="lens-toggle" type="button" aria-pressed="false" hidden>Cursor lens: off</button>
-      </p>
-
-    </section>
-
-
-    <!-- DIVIDER -->
-
-    <div
-      class="divider"
-      role="presentation"
-      aria-hidden="true"
-    >
-
-      <svg
-        viewBox="0 0 1200 40"
-        preserveAspectRatio="none"
-      >
-
-        <path
-          d="M0,20 Q600,0 1200,20"
-        ></path>
-
-      </svg>
-
-    </div>
-
-
-    <!-- ===================================================
-         ABOUT
-         =================================================== -->
-
-    <section
-      id="about"
-      class="section"
-    >
-
-      <div class="about-grid">
-
-
-        <div class="about-text">
-
-          <h2>
-            About
-          </h2>
-
-
-          <p>
-
-            My name is
-            <span class="hl">
-              Satyajit
-            </span>
-            — most people call me
-            <span class="hl">
-              Chris
-            </span>.
-
-            I recently graduated from Rutgers
-            University–New Brunswick with a
-            <span class="hl">
-              B.S. in Astrophysics
-            </span>
-            and a
-            <span class="hl">
-              minor in Mathematics
-            </span>,
-
-            where my research focused on applying
-            machine learning to gravitational lens modeling.
-
-            I'm now looking for entry-level roles in
-            astrophysics research and data science,
-            where I can put data-driven methods to work
-            on hard problems.
-
-          </p>
-
-
-          <p>
-
-            Outside of coding and research, I spend my time listening to music, drawing, 
-            gaming. When working, I research alongside my panda plush, Dr. Bubbles, who keeps me focused 
-            even during times of stress. I also frequent MeeTu and Utepia for bubble tea where I get 
-            an iced shaken matcha or strawberry matcha.
-
-          </p>
-
-
-          <h3 class="tools-heading">
-            There are some of the tools I work with
-          </h3>
-
-
-          <ul class="skills-list">
-
-            <li>Python</li>
-            <li>NumPy</li>
-            <li>SciPy</li>
-            <li>AstroPy</li>
-            <li>Pandas</li>
-            <li>Matplotlib</li>
-            <li>Seaborn</li>
-            <li>Keras</li>
-            <li>SQL</li>
-
-          </ul>
-
-        </div>
-
-
-        <div class="about-image">
-
-          <div class="image-frame">
-
-            <img
-              src="drBubbles.jpg"
-              alt="Dr. Bubbles, a panda plush"
-              loading="lazy"
-            >
-            <p class="hero-caption">
-              Dr. Bubbles, my research companion.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- DIVIDER -->
-
-    <div
-      class="divider"
-      role="presentation"
-      aria-hidden="true"
-    >
-
-      <svg
-        viewBox="0 0 1200 40"
-        preserveAspectRatio="none"
-      >
-
-        <path
-          d="M0,20 Q600,40 1200,20"
-        ></path>
-
-      </svg>
-
-    </div>
-
-
-    <!-- ===================================================
-         PROJECTS
-         =================================================== -->
-
-    <section
-      id="projects"
-      class="section"
-    >
-
-      <h2>
-        Selected projects
-      </h2>
-
-
-      <div class="projects-list">
-
-
-        <!-- PROJECT 1 -->
-
-        <article class="project-row">
-
-          <div class="project-media">
-
-            <img
-              src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/LorentzAnimation.gif"
-              alt="Animation of relativistic length contraction and time dilation"
-              loading="lazy"
-            >
-
-          </div>
-
-
-          <div class="project-body">
-
-            <h3>
-              Lorentz Transform Visualizer
-            </h3>
-
-
-            <p>
-
-              A Python simulation demonstrating relativistic
-              effects, using Matplotlib animations to visualize
-              length contraction and time dilation as observers
-              approach the speed of light.
-
-            </p>
-
-
-            <ul class="tech-tags">
-
-              <li>Python</li>
-              <li>Matplotlib</li>
-              <li>Special Relativity</li>
-
-            </ul>
-
-
-            <div class="project-links">
-
-              <a
-                href="https://github.com/satyajitlion/PhysicsSimulations"
-                aria-label="View PhysicsSimulations code on GitHub"
-              >
-                <i
-                  class="fab fa-github"
-                  aria-hidden="true"
-                ></i>
-
-                Code
-
-              </a>
-
-
-              <a
-                href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Lorentz%20Transformation%20Visualization.ipynb"
-                aria-label="Open Lorentz Transformation notebook"
-              >
-                <i
-                  class="fas fa-external-link-alt"
-                  aria-hidden="true"
-                ></i>
-
-                Notebook
-
-              </a>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-        <!-- PROJECT 2 -->
-
-        <article class="project-row">
-
-          <div class="project-media">
-
-            <img
-              src="https://raw.githubusercontent.com/satyajitlion/PhysicsSimulations/main/SolarSystemAnimation.gif"
-              alt="Animated N-body simulation of the solar system"
-              loading="lazy"
-            >
-
-          </div>
-
-
-          <div class="project-body">
-
-            <h3>
-              Solar System Simulator
-            </h3>
-
-
-            <p>
-
-              An interactive N-body simulation of our solar
-              system with accurate orbital mechanics and
-              real-time parameter adjustments.
-
-            </p>
-
-
-            <ul class="tech-tags">
-
-              <li>Python</li>
-              <li>NumPy</li>
-              <li>Orbital Mechanics</li>
-
-            </ul>
-
-
-            <div class="project-links">
-
-              <a
-                href="https://github.com/satyajitlion/PhysicsSimulations"
-                aria-label="View PhysicsSimulations code on GitHub"
-              >
-
-                <i
-                  class="fab fa-github"
-                  aria-hidden="true"
-                ></i>
-
-                Code
-
-              </a>
-
-
-              <a
-                href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Solar%20System%20Simulation.ipynb"
-                aria-label="Open Solar System notebook"
-              >
-
-                <i
-                  class="fas fa-external-link-alt"
-                  aria-hidden="true"
-                ></i>
-
-                Notebook
-
-              </a>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-      </div>
-
-    </section>
-
-
-    <!-- DIVIDER -->
-
-    <div
-      class="divider"
-      role="presentation"
-      aria-hidden="true"
-    >
-
-      <svg
-        viewBox="0 0 1200 40"
-        preserveAspectRatio="none"
-      >
-
-        <path
-          d="M0,20 Q600,0 1200,20"
-        ></path>
-
-      </svg>
-
-    </div>
-
-
-    <!-- ===================================================
-         CONTACT
-         =================================================== -->
-
-    <section
-      id="contact"
-      class="section contact-section"
-    >
-
-      <h2>
-        Get in touch
-      </h2>
-
-
-      <p>
-
-        I'm currently looking for research opportunities
-        and collaborations in computational astrophysics.
-
-        Whether you have a question or just want to share
-        boba recommendations, I'll do my best to get back
-        to you.
-
-      </p>
-
-
-      <a
-        href="mailto:satyajitlion@gmail.com"
-        class="btn-primary"
-      >
-        Say hello
-      </a>
-
-
-      <div
-        class="social-links"
-        aria-label="Social links"
-      >
-
-        <a
-          href="https://github.com/satyajitlion"
-          aria-label="GitHub"
-        >
-
-          <i
-            class="fab fa-github"
-            aria-hidden="true"
-          ></i>
-
-        </a>
-
-
-        <a
-          href="https://www.linkedin.com/in/satyajitgade/"
-          aria-label="LinkedIn"
-        >
-
-          <i
-            class="fab fa-linkedin-in"
-            aria-hidden="true"
-          ></i>
-
-        </a>
-
-
-        <a
-          href="mailto:satyajitlion@gmail.com"
-          aria-label="Email"
-        >
-
-          <i
-            class="fas fa-envelope"
-            aria-hidden="true"
-          ></i>
-
-        </a>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- =====================================================
-       FOOTER
-       ===================================================== -->
-
-  <footer>
-
-    <p>
-      Designed &amp; built by Chris Gade
-    </p>
-
-    <p>
-      ©
-      <span id="year"></span>
-    </p>
-
-  </footer>
-
-
-  <!-- =====================================================
-       IMPORTANT:
-       No inline JavaScript goes here.
-       script.js is loaded from <head> with defer.
-       ===================================================== -->
 
 </body>
-
 </html>

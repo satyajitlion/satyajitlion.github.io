@@ -54,7 +54,12 @@
     <!-- The dog wipe is built here by script.js (section 11B) every time you open or leave the Personal life page -->
     <div id="wipe" hidden aria-hidden="true"></div>
     <!-- Waterfall music: put your own file at undertale/waterfall.mp3 (not included). It starts on the Personal life page and stops when you leave. -->
-    <audio id="waterfall" src="undertale/waterfall.mp3" loop preload="none"></audio>
+    <audio id="waterfall" loop preload="auto">
+      <source src="undertale/waterfall.opus" type="audio/ogg; codecs=opus">
+      <source src="undertale/waterfall.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="dogBark" src="undertale/dog-bark.mp3" preload="auto"></audio>
+    <audio id="dogTheme" src="undertale/annoying-dog-theme.mp3" preload="auto"></audio>
 
     <!-- ============ PAGES: only the one matching the #hash is shown ============ -->
     <main>
@@ -369,8 +374,11 @@
           <!-- Top controls: back to the main site, switch the background scene, mute the music -->
           <div class="ut-top">
             <a class="ut-back" href="#home">&larr; Back to the real world</a>
-            <button id="sceneBtn" type="button">Change scene</button>
+            <button id="sceneBtn" type="button" hidden>Change scene</button>
             <button id="muteBtn" type="button" aria-pressed="false">Music: on</button>
+            <label class="ut-vol">Volume
+              <input id="volSlider" type="range" min="0" max="1" step="0.01" value="0.15">
+            </label>
           </div>
           <h2 class="ut-title">* Personal life</h2>
           <!-- Typed out letter by letter by script.js. Edit the text in data-text. -->
@@ -400,7 +408,7 @@
             <figure class="art"><span> drawing here</span></figure>
             <figure class="art"><span> drawing here</span></figure>
           </div>
-          <p class="ut-credit"> Background Art Credit to Temmie Chang. Song Credit to Toby Fox.</p>
+          <p class="ut-credit"> Background Art Credit to Moonshen. Song Credit to Toby Fox.</p>
         </div>
       </section>
 

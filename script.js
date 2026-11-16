@@ -430,7 +430,83 @@ requestAnimationFrame(frame);
 /* ---- 11B. PERSONAL LIFE: dog wipe, Undertale scene, music ---- */
 const DOG_SRC = "undertale/annoying-dog.png"; // the dog sprite (it faces left)
 const DOG_ROW_PX = 64; // height of each row of running dogs, in px (smaller = more dogs)
-const MUSIC_VOLUME = 0.6; // 0 to 1, the waterfall music volume on the Personal life page
+
+// Short sound effects for the dog wipe (optional: drop either <audio> and the call becomes a no-op)
+
+const DOG_BARK = $("#dogBark");
+
+function playDog(el, volume = 0.5) {
+  if (!el || !el.readyState) return;   // file missing or not loaded yet
+  if (music.muted) return;             // respect the existing "Music: off" button
+  el.currentTime = 0;                  // restart from the top if it was already playing
+  el.volume = volume;
+  el.play().catch(() => {});           // ignore autoplay rejections
+}
+
+// Clone-based bark player: each call gets its own <audio> clone, so barks overlap
+// instead of cutting each other off. barkPool keeps references alive while playing.
+const barkPool = new Set();
+function playBark(volume = 0.5) {
+  if (!DOG_BARK || DOG_BARK.readyState < 2) return;
+  if (music.muted) return;
+  const a = DOG_BARK.cloneNode();
+  a.volume = volume;
+  a.playbackRate = 0.92 + Math.random() * 0.16;   // slightly different pitch per dog
+  barkPool.add(a);
+  a.onended = () => barkPool.delete(a);
+  a.onerror = () => barkPool.delete(a);
+  a.play().catch(() => barkPool.delete(a));
+}
+
+function primeAudio(el) {
+  if (!el) return;
+  const v = el.volume;
+  el.volume = 0;
+  el.play().then(() => {
+    el.pause();
+    el.currentTime = 0;
+    el.volume = v;
+  }).catch(() => {});
+}
+
+primeAudio(DOG_BARK);   // optional: removes first-play latency (see below)
+
+const DOG_THEME = $("#dogTheme");
+const THEME_VOL = 0.2;      // lower than the bark's 0.6; try 0.15–0.3
+let themeFade = 0;
+
+// Linear fade for the theme only. Separate timer from fadeMusic, so the waterfall
+// track and the bark are never touched by these calls.
+function fadeTheme(to, ms) {
+  clearInterval(themeFade);
+  const from = DOG_THEME.volume, t0 = performance.now();
+  themeFade = setInterval(() => {
+    const p = Math.min(1, (performance.now() - t0) / ms);
+    DOG_THEME.volume = Math.max(0, Math.min(1, from + (to - from) * p));
+    if (p === 1) {
+      clearInterval(themeFade);
+      if (to === 0) { DOG_THEME.pause(); DOG_THEME.currentTime = 0; }
+    }
+  }, 40);
+}
+
+function playTheme() {
+  if (!DOG_THEME || DOG_THEME.readyState < 2) return;
+  if (music.muted) return;
+  DOG_THEME.pause();
+  DOG_THEME.currentTime = 0;          // restart from the top every wipe
+  DOG_THEME.volume = 0;
+  DOG_THEME.play()
+    .then(() => fadeTheme(THEME_VOL, 400))   // short fade-in masks the start
+    .catch(() => {});                          // autoplay blocked → silent, no crash
+}
+
+function stopTheme(ms = 900) {
+  if (!DOG_THEME || DOG_THEME.paused) return;
+  fadeTheme(0, ms);
+}
+
+let MUSIC_VOLUME = 0.15; // 0 to 1, the waterfall music volume on the Personal life page
 const music = $("#waterfall");
 const wipeEl = $("#wipe");
 let fadeTimer;
@@ -450,8 +526,9 @@ function fadeMusic(to, ms) {
 // Start (fade in) or stop (fade out) the music. Fails quietly if the mp3 is missing or the browser blocks it.
 function personalAudio(on) {
   if (on) {
+    music.volume = 0;
     music.play().catch(() => {});
-    fadeMusic(MUSIC_VOLUME, 1500);
+    fadeMusic(MUSIC_VOLUME, 2000);
   } else if (!music.paused) {
     fadeMusic(0, 800);
   }
@@ -503,12 +580,30 @@ async function dogWipe(swap) {
   const move = (from, to, ms, ease, spread) => Promise.all(groups.map((g) =>
     g.animate([{ transform: `translateX(${from(g)})` }, { transform: `translateX(${to(g)})` }],
       { duration: ms, delay: Math.random() * spread, easing: ease, fill: "both" }).finished));
-  await move(away, () => "0%", 950, "cubic-bezier(.5,0,.9,.6)", 250); // run in and collide
-  await flash.animate([{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }], { duration: 260 }).finished;
-  await new Promise((r) => setTimeout(r, 160)); // a beat of black, like a light switching off
+
+  playTheme();
+
+  // Multiple barks, staggered. Count scales with how many rows of dogs there are.
+  const runInDuration = 1400;
+  const barkCount = Math.max(2, Math.min(5, Math.round(rows / 4)));
+  const barkTimers = [];
+  for (let i = 0; i < barkCount; i++) {
+    barkTimers.push(setTimeout(
+      () => playBark(0.35 + Math.random() * 0.25),
+      (runInDuration - 100) + i * 90 + Math.random() * 60
+    ));
+  }
+
+  await move(away, () => "0%", runInDuration, "cubic-bezier(.5,0,.9,.6)", 350);
+  barkTimers.forEach(clearTimeout);
+
+  await flash.animate([{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }], { duration: 380 }).finished;
+  await new Promise((r) => setTimeout(r, 240));
   swap();
-  wipeEl.classList.add("out"); // dogs turn around
-  await move(() => "0%", away, 1000, "cubic-bezier(.1,.6,.3,1)", 250); // run back out, revealing the new page
+  wipeEl.classList.add("out");                                      // dogs turn around
+
+  stopTheme(1500);                                                  // ← fade out over the run-out
+  await move(() => "0%", away, 1500, "cubic-bezier(.1,.6,.3,1)", 350);
   wipeEl.hidden = true;
   wipeEl.innerHTML = "";
 }
@@ -523,6 +618,24 @@ $("#muteBtn").addEventListener("click", (e) => {
   e.currentTarget.textContent = music.muted ? "Music: off" : "Music: on";
   e.currentTarget.setAttribute("aria-pressed", String(music.muted));
 });
+
+// Volume slider: updates MUSIC_VOLUME, and re-fades the music if it's currently playing.
+const volSlider = $("#volSlider");
+if (volSlider) {
+  volSlider.value = MUSIC_VOLUME;
+  volSlider.addEventListener("input", () => {
+    MUSIC_VOLUME = +volSlider.value;
+    if (music.paused && MUSIC_VOLUME > 0) {
+      // dragging up from 0 should restart playback
+      music.volume = 0;
+      music.play()
+        .then(() => fadeMusic(MUSIC_VOLUME, 200))
+        .catch(() => {});          // still blocked → the retry below will catch the next click
+    } else if (!music.paused) {
+      fadeMusic(MUSIC_VOLUME, 180);
+    }
+  });
+}
 
 /* ---- 12. PAGES & TRANSITIONS ---- */
 // Each page is a <section id="p-NAME"> in index.html, opened with a #NAME link.

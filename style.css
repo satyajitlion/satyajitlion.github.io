@@ -827,7 +827,8 @@ body.undertale .ut-bg {
   display: block;
 }
 .ut-bg.waterfall {
-  background-image: url("undertale/bg-waterfall.jpg");   /* scene option 1 */
+  background-image: url("undertale/frisk_bg.gif");
+  image-rendering: pixelated;   /* remove if the GIF is smooth/watercolor, keep if pixel art */
 }
 .ut-bg.marsh {
   background-image: url("undertale/bg-marsh.jpg");       /* scene option 2 */
@@ -837,7 +838,7 @@ body.undertale .ut-bg {
   content: "";                         /* dark veil so text stays readable on the art */
   position: absolute;
   inset: 0;
-  background: linear-gradient(rgba(0,0,12,.32), rgba(0,0,12,.55));
+  background: linear-gradient(rgba(0,0,12,.1), rgba(0,0,12,.2));
 }
 .ut h2,
 .ut h3 {
@@ -922,6 +923,22 @@ body.undertale .ut-bg {
   color: #ff0;
   border-color: #ff0;
 }
+
+/* Volume slider on the Personal life page */
+.ut-top label.ut-vol {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: inherit;
+  color: #fff;
+}
+.ut-top input[type="range"] {
+  accent-color: #ff0;      /* yellow, matches the dialogue text */
+  width: 120px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
 .ut-credit {
   font-size: 17px;
   color: #8aa;

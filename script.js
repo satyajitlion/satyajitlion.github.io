@@ -637,6 +637,110 @@ if (volSlider) {
   });
 }
 
+/* ---- 11C. COMIC PANELS: tilt with pointer, click to open a zoom window ----
+   Handles the three info panels (.ut-box) and the three drawings (.art). */
+(function comicPanels() {
+  const panels = Array.from(document.querySelectorAll(
+    ".ut-grid > .ut-box, .art-grid > .art"
+  ));
+  if (!panels.length) return;
+
+  // --- tilt ---
+  let raf = 0;
+  let px = 0, py = 0;
+  const applyTilt = () => {
+    raf = 0;
+    panels.forEach((p) => {
+      if (!px) {
+        p.style.setProperty("--rx", "0deg");
+        p.style.setProperty("--ry", "0deg");
+        p.style.setProperty("--tx", "0px");
+        p.style.setProperty("--ty", "0px");
+        return;
+      }
+      const r = p.getBoundingClientRect();
+      const dx = (px - (r.left + r.width / 2)) / r.width;
+      const dy = (py - (r.top + r.height / 2)) / r.height;
+      p.style.setProperty("--rx", (-dy * 6).toFixed(2) + "deg");
+      p.style.setProperty("--ry", ( dx * 6).toFixed(2) + "deg");
+      p.style.setProperty("--tx", ( dx * 3).toFixed(2) + "px");
+      p.style.setProperty("--ty", ( dy * 3).toFixed(2) + "px");
+    });
+  };
+
+  document.querySelectorAll(".ut-grid, .art-grid").forEach((grid) => {
+    grid.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
+      px = e.clientX; py = e.clientY;
+      if (!raf) raf = requestAnimationFrame(applyTilt);
+    }, { passive: true });
+    grid.addEventListener("pointerleave", () => {
+      px = py = 0;
+      if (!raf) raf = requestAnimationFrame(applyTilt);
+    });
+  });
+
+  // --- zoom window ---
+  const modal   = document.getElementById("panelModal");
+  if (!modal) return;
+  const slot     = modal.querySelector(".panel-modal__content");
+  const closeBtn = modal.querySelector(".panel-modal__close");
+  const backdrop = modal.querySelector(".panel-modal__backdrop");
+  let lastFocus = null;
+
+  function openPanel(panel) {
+    lastFocus = panel;
+    slot.replaceChildren();
+    const clone = panel.cloneNode(true);
+    clone.classList.remove("open");
+    clone.removeAttribute("tabindex");
+    clone.removeAttribute("role");
+    clone.removeAttribute("aria-haspopup");
+    slot.appendChild(clone);
+
+    // NEW: widen the window when the source is a drawing
+    modal.querySelector(".panel-modal__window")
+        .classList.toggle("art-mode", panel.classList.contains("art"));
+
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+    closeBtn.focus();
+  }
+
+  function closePanel() {
+    if (modal.hidden) return;
+    modal.hidden = true;
+    document.body.style.overflow = "";
+    slot.replaceChildren();
+    if (lastFocus) lastFocus.focus();
+  }
+
+  panels.forEach((p) => {
+    p.setAttribute("tabindex", "0");
+    p.setAttribute("role", "button");
+    p.setAttribute("aria-haspopup", "dialog");
+    p.addEventListener("click", (e) => {
+      if (e.target.closest("a, button")) return;
+      openPanel(p);
+    });
+    p.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openPanel(p);
+      }
+    });
+  });
+
+  closeBtn.addEventListener("click", closePanel);
+  backdrop.addEventListener("click", closePanel);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closePanel();
+  });
+  addEventListener("hashchange", closePanel);
+})();
+
+
+
 /* ---- 12. PAGES & TRANSITIONS ---- */
 // Each page is a <section id="p-NAME"> in index.html, opened with a #NAME link.
 // Add a page: add its section, a nav link, and an entry in this list.

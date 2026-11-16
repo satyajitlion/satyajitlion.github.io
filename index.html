@@ -32,7 +32,7 @@
       <div class="c">
         <svg viewBox="-12 -12 24 24"><path class="star" d="M0 -11C1 -4 4 -1 11 0C4 1 1 4 0 11C-1 4 -4 1 -11 0C-4 -1 -1 -4 0 -11Z"/></svg>
         <span class="dot"></span>
-        <!-- Pixel SOUL heart: replaces the star while you are on the Personal life page -->
+        <!-- Pixel SOUL heart: replaces the star while I'm on the Personal life page -->
         <svg class="heart" viewBox="0 0 7 6" shape-rendering="crispEdges"><path fill="#f00" d="M1 0h2v1H1zM4 0h2v1H4zM0 1h7v2H0zM1 3h5v1H1zM2 4h3v1H2zM3 5h1v1H3z"/></svg>
       </div>
     </div>
@@ -387,32 +387,48 @@
             <!-- EDIT: replace the placeholder lines with your own games, music and so on. One <li> per item. -->
             <div class="ut-box"><h3>Games</h3><ul>
               <li>Undertale</li>
-              <li class="todo">Add a game I love</li>
-              <li class="todo">Add another</li>
+              <li class="todo">Deltarune</li>
+              <li class="todo">Warframe</li>
             </ul></div>
             <div class="ut-box"><h3>Music</h3><ul>
-              <li>Waterfall (Undertale OST), playing now</li>
+              <li>Waterfall (Undertale OST)</li>
               <li class="todo">Add an artist or album</li>
               <li class="todo">Add another</li>
             </ul></div>
-            <div class="ut-box"><h3>Making things</h3><ul>
+            <div class="ut-box"><h3>Other Hobbies</h3><ul>
               <li>Drawing</li>
-              <li class="todo">Write more lorem ipsum type stuff about what I like to draw</li>
-              <li class="todo">Add another</li>
+              <li class="todo">Photography</li>
+              <li class="todo">Messing around in FL Studio</li>
             </ul></div>
           </div>
           <h3 class="ut-sub">* Things I have drawn</h3>
           <!-- EDIT: put your drawings in a folder (for example art/) and swap each placeholder for <figure class="art"><img src="art/NAME.png" alt="describe it"></figure> -->
           <div class="art-grid">
-            <figure class="art"><span>drawing here</span></figure>
-            <figure class="art"><span> drawing here</span></figure>
-            <figure class="art"><span> drawing here</span></figure>
+            <figure class="art">
+              <img src="my_art/kitty_by_chris.jpg" alt="A cat drawing by Chris" loading="lazy">
+            </figure>
+            <figure class="art">
+              <img src="my_art/painting_two_chris.png" alt="A painting by Chris" loading="lazy">
+            </figure>
+            <figure class="art">
+              <img src="my_art/woman_painting.png" alt="A painting of a woman by Chris" loading="lazy">
+            </figure>
           </div>
           <p class="ut-credit"> Background Art Credit to Moonshen. Song Credit to Toby Fox.</p>
         </div>
       </section>
 
     </main>
+
+    <!-- Comic-panel zoom window. Filled by script.js §11C when a .ut-box is clicked. -->
+    <div id="panelModal" class="panel-modal" hidden>
+      <div class="panel-modal__backdrop" aria-hidden="true"></div>
+      <div class="panel-modal__window" role="dialog" aria-modal="true" aria-labelledby="panelModalTitle">
+        <button class="panel-modal__close" type="button" aria-label="Close">×</button>
+        <div class="panel-modal__content" id="panelModalTitle"></div>
+      </div>
+    </div>
+
     <!-- ============ FOOTER ============ -->
     <footer>Designed and built by Chris Gade · <span id="yr"></span></footer>
   </body>

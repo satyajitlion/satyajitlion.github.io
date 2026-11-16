@@ -13,7 +13,7 @@
     9. ANIMATION LOOP ........ runs about 60 times per second
    10. MOUSE, CLICK & CURSOR INPUT (includes the star cursor)
    11. START UP
-   12. PAGES & TRANSITIONS ... #about, #research, ... routing and the lensing page-in
+   11B. PERSONAL LIFE ..... sidebar page: dog wipe, Undertale scene, music\n   12. PAGES & TRANSITIONS ... #about, #research, ... routing and the lensing page-in
    13. LENS-MODEL DEMO ....... the interactive simulator on the Research page
 
    NAME GLOSSARY (short names used below)
@@ -304,7 +304,7 @@ function frame(now) {
 // Works out where the lens is (mouse, last nav click, or an idle drift), turns waves into rings,
 // then draws the sky and, while the mouse is near it, the lensed portrait.
 function draw(now) {
-  if (document.hidden || !bgPix) return;
+  if (document.hidden || !bgPix || document.body.classList.contains("undertale")) return; // sky is hidden on the Personal life page
   if (!enabled) {
     if (dirty) {
       bx.drawImage(sc, 0, 0);
@@ -425,10 +425,108 @@ const ph = $("#ptimg");
 ph.complete && ph.naturalWidth ? buildPT() : ph.onload = buildPT;
 requestAnimationFrame(frame);
 
+/* ---- 11B. PERSONAL LIFE: dog wipe, Undertale scene, music ---- */
+const DOG_SRC = "undertale/annoying-dog.png"; // the dog sprite (it faces left)
+const DOG_ROW_PX = 64; // height of each row of running dogs, in px (smaller = more dogs)
+const MUSIC_VOLUME = 0.6; // 0 to 1, the waterfall music volume on the Personal life page
+const music = $("#waterfall");
+const wipeEl = $("#wipe");
+let fadeTimer;
+// Smoothly change the music volume; at 0 it also pauses.
+function fadeMusic(to, ms) {
+  clearInterval(fadeTimer);
+  const from = music.volume, t0 = performance.now();
+  fadeTimer = setInterval(() => {
+    const p = Math.min(1, (performance.now() - t0) / ms);
+    music.volume = Math.max(0, Math.min(1, from + (to - from) * p));
+    if (p === 1) {
+      clearInterval(fadeTimer);
+      if (to === 0) music.pause();
+    }
+  }, 40);
+}
+// Start (fade in) or stop (fade out) the music. Fails quietly if the mp3 is missing or the browser blocks it.
+function personalAudio(on) {
+  if (on) {
+    music.play().catch(() => {});
+    fadeMusic(MUSIC_VOLUME, 1500);
+  } else if (!music.paused) {
+    fadeMusic(0, 800);
+  }
+}
+// Clicking the sidebar is a user gesture, so start the music silently now; browsers allow it.
+document.addEventListener("click", (e) => {
+  if (e.target.closest('a[href="#personal"]')) {
+    music.volume = 0;
+    music.play().catch(() => {});
+  }
+}, true);
+// Undertale-style typewriter: types out the text in data-text.
+function typeLine(el) {
+  const text = el.dataset.text || "";
+  let i = 0;
+  el.textContent = "";
+  (function tick() {
+    el.textContent = text.slice(0, ++i);
+    if (i < text.length) setTimeout(tick, 28);
+  })();
+}
+// The wipe. 1) rows of dogs run in from both sides dragging a black curtain, 2) they collide in the middle
+// (white flash), 3) swap() changes the page while the screen is black, 4) the dogs run back out and reveal it.
+async function dogWipe(swap) {
+  const W = innerWidth, H = innerHeight, rows = Math.ceil(H / DOG_ROW_PX), rh = H / rows, groups = [];
+  wipeEl.className = "";
+  wipeEl.innerHTML = "";
+  wipeEl.hidden = false;
+  for (const side of ["l", "r"]) {
+    for (let r = 0; r < rows; r++) {
+      const g = document.createElement("div");
+      g.className = "run " + side;
+      g.style.cssText = `top:${r * rh}px;height:${rh + 1}px;width:${W / 2 + 40 + Math.random() * 60}px;`;
+      let html = "<i></i>"; // the curtain
+      for (let k = 0; k < 3; k++) { // one leading dog and two chasing it, each a different size
+        const h = rh * (1.05 + Math.random() * 0.45);
+        const pos = k ? rh * (0.7 * k + 0.6) + Math.random() * 24 : -rh * 0.35;
+        html += `<img src="${DOG_SRC}" alt="" style="height:${h}px;${side === "l" ? "right" : "left"}:${pos}px;animation-delay:${-Math.random() * 0.3}s">`;
+      }
+      g.innerHTML = html;
+      wipeEl.append(g);
+      groups.push(g);
+    }
+  }
+  const flash = document.createElement("div");
+  flash.className = "flash";
+  wipeEl.append(flash);
+  const away = (g) => (g.classList.contains("l") ? "-101%" : "101%");
+  const move = (from, to, ms, ease, spread) => Promise.all(groups.map((g) =>
+    g.animate([{ transform: `translateX(${from(g)})` }, { transform: `translateX(${to(g)})` }],
+      { duration: ms, delay: Math.random() * spread, easing: ease, fill: "both" }).finished));
+  await move(away, () => "0%", 950, "cubic-bezier(.5,0,.9,.6)", 250); // run in and collide
+  await flash.animate([{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }], { duration: 260 }).finished;
+  await new Promise((r) => setTimeout(r, 160)); // a beat of black, like a light switching off
+  swap();
+  wipeEl.classList.add("out"); // dogs turn around
+  await move(() => "0%", away, 1000, "cubic-bezier(.1,.6,.3,1)", 250); // run back out, revealing the new page
+  wipeEl.hidden = true;
+  wipeEl.innerHTML = "";
+}
+// Page buttons: change the scene, mute the music
+$("#sceneBtn").addEventListener("click", () => {
+  const bg = $("#utBg");
+  bg.classList.toggle("waterfall");
+  bg.classList.toggle("marsh");
+});
+$("#muteBtn").addEventListener("click", (e) => {
+  music.muted = !music.muted;
+  e.currentTarget.textContent = music.muted ? "Music: off" : "Music: on";
+  e.currentTarget.setAttribute("aria-pressed", String(music.muted));
+});
+
 /* ---- 12. PAGES & TRANSITIONS ---- */
 // Each page is a <section id="p-NAME"> in index.html, opened with a #NAME link.
 // Add a page: add its section, a nav link, and an entry in this list.
-const names = { home: "Home", about: "About", research: "Research", projects: "Projects", contact: "Contact" };
+const names = { home: "Home", about: "About", research: "Research", projects: "Projects", contact: "Contact",
+  personal: "Personal life" };
 // Page-in animation: builds a lens-shaped displacement map centred on the click and
 // relaxes it to nothing, so the page appears to resolve out of a lensed image.
 async function lensIn(el, cx, cy, ms) {
@@ -492,6 +590,9 @@ function setPage(id) {
   document.querySelectorAll(".page").forEach((p) => p.hidden = p.id !== "p-" + id);
   mark(id);
   cur = id;
+  document.body.classList.toggle("undertale", id === "personal"); // switches the whole look (style.css section 15)
+  personalAudio(id === "personal");
+  if (id === "personal") typeLine($("#utTalk"));
   document.title = (id === "home" ? "" : names[id] + " – ") + "Chris Gade";
   scrollTo(0, 0);
   dirty = true;
@@ -503,6 +604,15 @@ async function route() {
   if (cur === null || matchMedia("(prefers-reduced-motion: reduce)").matches) {
     setPage(id);
     kick.t = performance.now();
+    return;
+  }
+  // Opening or leaving the Personal life page uses the dog wipe instead of the lens transition
+  if (id === "personal" || cur === "personal") {
+    busy = true;
+    mark(id);
+    await dogWipe(() => setPage(id));
+    busy = false;
+    route();
     return;
   }
   busy = true;

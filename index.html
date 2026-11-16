@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Comic + pixel fonts for the Personal life page and its sidebar -->
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <!-- Your own files: styles and behaviour -->
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
@@ -30,6 +32,8 @@
       <div class="c">
         <svg viewBox="-12 -12 24 24"><path class="star" d="M0 -11C1 -4 4 -1 11 0C4 1 1 4 0 11C-1 4 -4 1 -11 0C-4 -1 -1 -4 0 -11Z"/></svg>
         <span class="dot"></span>
+        <!-- Pixel SOUL heart: replaces the star while you are on the Personal life page -->
+        <svg class="heart" viewBox="0 0 7 6" shape-rendering="crispEdges"><path fill="#f00" d="M1 0h2v1H1zM4 0h2v1H4zM0 1h7v2H0zM1 3h5v1H1zM2 4h3v1H2zM3 5h1v1H3z"/></svg>
       </div>
     </div>
     <!-- ============ TOP NAVIGATION: add or rename links here (href must match a page id below, e.g. #about) ============ -->
@@ -38,6 +42,20 @@
         <nav aria-label="Primary"><a href="#about">About</a><a href="#research">Research</a><a href="#projects">Projects</a><a href="#contact">Contact</a><a class="cta-nav" href="#contact">Hire me</a></nav>
       </div>
     </header>
+    <!-- ============ PERSONAL LIFE: scene, sidebar button, dog wipe, music ============ -->
+    <!-- Undertale scene behind the Personal life page (two options; the page has a button to switch). Backgrounds are in the undertale folder. -->
+    <div class="ut-bg waterfall" id="utBg" aria-hidden="true"></div>
+    <!-- Sidebar button on the right edge. Hover (or focus) it and Frisk pops out with a comic bubble. Click opens #personal. -->
+    <a class="side" href="#personal" aria-label="Personal life">
+      <span class="handle" aria-hidden="true"></span>
+      <img class="frisk" src="undertale/frisk.png" alt="">
+      <span class="bubble" aria-hidden="true">Personal life!</span>
+    </a>
+    <!-- The dog wipe is built here by script.js (section 11B) every time you open or leave the Personal life page -->
+    <div id="wipe" hidden aria-hidden="true"></div>
+    <!-- Waterfall music: put your own file at undertale/waterfall.mp3 (not included). It starts on the Personal life page and stops when you leave. -->
+    <audio id="waterfall" src="undertale/waterfall.mp3" loop preload="none"></audio>
+
     <!-- ============ PAGES: only the one matching the #hash is shown ============ -->
     <main>
       <!-- ===== HOME ( #home ) ===== -->
@@ -344,6 +362,48 @@
           <p class="soc" style="margin-top:30px"><a href="https://github.com/satyajitlion">GitHub</a><a href="https://www.linkedin.com/in/satyajitgade/">LinkedIn</a></p>
         </div>
       </section>
+
+      <!-- ===== PERSONAL LIFE ( #personal ): a separate "Undertale" side of the site. Style: style.css section 15 ===== -->
+      <section class="page" id="p-personal" hidden>
+        <div class="w ut">
+          <!-- Top controls: back to the main site, switch the background scene, mute the music -->
+          <div class="ut-top">
+            <a class="ut-back" href="#home">&larr; Back to the real world</a>
+            <button id="sceneBtn" type="button">Change scene</button>
+            <button id="muteBtn" type="button" aria-pressed="false">Music: on</button>
+          </div>
+          <h2 class="ut-title">* Personal life</h2>
+          <!-- Typed out letter by letter by script.js. Edit the text in data-text. -->
+          <div class="ut-box"><p id="utTalk" data-text="* You are filled with DETERMINATION. Here is what I play, listen to and draw when I am not doing research."></p></div>
+          <div class="ut-grid">
+            <!-- EDIT: replace the placeholder lines with your own games, music and so on. One <li> per item. -->
+            <div class="ut-box"><h3>Games</h3><ul>
+              <li>Undertale</li>
+              <li class="todo">Add a game I love</li>
+              <li class="todo">Add another</li>
+            </ul></div>
+            <div class="ut-box"><h3>Music</h3><ul>
+              <li>Waterfall (Undertale OST), playing now</li>
+              <li class="todo">Add an artist or album</li>
+              <li class="todo">Add another</li>
+            </ul></div>
+            <div class="ut-box"><h3>Making things</h3><ul>
+              <li>Drawing</li>
+              <li class="todo">Write more lorem ipsum type stuff about what I like to draw</li>
+              <li class="todo">Add another</li>
+            </ul></div>
+          </div>
+          <h3 class="ut-sub">* Things I have drawn</h3>
+          <!-- EDIT: put your drawings in a folder (for example art/) and swap each placeholder for <figure class="art"><img src="art/NAME.png" alt="describe it"></figure> -->
+          <div class="art-grid">
+            <figure class="art"><span>drawing here</span></figure>
+            <figure class="art"><span> drawing here</span></figure>
+            <figure class="art"><span> drawing here</span></figure>
+          </div>
+          <p class="ut-credit"> Background Art Credit to Temmie Chang. Song Credit to Toby Fox.</p>
+        </div>
+      </section>
+
     </main>
     <!-- ============ FOOTER ============ -->
     <footer>Designed and built by Chris Gade · <span id="yr"></span></footer>

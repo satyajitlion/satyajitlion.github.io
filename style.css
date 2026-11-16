@@ -2,7 +2,7 @@
    style.css: all visual styling
    Sections: 1 colours, 2 background, 3 type, 4 layout & nav, 5 pages, 6 home,
    7 headers & about, 8 research, 9 projects, 10 contact, 11 home cards,
-   12 next-chapter buttons, 13 footer, 14 custom cursor, then phone layout.
+   12 next-chapter buttons, 13 footer, 14 custom cursor, 15 personal life (Undertale page), 16 sidebar button and dog wipe, then phone layout.
    ===================================================================== */
 
 
@@ -798,4 +798,268 @@ html.custom-cursor #cursor {
 }
 @media (prefers-reduced-motion: reduce) {
   #cursor svg { animation: none; }
+}
+
+/* ===== 15. PERSONAL LIFE PAGE (Undertale style) ===== */
+/* While this page is open, script.js adds the class "undertale" to <body>. That one class switches the whole
+   look: black background, pixel fonts, white-bordered boxes, and hides the normal nav, footer and lens sky. */
+body.undertale {
+  background: #000;
+  color: #fff;
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  line-height: 1.35;
+}
+body.undertale .nav,
+body.undertale footer,
+body.undertale .side,
+body.undertale > canvas {
+  display: none;                       /* the main site's chrome and lens sky are hidden here */
+}
+.ut-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: none;
+  background: #000 center / cover no-repeat;
+}
+body.undertale .ut-bg {
+  display: block;
+}
+.ut-bg.waterfall {
+  background-image: url("undertale/bg-waterfall.jpg");   /* scene option 1 */
+}
+.ut-bg.marsh {
+  background-image: url("undertale/bg-marsh.jpg");       /* scene option 2 */
+  image-rendering: pixelated;
+}
+.ut-bg::after {
+  content: "";                         /* dark veil so text stays readable on the art */
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0,0,12,.32), rgba(0,0,12,.55));
+}
+.ut h2,
+.ut h3 {
+  font-family: 'Press Start 2P', monospace;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+.ut-title {
+  font-size: clamp(22px, 4vw, 38px);
+  margin: 26px 0;
+}
+.ut-sub {
+  font-size: 16px;
+  margin: 34px 0 16px;
+}
+.ut-box {
+  border: 4px solid #fff;              /* Undertale dialogue-box look */
+  background: rgba(0,0,0,.88);
+  padding: 18px 22px;
+  margin: 0 0 22px;
+}
+.ut-box h3 {
+  font-size: 15px;
+  color: #ff0;
+  margin: 0 0 12px;
+}
+.ut ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ut li::before {
+  content: "* ";
+}
+.ut li.todo {
+  color: #8aa;                         /* placeholder lines: replace and delete this class */
+}
+.ut-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.art-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.art {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+  border: 4px solid #fff;
+  background: rgba(0,0,0,.7);
+  color: #8aa;
+  overflow: hidden;
+}
+.art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ut-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.ut-top a,
+.ut-top button {
+  font: inherit;
+  color: #fff;
+  background: #000;
+  border: 3px solid #fff;
+  padding: 2px 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.ut-top a:hover,
+.ut-top button:hover {
+  color: #ff0;
+  border-color: #ff0;
+}
+.ut-credit {
+  font-size: 17px;
+  color: #8aa;
+  margin-top: 30px;
+}
+body.undertale #cursor svg:not(.heart),
+body.undertale #cursor .dot {
+  display: none;                       /* star cursor becomes a red SOUL heart here */
+}
+#cursor .heart {
+  display: none;
+  position: absolute;
+  left: -10px;
+  top: -9px;
+  width: 20px;
+  height: 17px;
+  animation: none;
+  filter: none;
+}
+body.undertale #cursor .heart {
+  display: block;
+}
+
+/* ===== 16. SIDEBAR BUTTON (Frisk) AND DOG WIPE ===== */
+/* .side = thin glowing handle on the right edge. Hover it: Frisk slides out and a comic bubble pops. */
+.side {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 300px;
+  z-index: 20;
+}
+.side:hover,
+.side:focus-visible {
+  width: 240px;                        /* wider hover zone while Frisk is out, so he doesn't flicker away */
+}
+.side .handle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  border-radius: 8px 0 0 8px;
+  background: linear-gradient(var(--vi), var(--am));
+  box-shadow: 0 0 18px rgba(123,110,246,.6);
+}
+.side .frisk {
+  position: absolute;
+  right: -200px;                       /* hidden off-screen until hover */
+  bottom: 0;
+  height: 290px;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,.55));
+  transition: right .45s cubic-bezier(.3,1.5,.5,1);   /* small overshoot = "pop" */
+}
+.side .bubble {                        /* comic-book speech bubble */
+  position: absolute;
+  right: 120px;
+  top: 6px;
+  padding: 8px 16px 4px;
+  font: 400 30px/1 'Bangers', cursive;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #d4145a;
+  text-shadow: 2px 2px 0 #000;
+  background: radial-gradient(rgba(0,0,0,.18) 1px, transparent 1.6px) 0 0 / 6px 6px, #ffe14d;   /* halftone dots */
+  border: 4px solid #000;
+  border-radius: 48% 52% 46% 54% / 60% 55% 45% 40%;
+  box-shadow: 5px 5px 0 #000;
+  white-space: nowrap;
+  transform: scale(0) rotate(-8deg);
+  transform-origin: right bottom;
+  transition: transform .35s .1s cubic-bezier(.3,1.8,.5,1);
+  pointer-events: none;
+}
+.side .bubble::after {                 /* bubble tail pointing at Frisk */
+  content: "";
+  position: absolute;
+  right: -14px;
+  bottom: -2px;
+  border: 10px solid transparent;
+  border-left: 16px solid #000;
+  transform: rotate(35deg);
+}
+.side:hover .frisk,
+.side:focus-visible .frisk {
+  right: 0;
+}
+.side:hover .bubble,
+.side:focus-visible .bubble {
+  transform: scale(1) rotate(-6deg);
+}
+@media (hover: none) {                 /* touch screens: Frisk peeks out all the time, tap to open */
+  .side .frisk { right: -70px; }
+  .side .bubble { transform: scale(.8) rotate(-6deg); right: 60px; }
+}
+@media (max-height: 640px) {
+  .side .frisk { height: 210px; }
+}
+/* The dog wipe: rows of dogs run in from both sides, meet in the middle, then run back out. script.js builds it. */
+#wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  overflow: hidden;
+}
+#wipe .run {
+  position: absolute;
+}
+#wipe .run.l { left: 0; }
+#wipe .run.r { right: 0; }
+#wipe .run i {
+  position: absolute;
+  inset: 0;
+  background: #000;                    /* the black "curtain" each row of dogs drags along */
+}
+#wipe .run img {
+  position: absolute;
+  bottom: -2px;
+  image-rendering: pixelated;
+  --f: 1;                              /* 1 = faces left (as drawn), -1 = faces right */
+  animation: bob .2s ease-in-out infinite alternate;
+}
+#wipe .run.l img { --f: -1; }
+#wipe.out .run.l img { --f: 1; }
+#wipe.out .run.r img { --f: -1; }
+#wipe .flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+}
+@keyframes bob {
+  from { transform: translateY(0) scaleX(var(--f)); }
+  to { transform: translateY(-8px) scaleX(var(--f)); }
+}
+@media (max-width: 860px) {
+  .ut-grid, .art-grid { grid-template-columns: 1fr; }
 }

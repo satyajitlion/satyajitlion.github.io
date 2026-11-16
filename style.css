@@ -1407,10 +1407,28 @@ body.undertale .ut-grid > .ut-box.open .ut-more {
 .side:focus-visible .bubble {
   transform: scale(1) rotate(-6deg);
 }
-@media (hover: none) {                 /* touch screens: Frisk peeks out all the time, tap to open */
-  .side .frisk { right: -70px; }
-  .side .bubble { transform: scale(.8) rotate(-6deg); right: 60px; }
+/* Touch screens: no hover, so script.js adds the class "open" on the first tap (a second tap opens the page).
+   Until then Frisk stays hidden, exactly like on a computer. */
+.side.open {
+  width: 240px;
 }
+.side.open .frisk {
+  right: 0;
+}
+.side.open .bubble {
+  transform: scale(1) rotate(-6deg);
+}
+@media (hover: none) {
+  .side:hover:not(.open) { width: 46px; }                                /* a tap leaves :hover stuck on phones; ignore it */
+  .side:hover:not(.open) .frisk { right: -200px; }
+  .side:hover:not(.open) .bubble { transform: scale(0) rotate(-8deg); }
+}
+@media (max-width: 600px) {                                              /* phones: smaller Frisk and bubble */
+  .side { height: 240px; }
+  .side .frisk { height: 220px; }
+  .side .bubble { font-size: 24px; right: 92px; }
+}
+
 @media (max-height: 640px) {
   .side .frisk { height: 210px; }
 }

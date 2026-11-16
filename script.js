@@ -29,14 +29,14 @@
 /* ---- 1. SETTINGS (safe to edit) ---- */
 const LENS_RADIUS = 200; // size of the area the cursor lens can bend, in px
 const LENS_STRENGTH = 64; // lens strength (Einstein radius in px): bigger = stronger, wider ring
-const RIPPLE_MS = 2400; // how long one ripple lasts, in ms
+const RIPPLE_MS = 1800; // how long one ripple lasts, in ms
 const RIPPLE_STRENGTH = 42; // how hard a ripple bends the sky at the start, in px
 const RIPPLE_REACH = 0.8; // how far ripples travel, as a fraction of the screen's longest side
 const RIPPLES_PER_CLICK = 2; // number of waves sent by each nav click
-const RIPPLE_GAP_MS = 260; // delay between those waves, in ms
-const PAGE_OUT_MS = 320; // old page fade-out time, in ms
-const PAGE_IN_MS = 1200; // new page lensing-in time, in ms
-const PAGE_IN_WARP = 300; // how strongly the new page is warped when it first appears
+const RIPPLE_GAP_MS = 200; // delay between those waves, in ms
+const PAGE_OUT_MS = 160; // old page fade-out time, in ms
+const PAGE_IN_MS = 600; // new page lensing-in time, in ms
+const PAGE_IN_WARP = 150; // how strongly the new page is warped when it first appears
 const RESPECT_REDUCED_MOTION = true; // true = visitors whose device has "Reduce motion" turned on get instant page changes
 // (no wipe, no lensing). Set to false to always play the animations, e.g. if you can't see them on your own computer.
 
@@ -321,7 +321,7 @@ function draw(now) {
     lx = W * (0.5 + 0.36 * Math.sin(now / 3100));
     ly = H * (0.5 + 0.3 * Math.sin(now / 2300 + 1));
   }
-  const p = (now - kick.t) / 1300, k = p >= 0 && p < 1 ? Math.sin(Math.PI * p) : 0;
+  const p = (now - kick.t) / 900, k = p >= 0 && p < 1 ? Math.sin(Math.PI * p) : 0;
   const o = kick.o;
   if (o && k > 0) {
     const b = Math.min(1, k * 4);
@@ -533,6 +533,26 @@ function personalAudio(on) {
     fadeMusic(0, 800);
   }
 }
+// Touch screens have no hover, so the sidebar works in two taps: the first tap pops Frisk out
+// (same as hovering on a computer), the second tap opens the Personal life page.
+const sideEl = $(".side");
+let lastPointer = "mouse", sideTimer;
+function closeSide() {
+  sideEl.classList.remove("open");
+  clearTimeout(sideTimer);
+}
+addEventListener("pointerdown", (e) => {
+  lastPointer = e.pointerType;
+  if (!e.target.closest(".side")) closeSide(); // tapping anywhere else hides Frisk again
+}, true);
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".side") || lastPointer !== "touch" || sideEl.classList.contains("open")) return;
+  e.preventDefault(); // first tap: stay on this page
+  e.stopImmediatePropagation(); // and don't start the music yet
+  sideEl.classList.add("open");
+  sideTimer = setTimeout(closeSide, 5000); // Frisk hides again if you don't tap a second time
+}, true);
+addEventListener("hashchange", closeSide);
 // Clicking the sidebar is a user gesture, so start the music silently now; browsers allow it.
 document.addEventListener("click", (e) => {
   if (e.target.closest('a[href="#personal"]')) {

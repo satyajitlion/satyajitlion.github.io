@@ -37,6 +37,8 @@ const RIPPLE_GAP_MS = 260; // delay between those waves, in ms
 const PAGE_OUT_MS = 320; // old page fade-out time, in ms
 const PAGE_IN_MS = 1200; // new page lensing-in time, in ms
 const PAGE_IN_WARP = 300; // how strongly the new page is warped when it first appears
+const RESPECT_REDUCED_MOTION = true; // true = visitors whose device has "Reduce motion" turned on get instant page changes
+// (no wipe, no lensing). Set to false to always play the animations, e.g. if you can't see them on your own computer.
 
 /* ---- 2. HELPERS & CANVASES ---- */
 // $("#id") is a shortcut for document.querySelector
@@ -601,7 +603,7 @@ function setPage(id) {
 async function route() {
   const id = names[location.hash.slice(1)] ? location.hash.slice(1) : "home";
   if (id === cur || busy) return;
-  if (cur === null || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if (cur === null || (RESPECT_REDUCED_MOTION && matchMedia("(prefers-reduced-motion: reduce)").matches)) {
     setPage(id);
     kick.t = performance.now();
     return;

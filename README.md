@@ -17,3 +17,5 @@ Then open http://localhost:8000
 
 ## Deploy
 Push to GitHub and enable Pages for the repository root.
+
+### There might be an easter egg to learn more about me if you pay close attention to the details...

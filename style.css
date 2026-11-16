@@ -861,6 +861,11 @@ body.undertale .ut-bg {
   padding: 18px 22px;
   margin: 0 0 22px;
 }
+
+#utTalk .det {
+  color: #f00;
+}
+
 .ut-box h3 {
   font-size: 15px;
   color: #ff0;
@@ -1304,6 +1309,32 @@ body.undertale .ut-grid > .ut-box.open .ut-more {
   .panel-modal__window { animation: none; }
   .panel-modal__window { transform: none; }
 }
+
+/* Song choices inside the Music panel's zoom window */
+.panel-modal__content .song-choice {
+  cursor: pointer;
+  transition: color 140ms ease, padding-left 160ms ease;
+  padding-left: 0;
+  outline-offset: 4px;
+}
+.panel-modal__content .song-choice:hover,
+.panel-modal__content .song-choice:focus-visible {
+  color: rgb(0, 187, 255);
+  padding-left: 10px;
+  outline: none;
+}
+
+/* Playing marker — visible in the grid panel AND in the modal */
+.song-choice.playing {
+  color: rgb(0, 187, 255);
+  font-weight: bold;
+}
+.song-choice.playing::before {
+  content: "♪ ";                  /* overrides the "* " prefix from .ut li::before */
+  color: rgb(0, 187, 255);
+}
+
+
 
 /* ===== 16. SIDEBAR BUTTON (Frisk) AND DOG WIPE ===== */
 /* .side = thin glowing handle on the right edge. Hover it: Frisk slides out and a comic bubble pops. */

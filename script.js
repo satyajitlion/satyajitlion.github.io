@@ -541,13 +541,30 @@ document.addEventListener("click", (e) => {
   }
 }, true);
 // Undertale-style typewriter: types out the text in data-text.
+// [[word]] segments are wrapped in a .det span so they can be colored via CSS.
 function typeLine(el) {
-  const text = el.dataset.text || "";
-  let i = 0;
+  const raw = el.dataset.text || "";
+  const segments = raw.split(/(\[\[.*?\]\])/).filter(Boolean).map((s) => {
+    const isMarker = s.startsWith("[[") && s.endsWith("]]");
+    return { text: isMarker ? s.slice(2, -2) : s, cls: isMarker ? "det" : "" };
+  });
   el.textContent = "";
+  const spans = segments.map((seg) => {
+    const span = document.createElement("span");
+    if (seg.cls) span.className = seg.cls;
+    el.appendChild(span);
+    return span;
+  });
+  let segIdx = 0, charIdx = 0;
   (function tick() {
-    el.textContent = text.slice(0, ++i);
-    if (i < text.length) setTimeout(tick, 28);
+    if (segIdx >= segments.length) return;
+    const seg = segments[segIdx];
+    spans[segIdx].textContent = seg.text.slice(0, ++charIdx);
+    if (charIdx >= seg.text.length) {
+      segIdx++;
+      charIdx = 0;
+    }
+    if (segIdx < segments.length) setTimeout(tick, 28);
   })();
 }
 // The wipe. 1) rows of dogs run in from both sides dragging a black curtain, 2) they collide in the middle
@@ -680,6 +697,36 @@ if (volSlider) {
     });
   });
 
+  // --- music switcher (only fires inside the modal, only for .song-choice items) ---
+  let currentSong = "undertale/waterfall.mp3";
+
+  function applyPlayingState() {
+    document.querySelectorAll(".song-choice").forEach((li) => {
+      li.classList.toggle("playing", li.dataset.song === currentSong);
+    });
+  }
+
+  function switchSong(src) {
+    if (src === currentSong) {
+      // Same song: resume if it was paused (e.g. via the volume slider), else no-op.
+      if (music.paused) {
+        music.volume = 0;
+        music.play().then(() => fadeMusic(MUSIC_VOLUME, 800)).catch(() => {});
+      }
+      return;
+    }
+    currentSong = src;
+    clearInterval(fadeTimer);
+    if (!music.paused) music.pause();
+    music.src = src;
+    music.load();
+    music.volume = 0;
+    music.play()
+      .then(() => fadeMusic(MUSIC_VOLUME, 800))
+      .catch(() => {});           // autoplay blocked → silent, no crash
+    applyPlayingState();
+  }
+
   // --- zoom window ---
   const modal   = document.getElementById("panelModal");
   if (!modal) return;
@@ -702,6 +749,8 @@ if (volSlider) {
     modal.querySelector(".panel-modal__window")
         .classList.toggle("art-mode", panel.classList.contains("art"));
 
+    applyPlayingState();
+    
     modal.hidden = false;
     document.body.style.overflow = "hidden";
     closeBtn.focus();
@@ -732,6 +781,17 @@ if (volSlider) {
   });
 
   closeBtn.addEventListener("click", closePanel);
+
+  // Delegated click: catches .song-choice inside any clone that ends up in the modal.
+  slot.addEventListener("click", (e) => {
+    const choice = e.target.closest(".song-choice");
+    if (!choice) return;
+    e.stopPropagation();
+    switchSong(choice.dataset.song);
+  });
+
+  applyPlayingState();   // initial state on page load: ♪ on Waterfall
+
   backdrop.addEventListener("click", closePanel);
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closePanel();

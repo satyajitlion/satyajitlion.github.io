@@ -1585,7 +1585,7 @@ body.undertale.theme-warframe .ut-bg::before {
   background: url("game_wallpapers/duviri%20warframe.gif") center / cover no-repeat;
   filter: blur(28px) brightness(0.75);
   z-index: 0;
-  pointer-events: none;
+  pointer-events: none; 
 }
 
 body.undertale.theme-e33 .ut-bg::before {
@@ -1604,7 +1604,7 @@ body.undertale.theme-deltarune .ut-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("game_wallpapers/deltarune%20fountain.gif") center / auto no-repeat;
+  background: url("game_wallpapers/deltarune%20fountain.gif") center / cover no-repeat;
   opacity: calc(1 - var(--veil, 1));
   z-index: 1;
   pointer-events: none;
@@ -1613,8 +1613,15 @@ body.undertale.theme-deltarune .ut-bg::after {
 body.undertale.theme-warframe .ut-bg::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: url("game_wallpapers/duviri%20warframe.gif") center / auto no-repeat;
+  top: 50%;
+  left: 50%;
+  /* For Horizontal blocks (i.e., where width is greater than height)*/
+  height: auto;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  
+  background: url("game_wallpapers/duviri%20warframe.gif") center / cover no-repeat;
+  image-rendering: smooth;
   opacity: calc(1 - var(--veil, 1));
   z-index: 1;
   pointer-events: none;
@@ -1623,8 +1630,13 @@ body.undertale.theme-warframe .ut-bg::after {
 body.undertale.theme-e33 .ut-bg::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: url("game_wallpapers/true_end_e33.gif") center / auto no-repeat;
+  top: 50%;
+  left: 50%;
+  /* For Horizontal blocks (i.e., where width is greater than height)*/
+  height: auto;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  background: url("game_wallpapers/true_end_e33.gif") center no-repeat;
   opacity: calc(1 - var(--veil, 1));
   z-index: 1;
   pointer-events: none;

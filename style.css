@@ -2,7 +2,7 @@
    style.css: all visual styling
    Sections: 1 colours, 2 background, 3 type, 4 layout & nav, 5 pages, 6 home,
    7 headers & about, 8 research, 9 projects, 10 contact, 11 home cards,
-   12 next-chapter buttons, 13 footer, 14 custom cursor, 15 personal life (Undertale page), 16 sidebar button and dog wipe, then phone layout.
+   12 next-chapter buttons, 13 footer, 14 custom cursor, 15 personal life (Undertale page), 16 sidebar button and dog wipe, 17 game buttons, 18 page themes per game, 19 feedback tweaks, 20 parallax background and game scenes (education cards, bullets, FX switch, contact form), then phone layout.
    ===================================================================== */
 
 
@@ -117,7 +117,7 @@ a {
   letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--am);
-  margin: 0 0 14px;
+  margin: 0 0 28px;
 }
 
 /* ===== 6. HOME PAGE ===== */
@@ -130,14 +130,15 @@ a {
   min-height: calc(100svh - 150px);
 }
 h1 {
-  font-size: clamp(40px,6vw,72px);
+  font-size: clamp(48px,3vw,72px);
   letter-spacing: -.02em;
+  margin: 0 0 28px;
 }
 .tag {
-  font: italic 400 clamp(22px,2.8vw,30px)/1.3 Fraunces,serif;
+  font: italic 400 clamp(22px,2.8vw,28px)/1.3 Fraunces,serif;
   color: var(--am);
   margin: 18px 0 0;
-  max-width: 24ch;
+  max-width: 30ch;
 }
 .lede {
   color: #d6d0e4;
@@ -793,8 +794,8 @@ html.custom-cursor #cursor {
   transform: scale(.8);                /* while the mouse button is held */
 }
 @keyframes twinkle {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.15) rotate(45deg); }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 @media (prefers-reduced-motion: reduce) {
   #cursor svg { animation: none; }
@@ -848,7 +849,7 @@ body.undertale .ut-bg {
   line-height: 1.5;
 }
 .ut-title {
-  font-size: clamp(22px, 4vw, 38px);
+  font-size: clamp(20px, 3vw, 30px);
   margin: 26px 0;
 }
 .ut-sub {
@@ -1471,4 +1472,356 @@ body.undertale .ut-grid > .ut-box.open .ut-more {
 }
 @media (max-width: 860px) {
   .ut-grid, .art-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== 17. GAME BUTTONS (Personal life page) ===== */
+/* Clicking a game title re-themes the page (see sections 18 and 20). The chosen game stays highlighted. */
+.ut button.game {
+  font: inherit;
+  color: #fff;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: underline dotted;
+  text-underline-offset: 4px;
+}
+.ut button.game::after {
+  content: " \25B6";                   /* little play arrow */
+  font-size: .75em;
+  color: #ff0;
+}
+.ut button.game:hover,
+.ut button.game:focus-visible,
+.ut button.game.on {
+  color: #ff0;
+}
+.ut li.game-li {
+  display: flex;                       /* keeps the bullet beside the title even when a long title wraps */
+  gap: .5ch;
+}
+.ut li.game-li::before {
+  flex: none;
+}
+.ut button.game {
+  flex: 1;
+}
+.ut-hint {
+  margin: -6px 0 10px;
+  font-size: 17px;
+  color: #8aa;
+}
+
+/* ===== 18. PAGE THEMES PER GAME (Personal life page) ===== */
+/* Clicking a game title also re-themes the page (script.js adds body.theme-GAME).
+   Undertale is the default look (the waterfall / marsh scenes). Add a theme by copying a block. */
+body.undertale.theme-deltarune .ut-bg {
+  background: repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 2px, transparent 2px 30px), linear-gradient(#150f3a, #2a1b5e 62%, #0b0a1c);
+}
+body.undertale.theme-warframe .ut-bg {
+  background: radial-gradient(#fff 0 1px, transparent 1.5px) 0 0 / 28px 28px, linear-gradient(#050a18, #0d1c3a);
+}
+body.undertale.theme-e33 .ut-bg {
+  background: linear-gradient(#2b1030, #8a2e3a 66%, #e08a5a);
+}
+body.undertale.theme-deltarune .ut-box { border-color: #c58bff; }
+body.undertale.theme-warframe .ut-box { border-color: #5df2ff; }
+body.undertale.theme-e33 .ut-box { border-color: #ff9a8a; }
+body.undertale.theme-deltarune .ut-box h3 { color: #c58bff; }
+body.undertale.theme-warframe .ut-box h3 { color: #5df2ff; }
+body.undertale.theme-e33 .ut-box h3 { color: #ffb36b; }
+
+/* ===== 19. FEEDBACK TWEAKS ===== */
+/* Education cards stand out: gold border, warm glow, bigger type */
+.edu {
+  gap: 22px;
+}
+.edu > div {
+  border: 2px solid var(--am);
+  background: linear-gradient(135deg, rgba(227,168,87,.22), rgba(14,12,28,.78));
+  padding: 30px 32px;
+  box-shadow: 0 0 34px rgba(227,168,87,.18);
+  transition: transform .25s, box-shadow .25s;
+}
+.edu > div:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 44px rgba(227,168,87,.3);
+}
+.edu h3 {
+  font-size: 30px;
+  color: var(--am);
+}
+.edu p {
+  font-size: 17.5px;
+}
+/* Toolkit: bulleted lists instead of comma lists */
+.kit ul {
+  margin: 4px 0 0;
+  padding-left: 20px;
+  color: #d6d0e4;
+  font-size: 16px;
+}
+.kit li {
+  margin: 3px 0;
+  break-inside: avoid;
+}
+.kit ul {
+  columns: 2;                          /* long lists run in two columns to keep the section short */
+  column-gap: 28px;
+}
+.kit li::marker {
+  color: var(--am);
+}
+/* FX switch in the nav bar (turns visual effects on/off) */
+.nav nav .fx {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: 22px;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mut);
+  font: 500 13px 'Space Grotesk', sans-serif;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.nav nav .fx:hover {
+  color: var(--ink);
+  border-color: var(--am);
+}
+.fx .sw {
+  position: relative;
+  width: 26px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--am);
+  transition: background .2s;
+}
+.fx .sw::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 14px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1a1209;
+  transition: left .2s;
+}
+.fx[aria-pressed="false"] .sw {
+  background: #3a3550;
+}
+.fx[aria-pressed="false"] .sw::after {
+  left: 2px;
+  background: var(--mut);
+}
+html.no-vfx #cursor {
+  display: none;                       /* effects off = normal mouse cursor */
+}
+/* Contact form */
+.cform {
+  display: grid;
+  gap: 16px;
+  max-width: 680px;
+  margin: 44px 0 0;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(14,12,28,.6);
+}
+.cform h3 {
+  font-size: 26px;
+}
+.cform label {
+  display: grid;
+  gap: 6px;
+  font: 500 14px 'Space Grotesk', sans-serif;
+  color: var(--mut);
+}
+.cform input,
+.cform select,
+.cform textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font: 400 16px Manrope, sans-serif;
+  color: var(--ink);
+  background: rgba(10,9,18,.85);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.cform input:focus,
+.cform select:focus,
+.cform textarea:focus {
+  outline: 2px solid var(--am);
+  outline-offset: 1px;
+}
+.cform .hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;                          /* spam trap: real visitors never see or fill this */
+}
+.cform button {
+  justify-self: start;
+  border: 0;
+  cursor: pointer;
+}
+.cform button:disabled {
+  opacity: .6;
+}
+#formStatus {
+  min-height: 1.5em;
+  margin: 0;
+  font-size: 15px;
+  color: var(--am);
+}
+@media (max-width: 600px) {            /* phones: make room for the FX switch */
+  .nav .w { padding: 0 16px; }
+  .nav nav a { margin-left: 12px; font-size: 14px; }
+  .nav nav .fx { margin-left: 10px; padding: 4px 7px; }
+  .fx .fxl { display: none; }
+  .edu > div { padding: 24px; }
+}
+/* ===== 20. PARALLAX BACKGROUND AND GAME SCENES (Personal life page) ===== */
+/* Three layers move at different speeds while you scroll: the scene (slowest), floating particles (middle) and the
+   contents (normal). script.js (section 11D) moves the layers. Past the contents there is an empty screen where
+   only the scene is left; the dark veil fades away as you get there. */
+body.undertale .ut-bg {
+  inset: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 135vh;                       /* taller than the screen so it has room to slide */
+  will-change: transform;
+  transition: opacity .35s;
+}
+.ut-bg::after {
+  opacity: var(--veil, 1);             /* fades out near the bottom so the scene shows in full */
+}
+.ut-fx {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 165vh;
+  z-index: 0;
+  display: none;
+  pointer-events: none;
+  will-change: transform;
+  transition: opacity .35s;
+}
+body.undertale .ut-fx {
+  display: block;
+}
+body.theme-swap .ut-bg,
+body.theme-swap .ut-fx {
+  opacity: 0;                          /* quick fade while the theme changes */
+}
+/* Undertale (default): faint drifting sparkles over the waterfall / marsh scenes */
+.ut-fx {
+  background:
+    radial-gradient(circle, rgba(160,230,255,.8) 0 1.5px, transparent 2.5px) 0 0 / 110px 110px,
+    radial-gradient(circle, rgba(160,230,255,.5) 0 1px, transparent 2px) 50px 70px / 160px 160px;
+  animation: sparkle 5s ease-in-out infinite alternate;
+}
+@keyframes sparkle {
+  from { opacity: .35; }
+  to { opacity: .8; }
+}
+@keyframes fall {
+  to { background-position: 40px 520px, -50px 760px; }
+}
+/* Deltarune: deep purple lattice, a soft glow, drifting violet sparks */
+body.undertale.theme-deltarune .ut-bg {
+  background:
+    repeating-linear-gradient(45deg, rgba(150,120,255,.13) 0 2px, transparent 2px 40px),
+    repeating-linear-gradient(-45deg, rgba(150,120,255,.13) 0 2px, transparent 2px 40px),
+    linear-gradient(#0b0a2e, #1e1458 55%, #3a1f78);
+}
+body.undertale.theme-deltarune .ut-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 72%, rgba(197,139,255,.38), transparent 46%);
+}
+body.undertale.theme-deltarune .ut-fx {
+  background:
+    radial-gradient(circle, #fff 0 1.5px, transparent 2px) 0 0 / 90px 90px,
+    radial-gradient(circle, #c58bff 0 2px, transparent 3px) 30px 40px / 130px 130px;
+  animation: sparkle 4s ease-in-out infinite alternate;
+}
+/* Warframe: deep space, a glowing planet, bright stars */
+body.undertale.theme-warframe .ut-bg {
+  background:
+    radial-gradient(#fff 0 1px, transparent 1.5px) 0 0 / 34px 34px,
+    linear-gradient(#02050f, #0a1a40);
+}
+body.undertale.theme-warframe .ut-bg::before {
+  content: "";
+  position: absolute;
+  right: 12%;
+  top: 22%;
+  width: 24vh;
+  height: 24vh;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #8ff, #2b6fa8 46%, #0a1a40);
+  box-shadow: 0 0 70px rgba(93,242,255,.45);
+}
+body.undertale.theme-warframe .ut-fx {
+  background:
+    radial-gradient(circle, #fff 0 1.5px, transparent 2.5px) 0 0 / 120px 120px,
+    radial-gradient(circle, #5df2ff 0 1.5px, transparent 3px) 60px 90px / 190px 190px;
+}
+/* Clair Obscur: Expedition 33: dusk sky, the dark monolith, falling petals */
+body.undertale.theme-e33 .ut-bg {
+  background: linear-gradient(#2b1030, #8a2e3a 62%, #e08a5a);
+}
+body.undertale.theme-e33 .ut-bg::before {
+  content: "";
+  position: absolute;
+  left: 64%;
+  bottom: 0;
+  width: 12%;
+  height: 66%;
+  background: #14121c;
+  clip-path: polygon(14% 100%, 28% 0, 72% 0, 86% 100%);
+}
+body.undertale.theme-e33 .ut-fx {
+  background:
+    radial-gradient(ellipse 7px 4px at 15px 20px, #ff6b5e 90%, transparent 100%) 0 0 / 110px 140px,
+    radial-gradient(ellipse 5px 3px at 60px 80px, #ffb36b 90%, transparent 100%) 0 0 / 170px 190px;
+  animation: fall 16s linear infinite;
+}
+html.no-vfx .ut-fx {
+  animation: none;                     /* effects off: no moving particles */
+}
+/* The empty screen at the end of the page: only the background is left */
+.ut-cue {
+  margin: 56px 0 0;
+  text-align: center;
+  color: #8aa;
+  font-size: 18px;
+}
+.ut-reveal {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: end center;
+  padding-bottom: 40px;
+}
+.ut-reveal button {
+  font: inherit;
+  color: #fff;
+  background: rgba(0,0,0,.55);
+  border: 3px solid #fff;
+  padding: 4px 16px;
+  cursor: pointer;
+}
+.ut-reveal button:hover {
+  color: #ff0;
+  border-color: #ff0;
 }

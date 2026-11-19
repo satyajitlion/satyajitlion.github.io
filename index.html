@@ -39,17 +39,20 @@
     <!-- ============ TOP NAVIGATION: add or rename links here (href must match a page id below, e.g. #about) ============ -->
     <header class="nav">
       <div class="w"><a class="logo" href="#home" aria-label="Home">SG</a>
-        <nav aria-label="Primary"><a href="#about">About</a><a href="#research">Research</a><a href="#projects">Projects</a><a href="#contact">Contact</a><a class="cta-nav" href="#contact">Hire me</a></nav>
+        <nav aria-label="Primary"><a href="#about">About</a><a href="#research">Research</a><a href="#projects">Projects</a><a href="#contact">Contact</a><!-- Effects on/off: turns off the lens, ripples, star cursor and page transitions (script.js, section 2B). Remembered between visits. -->
+          <button id="fxToggle" class="fx" type="button" aria-pressed="true" title="Visual effects: on (click to change)"><span class="sw" aria-hidden="true"></span><span class="fxl">FX</span></button><a class="cta-nav" href="#contact">Contact Me</a></nav>
       </div>
     </header>
     <!-- ============ PERSONAL LIFE: scene, sidebar button, dog wipe, music ============ -->
     <!-- Undertale scene behind the Personal life page (two options; the page has a button to switch). Backgrounds are in the undertale folder. -->
     <div class="ut-bg waterfall" id="utBg" aria-hidden="true"></div>
+    <!-- Floating particles for the current theme (stars, petals...). A second parallax layer between the scene and the contents. -->
+    <div class="ut-fx" id="utFx" aria-hidden="true"></div>
     <!-- Sidebar button on the right edge. Hover (or focus) it and Frisk pops out with a comic bubble. Click opens #personal. -->
     <a class="side" href="#personal" aria-label="Personal life">
       <span class="handle" aria-hidden="true"></span>
       <img class="frisk" src="undertale/frisk.png" alt="">
-      <span class="bubble" aria-hidden="true">Personal life!</span>
+      <span class="bubble" aria-hidden="true">Click here!</span>
     </a>
     <!-- The dog wipe is built here by script.js (section 11B) every time you open or leave the Personal life page -->
     <div id="wipe" hidden aria-hidden="true"></div>
@@ -70,10 +73,10 @@
           <div>
             <p class="eye">Astrophysics &amp; Data Science</p>
             <h1>Satyajit “Chris” Gade</h1>
-            <p class="tag">I like Data Analysis and Computational Astrophysics</p>
-            <p class="lede">I am interested in astrophysical research and computation. I have worked primarily on simulating lens systems and I have built machine learning models that attempt to understand the physics behind those systems.</p>
-            <a class="btn p" href="#research">See my work</a><a class="btn g" href="#contact">Hire me</a>
-            <p class="hint">The sky and my photo sit behind a gravitational lens. Move your mouse to bend them, or click anywhere for a gravitational ripple.</p>
+            <p class="tag">I like Astrophysics and Computation.</p>
+            <p class="lede">I am interested in astrophysical research and computation. I have worked primarily on simulating lens systems and building machine learning models with the goal of constraining a value for the Hubble Constant using time-delay cosmography.</p>
+            <a class="btn p" href="#research">See my work</a><a class="btn g" href="#contact">Contact Me</a>
+            <p class="hint">Move your mouse to bend background stars or click anywhere for a gravitational ripple (you can toggle off site fx at the top right).</p>
           </div>
           <!-- Portrait: edit the photo by replacing edited-photo.png. The canvas is the lens layer; leave it. -->
           <div class="pt"><img id="ptimg" src="edited-photo.png" alt="Portrait of Satyajit Gade"><canvas id="ptc" width="380" height="460" aria-hidden="true"></canvas></div>
@@ -87,7 +90,7 @@
         <!-- Researcher / Data scientist cards, value proposition, and start-the-journey button -->
         <div class="w dual">
           <div>
-            <h3>Work I've done as a researcher...</h3>
+            <h3>Brief summary of work I've done as a researcher...</h3>
             <ul>
               <li>Gravitational lens modeling: SIS, SIE and external shear</li>
               <li>Shear and ellipticity drawn from Oguri &amp; Marshall (2010)</li>
@@ -96,7 +99,7 @@
             </ul>
           </div>
           <div>
-            <h3>Work I've done as a data nerd...</h3>
+            <h3>Brief summary of work I've done as a data nerd...</h3>
             <ul>
               <li>Keras, TensorFlow, PyTorch and scikit-learn</li>
               <li>Datasets of 300,000 to 1,000,000 samples</li>
@@ -121,7 +124,7 @@
           <div class="two">
             <div>
               <p>My name is <span class="hl">Satyajit</span>, and most people call me <span class="hl">Chris</span>. I graduated from Rutgers–New Brunswick with Honors in Astrophysics, a minor in Mathematics, and a thesis on applying machine learning to gravitational lens modeling.</p>
-              <p> I'm now looking for entry-level roles in astrophysics research and data science, where I can put data-driven methods to work on hard problems.</p>
+              <p> I'm now looking for research opportunities in astrophysics and entry level roles in data science, where I can put data-driven methods to work on hard problems.</p>
               <p>Outside of coding and research, I spend my time listening to music, drawing, and gaming. When working, I research alongside my panda plush, Dr. Bubbles, who keeps me focused even during times of stress. I also frequent MeeTu and Utepia for bubble tea where I get an iced shaken matcha or strawberry matcha. </p>
             </div>
             <!-- Dr. Bubbles photo: replace drBubbles.jpg -->
@@ -146,19 +149,19 @@
           <div class="kit">
             <div>
               <h4>Languages</h4>
-              <p>Python, SQL, MATLAB, Bash, LaTeX, Mathematica</p>
+              <ul><li>Python</li><li>SQL</li><li>MATLAB</li><li>Bash</li><li>LaTeX</li><li>Mathematica</li></ul>
             </div>
             <div>
               <h4>Machine learning</h4>
-              <p>TensorFlow, Keras, PyTorch, scikit-learn, feature engineering, hyperparameter tuning, cross-validation</p>
+              <ul><li>TensorFlow</li><li>Keras</li><li>PyTorch</li><li>scikit-learn</li><li>feature engineering</li><li>hyperparameter tuning</li><li>cross-validation</li></ul>
             </div>
             <div>
               <h4>Statistics</h4>
-              <p>Hypothesis testing, residual analysis, MCMC with emcee, Monte Carlo</p>
+              <ul><li>Hypothesis testing</li><li>residual analysis</li><li>MCMC with emcee</li><li>Monte Carlo</li></ul>
             </div>
             <div>
               <h4>Data and compute</h4>
-              <p>pandas, NumPy, SciPy, Astropy, Matplotlib, Git, Linux, SLURM</p>
+              <ul><li>pandas</li><li>NumPy</li><li>SciPy</li><li>Astropy</li><li>Matplotlib</li><li>Git</li><li>Linux</li><li>SLURM</li></ul>
             </div>
           </div>
           <!-- Next-chapter button -->
@@ -340,7 +343,7 @@
             <div class="lk"><a href="https://github.com/satyajitlion/PhysicsSimulations">Code</a><a href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Solar%20System%20Simulation.ipynb">Notebook</a></div>
           </div>
           <!-- Next-chapter button -->
-          <div class="next"><span>Next, chapter 4: working together.</span><a class="btn p" href="#contact">Hire me or collaborate</a></div>
+          <div class="next"><span>Next, chapter 4: working together.</span><a class="btn p" href="#contact">Interested in me as a collaborator or employee?</a></div>
         </div>
       </section>
       <!-- ===== CONTACT ( #contact ): chapter 4 ===== -->
@@ -349,11 +352,19 @@
           <div class="ph">
             <p class="eye">Chapter 4 · Collaboration Opportunities</p>
             <h2>Let’s work together</h2>
-            <p class="sub">I’m looking for entry-level roles in astrophysics research and data science, and for collaborations in computational astrophysics. Pick the path that fits and the email opens ready to send.</p>
+            <!-- EDIT: the intro text on this page is placeholder wording. Rewrite it in your own words. -->
+            <p class="sub">I’m looking for for research opportunities in astrophysics and entry level roles in data science. If you're interested, please reach out to me using one of the options provided below. </p>
           </div>
-          <!-- Three ways to get in touch; each opens a pre-filled email -->
+
+          <p style="margin:48px 0 14px;color:var(--mut)">You can write to me directly using the following email, </p>
+          <a class="big" href="mailto:satyajitlion@gmail.com">satyajitlion@gmail.com</a>
+
+          <!-- Three ways to get in touch. Clicking a card picks that topic in the form below (without JavaScript they open an email instead). -->
+          
+          <p style="margin:48px 0 14px;color:var(--mut)">OR you can reach out using the following links and forms. </p>
+          
           <div class="paths"><a href="mailto:satyajitlion@gmail.com?subject=Hiring%20inquiry">
-            <h3>Hire me</h3>
+            <h3>Reach Out!</h3>
             <p>Data science, machine learning or research roles.</p>
             </a><a href="mailto:satyajitlion@gmail.com?subject=Research%20collaboration">
             <h3>Collaborate</h3>
@@ -362,8 +373,24 @@
             <h3>Request my resume</h3>
             <p>I’ll send you the latest version.</p>
             </a></div>
-          <p style="margin:48px 0 14px;color:var(--mut)">Or write to me directly. Based in New Jersey, studying for an M.S. in Data Science at Monroe University.</p>
-          <a class="big" href="mailto:satyajitlion@gmail.com">satyajitlion@gmail.com</a>
+          <!-- Contact form: sends the message to your inbox through a form service (see FORM_ENDPOINT in script.js, section 14). -->
+          <form id="contactForm" class="cform" novalidate>
+            <h3>Send me a message</h3>
+            <label>Your name<input name="name" required autocomplete="name"></label>
+            <label>Your email<input name="email" type="email" required autocomplete="email"></label>
+            <label>What is this about?
+              <select name="reason">
+                <option>Hiring inquiry</option>
+                <option>Research collaboration</option>
+                <option>Resume request</option>
+                <option>Just saying hi</option>
+              </select>
+            </label>
+            <label>Message<textarea name="message" rows="6" required></textarea></label>
+            <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn p" type="submit">Send message</button>
+            <p id="formStatus" role="status" aria-live="polite"></p>
+          </form>
           <p class="soc" style="margin-top:30px"><a href="https://github.com/satyajitlion">GitHub</a><a href="https://www.linkedin.com/in/satyajitgade/">LinkedIn</a></p>
         </div>
       </section>
@@ -376,20 +403,23 @@
             <a class="ut-back" href="#home">&larr; Back to the real world</a>
             <button id="sceneBtn" type="button" hidden>Change scene</button>
             <button id="muteBtn" type="button" aria-pressed="false">Music: on</button>
+            <button id="fxToggle2" type="button" aria-pressed="true">Effects: on</button>
             <label class="ut-vol">Volume
               <input id="volSlider" type="range" min="0" max="1" step="0.01" value="0.15">
             </label>
           </div>
-          <h2 class="ut-title">* Personal life</h2>
+          <h2 class="ut-title">* More about Chris (after-hours)</h2>
           <!-- Typed out letter by letter by script.js. Edit the text in data-text. -->
           <div class="ut-box"><p id="utTalk" data-text="* You are filled with [[DETERMINATION]]. Here is what I play, listen to and draw when I am not doing research."></p></div>
           <div class="ut-grid">
             <!-- EDIT: replace the placeholder lines with your own games, music and so on. One <li> per item. -->
-            <div class="ut-box"><h3>Some Games I like</h3><ul>
-              <li>Undertale</li>
-              <li>Deltarune</li>
-              <li>Warframe</li>
-              <li>Clair Obscur: Expedition 33</li>
+            <div class="ut-box"><h3>Some Games I like</h3>
+              <!-- Click a game title to re-theme the page (background, colours, floating particles). To add a game: add a button here (data-game = a short id), then add its look in style.css sections 18 and 20 (copy a theme block). -->
+              <p class="ut-hint">(click a game to change the whole page's look)</p><ul>
+              <li class="game-li"><button class="game" type="button" data-game="undertale">Undertale</button></li>
+              <li class="game-li"><button class="game" type="button" data-game="deltarune">Deltarune</button></li>
+              <li class="game-li"><button class="game" type="button" data-game="warframe">Warframe</button></li>
+              <li class="game-li"><button class="game" type="button" data-game="e33">Expedition 33</button></li>
             </ul></div>
             <div class="ut-box">
               <h3>Songs I like</h3>
@@ -406,7 +436,7 @@
             </ul></div>
           </div>
           <h3 class="ut-sub">* Things I have drawn</h3>
-          <!-- EDIT: put your drawings in a folder (for example art/) and swap each placeholder for <figure class="art"><img src="art/NAME.png" alt="describe it"></figure> -->
+          <!-- all art is in my_art folder <figure class="art"><img src="art/NAME.png" alt="describe it"></figure> -->
           <div class="art-grid">
             <figure class="art">
               <img src="my_art/kitty_by_chris.jpg" alt="A cat drawing by Chris" loading="lazy">
@@ -419,6 +449,9 @@
             </figure>
           </div>
           <p class="ut-credit"> Background Art & Song Credit to Toby Fox and Temmie Chang.</p>
+          <!-- Scroll cue, then an empty screen: only the background is left. The contents scroll away faster than the scene (parallax); script.js section 11D. -->
+          <p class="ut-cue">&#9660; keep scrolling to see the scene</p>
+          <div class="ut-reveal"><button id="utUp" type="button">&#9650; Back to the contents</button></div>
         </div>
       </section>
 

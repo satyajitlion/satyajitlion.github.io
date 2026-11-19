@@ -4,6 +4,7 @@
    TABLE OF CONTENTS
     1. SETTINGS .............. numbers you can safely tweak
     2. HELPERS & CANVASES .... shortcuts and the canvases used
+    2B. EFFECTS ON/OFF ....... one switch for the lens, ripples, cursor and transitions
     3. WEBGL SKY ............. draws the lensed starfield on the graphics card
     4. SHARED STATE .......... variables read on every frame
     5. 2D LENS (fallback) .... the same lens in plain canvas, for browsers without WebGL
@@ -13,8 +14,11 @@
     9. ANIMATION LOOP ........ runs about 60 times per second
    10. MOUSE, CLICK & CURSOR INPUT (includes the star cursor)
    11. START UP
-   11B. PERSONAL LIFE ..... sidebar page: dog wipe, Undertale scene, music\n   12. PAGES & TRANSITIONS ... #about, #research, ... routing and the lensing page-in
+   11B. PERSONAL LIFE ..... sidebar page: dog wipe, Undertale scene, music
+   12. PAGES & TRANSITIONS ... #about, #research, ... routing and the lensing page-in
+   11D. GAME THEMES ........ click a game: the page re-themes; parallax background
    13. LENS-MODEL DEMO ....... the interactive simulator on the Research page
+   14. CONTACT FORM ......... the message form on the Contact page
 
    NAME GLOSSARY (short names used below)
      bg, bx      visible 2D canvas behind the page + its drawing context (fallback only)
@@ -29,11 +33,14 @@
 /* ---- 1. SETTINGS (safe to edit) ---- */
 const LENS_RADIUS = 200; // size of the area the cursor lens can bend, in px
 const LENS_STRENGTH = 64; // lens strength (Einstein radius in px): bigger = stronger, wider ring
-const RIPPLE_MS = 1800; // how long one ripple lasts, in ms
-const RIPPLE_STRENGTH = 42; // how hard a ripple bends the sky at the start, in px
-const RIPPLE_REACH = 0.8; // how far ripples travel, as a fraction of the screen's longest side
-const RIPPLES_PER_CLICK = 2; // number of waves sent by each nav click
-const RIPPLE_GAP_MS = 200; // delay between those waves, in ms
+const RIPPLE_MS = 1500; // how long one ripple lasts, in ms
+const RIPPLE_STRENGTH = 16; // how hard a ripple bends the sky at the start, in px
+const RIPPLE_REACH = 0.7; // how far ripples travel, as a fraction of the screen's longest side
+const RIPPLES_PER_CLICK = 1; // number of waves sent by each nav click
+const RIPPLE_GAP_MS = 200; // delay between those waves, in ms (only matters if RIPPLES_PER_CLICK is above 1)
+const RIPPLE_COOLDOWN_MS = 900; // a new ripple is ignored if another started less than this many ms ago
+const IDLE_SPEED = 0.35; // how fast the lens drifts when the mouse is idle (1 = original speed, smaller = slower)
+const IDLE_STRENGTH = 0.7; // lens strength while idle (1 = same as when following the mouse)
 const PAGE_OUT_MS = 160; // old page fade-out time, in ms
 const PAGE_IN_MS = 600; // new page lensing-in time, in ms
 const PAGE_IN_WARP = 150; // how strongly the new page is warped when it first appears
@@ -59,6 +66,32 @@ const R = LENS_RADIUS,
   S = 22,
   patchB = bx.createImageData(2 * R, 2 * R),
   patchP = px.createImageData(2 * R, 2 * R);
+
+/* ---- 2B. VISUAL EFFECTS ON/OFF ---- */
+// One switch turns off the lens, ripples, star cursor and page transitions, leaving a plain starfield and the normal
+// mouse cursor. The choice is remembered. Visitors whose device asks for reduced motion start with effects off.
+let vfxOn = (() => {
+  let saved = null;
+  try { saved = localStorage.getItem("vfx"); } catch (e) {}
+  if (saved) return saved === "on";
+  return !(RESPECT_REDUCED_MOTION && matchMedia("(prefers-reduced-motion: reduce)").matches);
+})();
+function applyVfx() {
+  document.documentElement.classList.toggle("no-vfx", !vfxOn);
+  if (!vfxOn) document.documentElement.classList.remove("custom-cursor");
+  for (const b of document.querySelectorAll("#fxToggle, #fxToggle2")) {
+    b.setAttribute("aria-pressed", String(vfxOn));
+    b.title = "Visual effects: " + (vfxOn ? "on" : "off") + " (click to change)";
+  }
+  $("#fxToggle2").textContent = "Effects: " + (vfxOn ? "on" : "off");
+}
+function setVfx(on) {
+  vfxOn = on;
+  try { localStorage.setItem("vfx", on ? "on" : "off"); } catch (e) {}
+  applyVfx();
+}
+document.addEventListener("click", (e) => { if (e.target.closest("#fxToggle, #fxToggle2")) setVfx(!vfxOn); });
+applyVfx();
 
 /* ---- 3. WEBGL SKY ---- */
 // Builds a full-screen shader that draws the starfield bent by the cursor lens and the ripples.
@@ -242,6 +275,14 @@ function buildPT() {
 // waves: one entry per ripple, {x, y, t} = where and when it started.
 const waves = [];
 let pOn = false, org = null;
+// Start a ripple at (x, y). Ignored while effects are off, or if another ripple started less than RIPPLE_COOLDOWN_MS ago.
+let lastRipple = -1e9;
+function spawnRipple(x, y) {
+  const t = performance.now();
+  if (!vfxOn || t - lastRipple < RIPPLE_COOLDOWN_MS) return;
+  lastRipple = t;
+  for (let i = 0; i < RIPPLES_PER_CLICK; i++) waves.push({ x, y, t: t + i * RIPPLE_GAP_MS });
+}
 // How far ripple rings push the pixel at (x, y): a smooth bump travelling outward from each click.
 function disp(x, y, o) {
   let ox = 0, oy = 0;
@@ -316,11 +357,13 @@ function draw(now) {
     }
     return;
   }
-  let lx = m.x, ly = m.y;
-  if (now - m.t > 2500) {
-    lx = W * (0.5 + 0.36 * Math.sin(now / 3100));
-    ly = H * (0.5 + 0.3 * Math.sin(now / 2300 + 1));
+  let lx = m.x, ly = m.y, idle = false;
+  if (now - m.t > 2500) { // mouse idle: the lens drifts slowly on its own
+    idle = true;
+    lx = W * (0.5 + 0.3 * Math.sin((now * IDLE_SPEED) / 3100));
+    ly = H * (0.5 + 0.24 * Math.sin((now * IDLE_SPEED) / 2300 + 1));
   }
+  if (!vfxOn) { lx = -1e4; ly = -1e4; } // effects off: park the lens off-screen so only the plain sky shows
   const p = (now - kick.t) / 900, k = p >= 0 && p < 1 ? Math.sin(Math.PI * p) : 0;
   const o = kick.o;
   if (o && k > 0) {
@@ -328,8 +371,9 @@ function draw(now) {
     lx += (o.x - lx) * b;
     ly += (o.y - ly) * b;
   }
-  const E = E0;
+  const E = idle ? E0 * IDLE_STRENGTH : E0;
   rings.length = 0;
+  if (!vfxOn) waves.length = 0;
   for (let i = waves.length - 1; i >= 0; i--) {
     const w = waves[i], q = (now - w.t) / RIPPLE_MS;
     if (q >= 1) {
@@ -365,7 +409,7 @@ function draw(now) {
     bx.stroke();
   }
   const r = pw.getBoundingClientRect(),
-    near = r.width > 0 && k === 0 && now - m.t < 2500 && m.x > r.left - R && m.x < r.right + R && m.y > r.top - R && m.y < r.bottom + R;
+    near = vfxOn && r.width > 0 && k === 0 && now - m.t < 2500 && m.x > r.left - R && m.x < r.right + R && m.y > r.top - R && m.y < r.bottom + R;
   if (near) {
     const q = pc.width / r.width;
     px.drawImage(ps, 0, 0);
@@ -384,12 +428,11 @@ document.addEventListener("click", (e) => {
   if (!a) return;
   const r = a.getBoundingClientRect();
   org = { x: e.clientX || r.left + r.width / 2, y: e.clientY || r.top + r.height / 2 };
-  const t = performance.now();
-  for (let i = 0; i < RIPPLES_PER_CLICK; i++) waves.push({ x: org.x, y: org.y, t: t + i * RIPPLE_GAP_MS });
+  spawnRipple(org.x, org.y);
 }, true);
 // Clicking empty sky: send one ripple from that spot.
 addEventListener("pointerdown", (e) => {
-  if (!e.target.closest("a,button,input,label,canvas")) waves.push({ x: e.clientX, y: e.clientY, t: performance.now() });
+  if (!e.target.closest("a,button,input,textarea,select,label,canvas,summary")) spawnRipple(e.clientX, e.clientY);
 });
 // Track the mouse; the lens follows it (and drifts on its own when the mouse is idle).
 addEventListener("pointermove", (e) => {
@@ -411,7 +454,7 @@ const cursorEl = $("#cursor");
 if (cursorEl && matchMedia("(hover: hover) and (pointer: fine)").matches) {
   const root = document.documentElement;
   addEventListener("pointermove", (e) => {
-    if (e.pointerType !== "mouse") return;
+    if (e.pointerType !== "mouse" || !vfxOn) return;
     root.classList.add("custom-cursor"); // hides the arrow and shows the star
     cursorEl.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
     cursorEl.classList.toggle("hover", !!e.target.closest("a, button, summary, input, label"));
@@ -646,6 +689,7 @@ async function dogWipe(swap) {
 }
 // Page buttons: change the scene, mute the music
 $("#sceneBtn").addEventListener("click", () => {
+  setUtTheme("undertale");
   const bg = $("#utBg");
   bg.classList.toggle("waterfall");
   bg.classList.toggle("marsh");
@@ -821,6 +865,46 @@ if (volSlider) {
 
 
 
+/* ---- 11D. GAME THEMES AND PARALLAX BACKGROUND ---- */
+// Clicking a game title re-themes the Personal life page: background scene, colours and floating particles.
+// The looks live in style.css (sections 18 and 20) as body.theme-GAME. "undertale" is the default look.
+function setUtTheme(game) {
+  Array.from(document.body.classList).filter((n) => n.startsWith("theme-") && n !== "theme-swap").forEach((n) => document.body.classList.remove(n));
+  if (game !== "undertale") document.body.classList.add("theme-" + game);
+  document.querySelectorAll("button.game").forEach((b) => b.classList.toggle("on", b.dataset.game === game));
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("button.game");
+  if (!b || b.classList.contains("on")) return;
+  document.body.classList.add("theme-swap"); // fade the scene out...
+  setTimeout(() => {
+    setUtTheme(b.dataset.game); // ...switch the look...
+    document.body.classList.remove("theme-swap"); // ...and fade it back in
+  }, vfxOn ? 350 : 0);
+});
+// Parallax: the scene moves slower than the contents, so past the contents only the scene is left.
+const utBg = $("#utBg"), utFx = $("#utFx");
+let parallaxQueued = false;
+function parallax() {
+  parallaxQueued = false;
+  if (!document.body.classList.contains("undertale")) return;
+  const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+  const p = Math.min(1, scrollY / max); // 0 at the top of the page, 1 at the bottom
+  utBg.style.transform = vfxOn ? `translate3d(0, ${-p * 0.3 * innerHeight}px, 0)` : ""; // scene: slowest layer
+  utFx.style.transform = vfxOn ? `translate3d(0, ${-p * 0.6 * innerHeight}px, 0)` : ""; // particles: in between
+  // The dark veil fades as the empty screen scrolls into view, so the scene shows in full.
+  const reveal = $(".ut-reveal").getBoundingClientRect();
+  document.body.style.setProperty("--veil", Math.max(0.12, Math.min(1, reveal.top / innerHeight)));
+}
+addEventListener("scroll", () => {
+  if (!parallaxQueued) {
+    parallaxQueued = true;
+    requestAnimationFrame(parallax);
+  }
+}, { passive: true });
+addEventListener("resize", parallax);
+$("#utUp").addEventListener("click", () => scrollTo({ top: 0, behavior: vfxOn ? "smooth" : "auto" }));
+
 /* ---- 12. PAGES & TRANSITIONS ---- */
 // Each page is a <section id="p-NAME"> in index.html, opened with a #NAME link.
 // Add a page: add its section, a nav link, and an entry in this list.
@@ -891,6 +975,7 @@ function setPage(id) {
   cur = id;
   document.body.classList.toggle("undertale", id === "personal"); // switches the whole look (style.css section 15)
   personalAudio(id === "personal");
+  parallax();
   if (id === "personal") typeLine($("#utTalk"));
   document.title = (id === "home" ? "" : names[id] + " – ") + "Chris Gade";
   scrollTo(0, 0);
@@ -900,7 +985,7 @@ function setPage(id) {
 async function route() {
   const id = names[location.hash.slice(1)] ? location.hash.slice(1) : "home";
   if (id === cur || busy) return;
-  if (cur === null || (RESPECT_REDUCED_MOTION && matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+  if (cur === null || !vfxOn) { // effects off (or reduced motion): switch pages instantly
     setPage(id);
     kick.t = performance.now();
     return;
@@ -982,3 +1067,40 @@ dc.addEventListener("pointerdown", (e) => {
 dc.addEventListener("pointerup", () => dc.onpointermove = null);
 ["e", "g", "a"].forEach((i) => $("#" + i).addEventListener("input", demo));
 demo();
+
+/* ---- 14. CONTACT FORM ---- */
+// The form on the Contact page sends the message to your inbox through a free form service, so no server is needed.
+// FORM_ENDPOINT uses FormSubmit: the FIRST message you get asks you to confirm your email once. After that it just works.
+// Prefer another service? Formspree, Web3Forms or Getform work the same way: paste the endpoint URL they give you here.
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/satyajitlion@gmail.com";
+const contactForm = $("#contactForm"), formStatus = $("#formStatus");
+// The three cards above the form pick the topic in the form (instead of opening an email).
+document.querySelectorAll(".paths a").forEach((a) => a.addEventListener("click", (e) => {
+  e.preventDefault();
+  const topic = decodeURIComponent((a.getAttribute("href").split("subject=")[1] || ""));
+  if (topic) contactForm.elements.reason.value = topic;
+  contactForm.scrollIntoView({ behavior: "smooth", block: "center" });
+  contactForm.elements.message.focus({ preventScroll: true });
+}));
+contactForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  if (!contactForm.checkValidity()) { contactForm.reportValidity(); return; }
+  const data = Object.fromEntries(new FormData(contactForm));
+  if (data._honey) return; // bots fill the hidden field; people never see it
+  const btn = contactForm.querySelector("button[type=submit]");
+  btn.disabled = true;
+  formStatus.textContent = "Sending...";
+  try {
+    const res = await fetch(FORM_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({ ...data, _subject: "Portfolio message: " + data.reason, _captcha: "false", _template: "table" }),
+    });
+    if (!res.ok) throw new Error(res.status);
+    contactForm.reset();
+    formStatus.textContent = "Thanks! Your message has been sent.";
+  } catch (err) {
+    formStatus.innerHTML = 'That did not go through. Please email me directly at <a href="mailto:satyajitlion@gmail.com">satyajitlion@gmail.com</a>.';
+  }
+  btn.disabled = false;
+});

@@ -1571,7 +1571,6 @@ body.undertale.theme-e33 .ut-bg {
 body.undertale.theme-deltarune .ut-bg::before {
   content: "";
   position: absolute;
-  inset: -35px;
   background: url("game_wallpapers/deltarune%20fountain.gif") center / cover no-repeat;
   filter: blur(28px) brightness(0.75);
   z-index: 0;
@@ -1581,7 +1580,6 @@ body.undertale.theme-deltarune .ut-bg::before {
 body.undertale.theme-warframe .ut-bg::before {
   content: "";
   position: absolute;
-  inset: -35px;
   background: url("game_wallpapers/duviri%20warframe.gif") center / cover no-repeat;
   filter: blur(28px) brightness(0.75);
   z-index: 0;
@@ -1591,7 +1589,6 @@ body.undertale.theme-warframe .ut-bg::before {
 body.undertale.theme-e33 .ut-bg::before {
   content: "";
   position: absolute;
-  inset: -35px;
   background: url("game_wallpapers/true_end_e33.gif") center / cover no-repeat;
   filter: blur(28px) brightness(0.75);
   z-index: 0;

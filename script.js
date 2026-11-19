@@ -871,6 +871,7 @@ if (volSlider) {
 function setUtTheme(game) {
   Array.from(document.body.classList).filter((n) => n.startsWith("theme-") && n !== "theme-swap").forEach((n) => document.body.classList.remove(n));
   if (game !== "undertale") document.body.classList.add("theme-" + game);
+  document.body.classList.toggle("ut-themed", game !== "undertale"); // switches on the full theme (fonts, boxes, cursor): style.css section 21
   document.querySelectorAll("button.game").forEach((b) => b.classList.toggle("on", b.dataset.game === game));
 }
 document.addEventListener("click", (e) => {

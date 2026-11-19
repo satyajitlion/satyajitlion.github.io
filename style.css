@@ -2,7 +2,7 @@
    style.css: all visual styling
    Sections: 1 colours, 2 background, 3 type, 4 layout & nav, 5 pages, 6 home,
    7 headers & about, 8 research, 9 projects, 10 contact, 11 home cards,
-   12 next-chapter buttons, 13 footer, 14 custom cursor, 15 personal life (Undertale page), 16 sidebar button and dog wipe, 17 game buttons, 18 page themes per game, 19 feedback tweaks, 20 parallax background and game scenes (education cards, bullets, FX switch, contact form), then phone layout.
+   12 next-chapter buttons, 13 footer, 14 custom cursor, 15 personal life (Undertale page), 16 sidebar button and dog wipe, 17 game buttons, 18 page themes per game, 19 feedback tweaks, 20 parallax background and game scenes, 21 full game themes (fonts, boxes, cursor) (education cards, bullets, FX switch, contact form), then phone layout.
    ===================================================================== */
 
 
@@ -828,8 +828,37 @@ body.undertale .ut-bg {
   display: block;
 }
 .ut-bg.waterfall {
-  background-image: url("undertale/frisk_bg.gif");
-  image-rendering: pixelated;   /* remove if the GIF is smooth/watercolor, keep if pixel art */
+  background: #080711;
+  image-rendering: pixelated;   /* Keep the original Undertale pixel art crisp */
+}
+
+/* Undertale waterfall: atmospheric duplicate fills the screen behind the artwork. */
+body.undertale:not(.theme-deltarune):not(.theme-warframe):not(.theme-e33) .ut-bg.waterfall::before {
+  content: "";
+  position: absolute;
+  inset: -35px;
+  background: url("undertale/frisk_bg.gif") center / cover no-repeat;
+  filter: blur(28px) brightness(0.75);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Sharp original GIF fades in as the page is scrolled, without being resized.
+   The subtle purple/dark veil remains on top while it is revealed. */
+body.undertale:not(.theme-deltarune):not(.theme-warframe):not(.theme-e33) .ut-bg.waterfall::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(82, 65, 158, 0.15), rgba(0, 0, 12, .6)),
+    url("undertale/frisk_bg.gif");
+  background-position: center, center;
+  background-size: cover;
+  background-repeat: no-repeat, no-repeat;
+  image-rendering: pixelated;
+  opacity: calc(1 - var(--veil, 1));
+  z-index: 1;
+  pointer-events: none;
 }
 .ut-bg.marsh {
   background-image: url("undertale/bg-marsh.jpg");       /* scene option 2 */
@@ -1513,18 +1542,95 @@ body.undertale .ut-grid > .ut-box.open .ut-more {
   color: #8aa;
 }
 
-/* ===== 18. PAGE THEMES PER GAME (Personal life page) ===== */
-/* Clicking a game title also re-themes the page (script.js adds body.theme-GAME).
-   Undertale is the default look (the waterfall / marsh scenes). Add a theme by copying a block. */
+
+/* ===== 18. PAGE THEMES PER GAME (Personal Life page) ===== */
+
+/* DELTARUNE */
 body.undertale.theme-deltarune .ut-bg {
-  background: repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 2px, transparent 2px 30px), linear-gradient(#150f3a, #2a1b5e 62%, #0b0a1c);
+  overflow: hidden;
+  isolation: isolate;
+  background: #151044;
 }
+
+/* WARFRAME */
 body.undertale.theme-warframe .ut-bg {
-  background: radial-gradient(#fff 0 1px, transparent 1.5px) 0 0 / 28px 28px, linear-gradient(#050a18, #0d1c3a);
+  overflow: hidden;
+  isolation: isolate;
+  background: #18283b;
 }
+
+/* EXPEDITION 33 */
 body.undertale.theme-e33 .ut-bg {
-  background: linear-gradient(#2b1030, #8a2e3a 66%, #e08a5a);
+  overflow: hidden;
+  isolation: isolate;
+  background: #30232b;
 }
+
+/* Atmospheric background: enlarged, blurred copy fills the viewport.
+   It stays behind the original artwork as you scroll. */
+body.undertale.theme-deltarune .ut-bg::before {
+  content: "";
+  position: absolute;
+  inset: -35px;
+  background: url("game_wallpapers/deltarune%20fountain.gif") center / cover no-repeat;
+  filter: blur(28px) brightness(0.75);
+  z-index: 0;
+  pointer-events: none;
+}
+
+body.undertale.theme-warframe .ut-bg::before {
+  content: "";
+  position: absolute;
+  inset: -35px;
+  background: url("game_wallpapers/duviri%20warframe.gif") center / cover no-repeat;
+  filter: blur(28px) brightness(0.75);
+  z-index: 0;
+  pointer-events: none;
+}
+
+body.undertale.theme-e33 .ut-bg::before {
+  content: "";
+  position: absolute;
+  inset: -35px;
+  background: url("game_wallpapers/true_end_e33.gif") center / cover no-repeat;
+  filter: blur(28px) brightness(0.75);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Original GIF: native dimensions, centered, and revealed progressively on scroll.
+   --veil starts at 1 and fades toward 0 near the bottom of the page. */
+body.undertale.theme-deltarune .ut-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("game_wallpapers/deltarune%20fountain.gif") center / auto no-repeat;
+  opacity: calc(1 - var(--veil, 1));
+  z-index: 1;
+  pointer-events: none;
+}
+
+body.undertale.theme-warframe .ut-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("game_wallpapers/duviri%20warframe.gif") center / auto no-repeat;
+  opacity: calc(1 - var(--veil, 1));
+  z-index: 1;
+  pointer-events: none;
+}
+
+body.undertale.theme-e33 .ut-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("game_wallpapers/true_end_e33.gif") center / auto no-repeat;
+  opacity: calc(1 - var(--veil, 1));
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Unchanged: */
 body.undertale.theme-deltarune .ut-box { border-color: #c58bff; }
 body.undertale.theme-warframe .ut-box { border-color: #5df2ff; }
 body.undertale.theme-e33 .ut-box { border-color: #ff9a8a; }
@@ -1686,10 +1792,12 @@ html.no-vfx #cursor {
   .fx .fxl { display: none; }
   .edu > div { padding: 24px; }
 }
+
 /* ===== 20. PARALLAX BACKGROUND AND GAME SCENES (Personal life page) ===== */
 /* Three layers move at different speeds while you scroll: the scene (slowest), floating particles (middle) and the
    contents (normal). script.js (section 11D) moves the layers. Past the contents there is an empty screen where
    only the scene is left; the dark veil fades away as you get there. */
+
 body.undertale .ut-bg {
   inset: auto;
   top: 0;
@@ -1721,6 +1829,7 @@ body.theme-swap .ut-bg,
 body.theme-swap .ut-fx {
   opacity: 0;                          /* quick fade while the theme changes */
 }
+
 /* Undertale (default): faint drifting sparkles over the waterfall / marsh scenes */
 .ut-fx {
   background:
@@ -1735,67 +1844,17 @@ body.theme-swap .ut-fx {
 @keyframes fall {
   to { background-position: 40px 520px, -50px 760px; }
 }
-/* Deltarune: deep purple lattice, a soft glow, drifting violet sparks */
-body.undertale.theme-deltarune .ut-bg {
-  background:
-    repeating-linear-gradient(45deg, rgba(150,120,255,.13) 0 2px, transparent 2px 40px),
-    repeating-linear-gradient(-45deg, rgba(150,120,255,.13) 0 2px, transparent 2px 40px),
-    linear-gradient(#0b0a2e, #1e1458 55%, #3a1f78);
-}
-body.undertale.theme-deltarune .ut-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 72%, rgba(197,139,255,.38), transparent 46%);
-}
-body.undertale.theme-deltarune .ut-fx {
-  background:
-    radial-gradient(circle, #fff 0 1.5px, transparent 2px) 0 0 / 90px 90px,
-    radial-gradient(circle, #c58bff 0 2px, transparent 3px) 30px 40px / 130px 130px;
-  animation: sparkle 4s ease-in-out infinite alternate;
-}
-/* Warframe: deep space, a glowing planet, bright stars */
-body.undertale.theme-warframe .ut-bg {
-  background:
-    radial-gradient(#fff 0 1px, transparent 1.5px) 0 0 / 34px 34px,
-    linear-gradient(#02050f, #0a1a40);
-}
-body.undertale.theme-warframe .ut-bg::before {
-  content: "";
-  position: absolute;
-  right: 12%;
-  top: 22%;
-  width: 24vh;
-  height: 24vh;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #8ff, #2b6fa8 46%, #0a1a40);
-  box-shadow: 0 0 70px rgba(93,242,255,.45);
-}
-body.undertale.theme-warframe .ut-fx {
-  background:
-    radial-gradient(circle, #fff 0 1.5px, transparent 2.5px) 0 0 / 120px 120px,
-    radial-gradient(circle, #5df2ff 0 1.5px, transparent 3px) 60px 90px / 190px 190px;
-}
-/* Clair Obscur: Expedition 33: dusk sky, the dark monolith, falling petals */
-body.undertale.theme-e33 .ut-bg {
-  background: linear-gradient(#2b1030, #8a2e3a 62%, #e08a5a);
-}
-body.undertale.theme-e33 .ut-bg::before {
-  content: "";
-  position: absolute;
-  left: 64%;
-  bottom: 0;
-  width: 12%;
-  height: 66%;
-  background: #14121c;
-  clip-path: polygon(14% 100%, 28% 0, 72% 0, 86% 100%);
-}
+
+/* GIF themes (Deltarune / Warframe / Expedition 33): the GIF is the scene, so the
+   floating particle layer and the glow/planet/monolith pseudo-elements are hidden
+   — otherwise the dots and glows would paint over the artwork. The GIF itself
+   comes from section 18, not from here. */
+body.undertale.theme-deltarune .ut-fx,
+body.undertale.theme-warframe .ut-fx,
 body.undertale.theme-e33 .ut-fx {
-  background:
-    radial-gradient(ellipse 7px 4px at 15px 20px, #ff6b5e 90%, transparent 100%) 0 0 / 110px 140px,
-    radial-gradient(ellipse 5px 3px at 60px 80px, #ffb36b 90%, transparent 100%) 0 0 / 170px 190px;
-  animation: fall 16s linear infinite;
+  display: none;
 }
+
 html.no-vfx .ut-fx {
   animation: none;                     /* effects off: no moving particles */
 }
@@ -1824,4 +1883,255 @@ html.no-vfx .ut-fx {
 .ut-reveal button:hover {
   color: #ff0;
   border-color: #ff0;
+}
+
+/* ===== 21. FULL GAME THEMES (Personal life page) ===== */
+/* Clicking a game changes more than the background: fonts, box shapes, colours, bullets and the cursor.
+   Each theme below is just a list of variables (--t-...). The rules after them apply the variables, so to restyle a
+   game you only edit its list. script.js adds the classes body.ut-themed + body.theme-GAME. Undertale = no theme class. */
+/* ---- Deltarune: colourful pixel UI, rainbow borders, hot-pink shadows ---- */
+body.undertale.theme-deltarune {
+  --t-body-font: 'Pixelify Sans', 'VT323', monospace;
+  --t-head-font: 'Pixelify Sans', 'Press Start 2P', monospace;
+  --t-body-size: 21px;
+  --t-h3-size: 22px;
+  --t-title-size: clamp(28px, 4.6vw, 46px);
+  --t-title-color: #ffffff;
+  --t-title-shadow: 3px 3px 0 #ff4fb0, 6px 6px 0 #4de4ff;
+  --t-title-style: normal;
+  --t-title-case: none;
+  --t-spacing: 0;
+  --t-page-text: #e8ecff;
+  --t-page-dim: #a9b3ff;
+  --t-text: #ffffff;
+  --t-dim: #a9b3ff;
+  --t-accent: #ffd93d;
+  --t-accent2: #ff4fb0;
+  --t-box-bg: rgba(10, 8, 54, .92);
+  --t-box-border: 4px solid transparent;
+  --t-box-image: linear-gradient(135deg, #ff4fb0, #ffd93d 50%, #4de4ff) 1;
+  --t-box-radius: 0;
+  --t-box-shadow: 6px 6px 0 rgba(255, 79, 176, .55);
+  --t-box-shadow-hover: 9px 9px 0 rgba(77, 228, 255, .6);
+  --t-clip: none;
+  --t-bullet: "\25B8 ";
+  --t-modal-bg: #0a0836;
+  --t-btn-bg: rgba(10, 8, 54, .8);
+  --t-btn-border: 3px solid #4de4ff;
+  --t-btn-radius: 0;
+  --t-solid: #0b0a2e;
+}
+/* ---- Warframe: Orokin / Tenno HUD: gold and cyan, cut corners, Vitruvian geometry in the sky ---- */
+body.undertale.theme-warframe {
+  --t-body-font: 'Rajdhani', 'VT323', sans-serif;
+  --t-head-font: 'Orbitron', 'Press Start 2P', sans-serif;
+  --t-body-size: 22px;
+  --t-h3-size: 16px;
+  --t-title-size: clamp(22px, 3.8vw, 38px);
+  --t-title-color: #e0b84c;
+  --t-title-shadow: 0 0 18px rgba(224, 184, 76, .5);
+  --t-title-style: normal;
+  --t-title-case: uppercase;
+  --t-spacing: .14em;
+  --t-page-text: #dff8ff;
+  --t-page-dim: #7fb3c4;
+  --t-text: #e6fbff;
+  --t-dim: #7fb3c4;
+  --t-accent: #5df2ff;
+  --t-accent2: #e0b84c;
+  --t-box-bg:
+    linear-gradient(#5df2ff, #5df2ff) right top / 20px 2px no-repeat,
+    linear-gradient(#5df2ff, #5df2ff) right top / 2px 20px no-repeat,
+    linear-gradient(#e0b84c, #e0b84c) left bottom / 20px 2px no-repeat,
+    linear-gradient(#e0b84c, #e0b84c) left bottom / 2px 20px no-repeat,
+    linear-gradient(135deg, rgba(6, 22, 40, .94), rgba(4, 10, 24, .94));
+  --t-box-border: 1px solid rgba(93, 242, 255, .45);
+  --t-box-image: none;
+  --t-box-radius: 0;
+  --t-box-shadow: 0 0 26px rgba(93, 242, 255, .14), inset 0 0 30px rgba(93, 242, 255, .06);
+  --t-box-shadow-hover: 0 0 34px rgba(224, 184, 76, .3), inset 0 0 30px rgba(224, 184, 76, .08);
+  --t-clip: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+  --t-bullet: "\25B8 ";
+  --t-modal-bg: #06121f;
+  --t-btn-bg: rgba(6, 22, 40, .8);
+  --t-btn-border: 1px solid #5df2ff;
+  --t-btn-radius: 0;
+  --t-solid: #02050f;
+}
+/* ---- Clair Obscur: Expedition 33: painted cream canvases, hand-drawn edges, flowers, Belle Epoque serif ---- */
+body.undertale.theme-e33 {
+  --t-body-font: 'Cormorant Garamond', 'Playfair Display', serif;
+  --t-head-font: 'Playfair Display', serif;
+  --t-body-size: 24px;
+  --t-h3-size: 24px;
+  --t-title-size: clamp(30px, 5vw, 54px);
+  --t-title-color: #fbe9cf;
+  --t-title-shadow: 2px 3px 0 rgba(120, 30, 50, .7);
+  --t-title-style: italic;
+  --t-title-case: none;
+  --t-spacing: 0;
+  --t-page-text: #fbe9cf;
+  --t-page-dim: #e8c9a8;
+  --t-text: #3a1b26;
+  --t-dim: #8a5a66;
+  --t-accent: #b3263e;
+  --t-accent2: #d9784a;
+  --t-box-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -12 24 24'%3E%3Cg fill='%23e0556b' stroke='%236b1d2c' stroke-width='.8'%3E%3Cellipse cy='-6.5' rx='3.6' ry='6'/%3E%3Cellipse cy='-6.5' rx='3.6' ry='6' transform='rotate(72)'/%3E%3Cellipse cy='-6.5' rx='3.6' ry='6' transform='rotate(144)'/%3E%3Cellipse cy='-6.5' rx='3.6' ry='6' transform='rotate(216)'/%3E%3Cellipse cy='-6.5' rx='3.6' ry='6' transform='rotate(288)'/%3E%3C/g%3E%3Ccircle r='3.2' fill='%23f7d56a' stroke='%236b1d2c' stroke-width='.8'/%3E%3C/svg%3E") right 14px bottom 12px / 38px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .2 0 0 0 0 .15 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0 / 160px, linear-gradient(#f7ecd5, #ead7b5);
+  --t-box-border: 3px solid #5a2433;
+  --t-box-image: none;
+  --t-box-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+  --t-box-shadow: 5px 8px 0 rgba(60, 20, 30, .45);
+  --t-box-shadow-hover: 8px 11px 0 rgba(60, 20, 30, .5);
+  --t-clip: none;
+  --t-bullet: "\2740  ";
+  --t-modal-bg: #f3e4c8;
+  --t-btn-bg: rgba(251, 233, 207, .92);
+  --t-btn-border: 3px solid #5a2433;
+  --t-btn-radius: 14px 4px 14px 4px;
+  --t-solid: #2b1030;
+}
+body.undertale.ut-themed {
+  background: var(--t-solid);
+  font-family: var(--t-body-font);
+  font-size: var(--t-body-size);
+  color: var(--t-page-text);
+}
+body.undertale.ut-themed .ut h2,
+body.undertale.ut-themed .ut h3 {
+  font-family: var(--t-head-font);
+  font-weight: 700;
+  letter-spacing: var(--t-spacing);
+  text-transform: var(--t-title-case);
+}
+body.undertale.ut-themed .ut-title {
+  font-size: var(--t-title-size);
+  color: var(--t-title-color);
+  text-shadow: var(--t-title-shadow);
+  font-style: var(--t-title-style);
+}
+body.undertale.ut-themed .ut > .ut-box,
+body.undertale.ut-themed .ut-grid > .ut-box,
+body.undertale.ut-themed .art-grid > .art {
+  border: var(--t-box-border);
+  border-image: var(--t-box-image);
+  border-radius: var(--t-box-radius);
+  background: var(--t-box-bg);
+  box-shadow: var(--t-box-shadow);
+  clip-path: var(--t-clip);
+  color: var(--t-text);
+}
+body.undertale.ut-themed .ut-grid > .ut-box:hover,
+body.undertale.ut-themed .ut-grid > .ut-box:focus-visible,
+body.undertale.ut-themed .ut-grid > .ut-box.open,
+body.undertale.ut-themed .art-grid > .art:hover,
+body.undertale.ut-themed .art-grid > .art:focus-visible,
+body.undertale.ut-themed .art-grid > .art.open {
+  border-color: var(--t-accent2);
+  box-shadow: var(--t-box-shadow-hover);
+}
+body.undertale.ut-themed .ut-grid > .ut-box::before,
+body.undertale.ut-themed .art-grid > .art::before {
+  background: var(--t-accent2);         /* the little corner badge on each panel */
+}
+body.undertale.ut-themed .ut-grid > .ut-box::after,
+body.undertale.ut-themed .art-grid > .art::after,
+body.undertale.ut-themed .ut-grid > .ut-box .ut-more {
+  color: var(--t-accent2);
+}
+body.undertale.ut-themed .ut-box h3 {
+  font-size: var(--t-h3-size);
+  color: var(--t-accent);
+}
+body.undertale.ut-themed .ut li:not(.song-choice)::before {
+  content: var(--t-bullet);             /* the bullet in front of each list item */
+  color: var(--t-accent2);
+}
+body.undertale.ut-themed .ut li.todo,
+body.undertale.ut-themed .ut-hint,
+body.undertale.ut-themed .art span {
+  color: var(--t-dim);
+}
+body.undertale.ut-themed .ut button.game {
+  color: var(--t-text);
+}
+body.undertale.ut-themed .ut button.game::after,
+body.undertale.ut-themed .ut button.game:hover,
+body.undertale.ut-themed .ut button.game:focus-visible,
+body.undertale.ut-themed .ut button.game.on {
+  color: var(--t-accent2);
+}
+body.undertale.ut-themed .song-choice.playing,
+body.undertale.ut-themed .song-choice.playing::before,
+body.undertale.ut-themed .panel-modal__content .song-choice:hover {
+  color: var(--t-accent2);
+}
+body.undertale.ut-themed .ut-credit,
+body.undertale.ut-themed .ut-cue {
+  color: var(--t-page-dim);
+}
+body.undertale.ut-themed .ut-top a,
+body.undertale.ut-themed .ut-top button,
+body.undertale.ut-themed .ut-reveal button {
+  font-family: var(--t-body-font);
+  color: var(--t-page-text);
+  background: var(--t-btn-bg);
+  border: var(--t-btn-border);
+  border-radius: var(--t-btn-radius);
+}
+body.undertale.ut-themed .ut-top a:hover,
+body.undertale.ut-themed .ut-top button:hover,
+body.undertale.ut-themed .ut-reveal button:hover {
+  color: var(--t-accent);
+  border-color: var(--t-accent);
+}
+/* the zoom window follows the theme too */
+body.undertale.ut-themed .panel-modal {
+  font-family: var(--t-body-font);
+}
+body.undertale.ut-themed .panel-modal__window {
+  background: var(--t-modal-bg);
+  border: var(--t-box-border);
+  border-image: var(--t-box-image);
+  border-radius: var(--t-box-radius);
+  color: var(--t-text);
+}
+body.undertale.ut-themed .panel-modal__window h3 {
+  font-family: var(--t-head-font);
+  color: var(--t-accent);
+}
+body.undertale.ut-themed .panel-modal__window .ut-more {
+  color: var(--t-accent2);
+}
+body.undertale.ut-themed .panel-modal__close {
+  font-family: var(--t-head-font);
+  color: var(--t-accent);
+  background: var(--t-modal-bg);
+  border: 3px solid var(--t-accent);
+}
+/* whole page fades while the theme switches */
+body.undertale .ut {
+  transition: opacity .35s;
+}
+body.theme-swap .ut {
+  opacity: 0;
+}
+/* cursor: each theme has its own shape (the markup is in index.html, inside #cursor) */
+#cursor .tc {
+  display: none;
+  position: absolute;
+  animation: none;
+  filter: none;
+}
+#cursor .tc-spade { left: -11px; top: -11px; width: 22px; height: 22px; }
+#cursor .tc-reticle { left: -12px; top: -12px; width: 24px; height: 24px; filter: drop-shadow(0 0 5px rgba(93,242,255,.8)); }
+#cursor .tc-flower { left: -13px; top: -13px; width: 26px; height: 26px; }
+body.undertale.theme-deltarune #cursor .heart,
+body.undertale.theme-warframe #cursor .heart,
+body.undertale.theme-e33 #cursor .heart {
+  display: none;                        /* the Undertale heart is only for the Undertale look */
+}
+body.undertale.theme-deltarune #cursor .tc-spade,
+body.undertale.theme-warframe #cursor .tc-reticle,
+body.undertale.theme-e33 #cursor .tc-flower {
+  display: block;
 }

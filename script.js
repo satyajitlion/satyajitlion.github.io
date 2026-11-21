@@ -44,7 +44,7 @@ const IDLE_STRENGTH = 0.7; // lens strength while idle (1 = same as when followi
 const PAGE_OUT_MS = 160; // old page fade-out time, in ms
 const PAGE_IN_MS = 600; // new page lensing-in time, in ms
 const PAGE_IN_WARP = 150; // how strongly the new page is warped when it first appears
-const RESPECT_REDUCED_MOTION = true; // true = visitors whose device has "Reduce motion" turned on get instant page changes
+const RESPECT_REDUCED_MOTION = false; // true = visitors whose device has "Reduce motion" turned on get instant page changes
 // (no wipe, no lensing). Set to false to always play the animations, e.g. if you can't see them on your own computer.
 
 /* ---- 2. HELPERS & CANVASES ---- */

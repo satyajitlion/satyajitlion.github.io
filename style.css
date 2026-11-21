@@ -2,7 +2,7 @@
    style.css: all visual styling
    Sections: 1 colours, 2 background, 3 type, 4 layout & nav, 5 pages, 6 home,
    7 headers & about, 8 research, 9 projects, 10 contact, 11 home cards,
-   12 next-chapter buttons, 13 footer, 14 custom cursor, 15 personal life (Undertale page), 16 sidebar button and dog wipe, 17 game buttons, 18 page themes per game, 19 feedback tweaks, 20 parallax background and game scenes, 21 full game themes (fonts, boxes, cursor) (education cards, bullets, FX switch, contact form), then phone layout.
+   12 next-chapter buttons, 13 footer, 14 custom cursor, 15 personal life (Undertale page), 16 sidebar button and dog wipe, 17 game buttons, 18 page themes per game, 19 feedback tweaks, 20 parallax background and game scenes, 21 full game themes (fonts, boxes, cursor), 22 GIF scenes and text legibility (education cards, bullets, FX switch, contact form), then phone layout.
    ===================================================================== */
 
 
@@ -1566,77 +1566,55 @@ body.undertale.theme-e33 .ut-bg {
   background: #30232b;
 }
 
-/* Atmospheric background: enlarged, blurred copy fills the viewport.
-   It stays behind the original artwork as you scroll. */
-body.undertale.theme-deltarune .ut-bg::before {
-  content: "";
-  position: absolute;
-  background: url("game_wallpapers/deltarune%20fountain.gif") center / cover no-repeat;
-  filter: blur(28px) brightness(0.75);
-  z-index: 0;
-  pointer-events: none;
+/* GIF scenes (Deltarune / Warframe / Expedition 33).
+   Each scene is the same GIF twice:
+     ::before = a big BLURRED copy that fills the whole background (it still animates, so you can see it moving)
+     ::after  = the SHARP copy, which fades in as you scroll down (opacity follows --veil, set by script.js)
+   Per game you only set two things below:
+     --gif  the file (spaces in a file name are written as %20)
+     --fit  "cover" = fill the screen and crop the edges, "contain" = show the whole picture, with the blurred copy
+            filling any empty space around it. If a GIF looks cropped or the wrong size, switch this one word. */
+body.undertale.theme-deltarune {
+  --gif: url("game_wallpapers/deltarune%20fountain.gif");
+  --fit: cover;
 }
-
-body.undertale.theme-warframe .ut-bg::before {
-  content: "";
-  position: absolute;
-  background: url("game_wallpapers/duviri%20warframe.gif") center / cover no-repeat;
-  filter: blur(28px) brightness(0.75);
-  z-index: 0;
-  pointer-events: none; 
+body.undertale.theme-warframe {
+  --gif: url("game_wallpapers/duviri%20warframe.gif");
+  --fit: contain;
 }
-
+body.undertale.theme-e33 {
+  --gif: url("game_wallpapers/true_end_e33.gif");
+  --fit: contain;
+}
+body.undertale.theme-deltarune .ut-bg::before,
+body.undertale.theme-warframe .ut-bg::before,
 body.undertale.theme-e33 .ut-bg::before {
   content: "";
   position: absolute;
-  background: url("game_wallpapers/true_end_e33.gif") center / cover no-repeat;
-  filter: blur(28px) brightness(0.75);
+  inset: -60px;                        /* bigger than the box so the blur has no soft edges (this was missing before) */
+  background: var(--gif) center / cover no-repeat;
+  filter: blur(26px) brightness(.8) saturate(1.1);
   z-index: 0;
   pointer-events: none;
 }
-
-/* Original GIF: native dimensions, centered, and revealed progressively on scroll.
-   --veil starts at 1 and fades toward 0 near the bottom of the page. */
-body.undertale.theme-deltarune .ut-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("game_wallpapers/deltarune%20fountain.gif") center / cover no-repeat;
-  opacity: calc(1 - var(--veil, 1));
-  z-index: 1;
-  pointer-events: none;
-}
-
-body.undertale.theme-warframe .ut-bg::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  /* For Horizontal blocks (i.e., where width is greater than height)*/
-  height: auto;
-  width: 100%;
-  transform: translate(-50%, -50%);
-  
-  background: url("game_wallpapers/duviri%20warframe.gif") center / cover no-repeat;
-  image-rendering: smooth;
-  opacity: calc(1 - var(--veil, 1));
-  z-index: 1;
-  pointer-events: none;
-}
-
+body.undertale.theme-deltarune .ut-bg::after,
+body.undertale.theme-warframe .ut-bg::after,
 body.undertale.theme-e33 .ut-bg::after {
   content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  /* For Horizontal blocks (i.e., where width is greater than height)*/
-  height: auto;
-  width: 100%;
-  transform: translate(-50%, -50%);
-  background: url("game_wallpapers/true_end_e33.gif") center no-repeat;
+  left: 0;
+  right: 0;
+  top: 30vh;                           /* the background slides up by 30vh while you scroll, so this is exactly the screen at the end */
+  height: 100vh;
+  background: var(--gif) center / var(--fit) no-repeat;
   opacity: calc(1 - var(--veil, 1));
   z-index: 1;
   pointer-events: none;
+}
+html.no-vfx body.undertale.theme-deltarune .ut-bg::after,
+html.no-vfx body.undertale.theme-warframe .ut-bg::after,
+html.no-vfx body.undertale.theme-e33 .ut-bg::after {
+  top: 0;                              /* effects off: the background doesn't slide, so line up with the top */
 }
 
 /* Unchanged: */
@@ -1854,14 +1832,45 @@ body.theme-swap .ut-fx {
   to { background-position: 40px 520px, -50px 760px; }
 }
 
-/* GIF themes (Deltarune / Warframe / Expedition 33): the GIF is the scene, so the
-   floating particle layer and the glow/planet/monolith pseudo-elements are hidden
-   — otherwise the dots and glows would paint over the artwork. The GIF itself
-   comes from section 18, not from here. */
-body.undertale.theme-deltarune .ut-fx,
+/* GIF themes (Warframe / Expedition 33): 
+   Blur fades OUT as you scroll, while the ethereal glow fades IN. */
+
+/* 1. Hide the FX layer entirely for Deltarune (removes the glow, blur, and sparkles) */
+body.undertale.theme-deltarune .ut-fx {
+  display: none;
+}
+
+/* 2. Apply the glow + blur effect ONLY to Warframe and Expedition 33 */
 body.undertale.theme-warframe .ut-fx,
 body.undertale.theme-e33 .ut-fx {
-  display: none;
+  display: block;
+  z-index: 1;
+  pointer-events: none;
+  animation: none;
+  background: transparent; 
+  
+  /* The scroll-fading blur */
+  backdrop-filter: blur(calc(var(--veil, 1) * 16px)) brightness(1.1) contrast(0.85) saturate(0.9);
+  -webkit-backdrop-filter: blur(calc(var(--veil, 1) * 16px)) brightness(1.1) contrast(0.85) saturate(0.9);
+  transition: backdrop-filter 0.1s linear;
+}
+
+/* 3. The ethereal light leak (only for Warframe and Expedition 33) */
+body.undertale.theme-warframe .ut-fx::after,
+body.undertale.theme-e33 .ut-fx::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  
+  background: 
+    radial-gradient(ellipse at 15% 10%, rgba(255, 245, 230, 0.85) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 20%, rgba(255, 230, 200, 0.65) 0%, transparent 50%),
+    linear-gradient(to bottom, transparent 60%, rgba(20, 10, 30, 0.5) 100%);
+    
+  opacity: calc((1 - var(--veil, 1)) * 1.1);
+  transition: opacity 0.1s linear;
 }
 
 html.no-vfx .ut-fx {
@@ -1985,7 +1994,8 @@ body.undertale.theme-e33 {
   --t-dim: #8a5a66;
   --t-accent: #b3263e;
   --t-accent2: #d9784a;
-  --t-box-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -12 24 24'%3E%3Cg fill='%23e0556b' stroke='%236b1d2c' stroke-width='.8'%3E%3Cellipse cy='-6.5' rx='3.6' ry='6'/%3E%3Cellipse cy='-6.5' rx='3.6' ry='6' transform='rotate(72)'/%3E%3Cellipse cy='-6.5' rx='3.6' ry='6' transform='rotate(144)'/%3E%3Cellipse cy='-6.5' rx='3.6' ry='6' transform='rotate(216)'/%3E%3Cellipse cy='-6.5' rx='3.6' ry='6' transform='rotate(288)'/%3E%3C/g%3E%3Ccircle r='3.2' fill='%23f7d56a' stroke='%236b1d2c' stroke-width='.8'/%3E%3C/svg%3E") right 14px bottom 12px / 38px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .2 0 0 0 0 .15 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0 / 160px, linear-gradient(#f7ecd5, #ead7b5);
+  --e33-flower: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 120%22%3E%3Cdefs%3E%3CradialGradient id=%22g%22 cx=%2250%25%22 cy=%22100%25%22 r=%22100%25%22%3E%3Cstop offset=%220%22 stop-color=%22%23fff1d6%22/%3E%3Cstop offset=%22.5%22 stop-color=%22%23e98a86%22/%3E%3Cstop offset=%221%22 stop-color=%22%23a81f3a%22/%3E%3C/radialGradient%3E%3Cpath id=%22p%22 d=%22M0 0C-17 -8 -21 -30 -6 -43C-2 -47 2 -47 6 -43C21 -30 17 -8 0 0Z%22/%3E%3C/defs%3E%3Cpath d=%22M60 114C46 98 30 96 14 100C28 110 44 114 60 114Z%22 fill=%22%235b7a3a%22 stroke=%22%232f2a1a%22 stroke-width=%221.6%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M60 114C74 98 90 96 106 100C92 110 76 114 60 114Z%22 fill=%22%236b8a44%22 stroke=%22%232f2a1a%22 stroke-width=%221.6%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M60 100V114%22 stroke=%22%232f2a1a%22 stroke-width=%222.4%22 stroke-linecap=%22round%22/%3E%3Cg transform=%22translate(60 54)%22%3E%3Cg fill=%22url(%23g)%22 stroke=%22%234a1424%22 stroke-width=%221.8%22 stroke-linejoin=%22round%22%3E%3Cuse href=%22%23p%22/%3E%3Cuse href=%22%23p%22 transform=%22rotate(72)%22/%3E%3Cuse href=%22%23p%22 transform=%22rotate(144)%22/%3E%3Cuse href=%22%23p%22 transform=%22rotate(216)%22/%3E%3Cuse href=%22%23p%22 transform=%22rotate(288)%22/%3E%3C/g%3E%3Cg fill=%22none%22 stroke=%22%23fff1d6%22 stroke-width=%222.2%22 stroke-linecap=%22round%22 opacity=%22.75%22%3E%3Cpath d=%22M-1 -12C-4 -22 -3 -30 0 -37%22/%3E%3Cpath d=%22M-1 -12C-4 -22 -3 -30 0 -37%22 transform=%22rotate(72)%22/%3E%3Cpath d=%22M-1 -12C-4 -22 -3 -30 0 -37%22 transform=%22rotate(144)%22/%3E%3Cpath d=%22M-1 -12C-4 -22 -3 -30 0 -37%22 transform=%22rotate(216)%22/%3E%3Cpath d=%22M-1 -12C-4 -22 -3 -30 0 -37%22 transform=%22rotate(288)%22/%3E%3C/g%3E%3Ccircle r=%227.5%22 fill=%22%23f2c14e%22 stroke=%22%234a1424%22 stroke-width=%221.6%22/%3E%3Ccircle cx=%22-2.5%22 cy=%22-2.5%22 r=%222.2%22 fill=%22%23fff1d6%22/%3E%3C/g%3E%3C/svg%3E");          /* the flower. To use your own picture: --e33-flower: url("game_wallpapers/e33_flower.png"); */
+  --t-box-bg: var(--e33-flower) right 14px bottom 12px / 48px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .2 0 0 0 0 .15 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0 / 160px, linear-gradient(#f7ecd5, #ead7b5);
   --t-box-border: 3px solid #5a2433;
   --t-box-image: none;
   --t-box-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
@@ -2133,7 +2143,13 @@ body.theme-swap .ut {
 }
 #cursor .tc-spade { left: -11px; top: -11px; width: 22px; height: 22px; }
 #cursor .tc-reticle { left: -12px; top: -12px; width: 24px; height: 24px; filter: drop-shadow(0 0 5px rgba(93,242,255,.8)); }
-#cursor .tc-flower { left: -13px; top: -13px; width: 26px; height: 26px; }
+#cursor .tc-flower {
+  left: -15px;
+  top: -15px;
+  width: 30px;
+  height: 30px;
+  background: var(--e33-flower) center / contain no-repeat;   /* same flower as the panels */
+}
 body.undertale.theme-deltarune #cursor .heart,
 body.undertale.theme-warframe #cursor .heart,
 body.undertale.theme-e33 #cursor .heart {
@@ -2143,4 +2159,39 @@ body.undertale.theme-deltarune #cursor .tc-spade,
 body.undertale.theme-warframe #cursor .tc-reticle,
 body.undertale.theme-e33 #cursor .tc-flower {
   display: block;
+}
+/* ===== 22. TEXT LEGIBILITY OVER BRIGHT BACKGROUNDS ===== */
+/* Text that sits directly on the background (top buttons, title, credit line, scroll cue) gets a dark "plate" so it
+   stays readable on any GIF. Plate colours and the highlight colour for [[words]] come from each theme. */
+body.undertale.theme-deltarune { --t-plate: rgba(10, 8, 54, .82); --t-plate-line: #4de4ff; --t-hot: #ff7be0; }
+body.undertale.theme-warframe { --t-plate: rgba(2, 12, 24, .84); --t-plate-line: rgba(93, 242, 255, .6); --t-hot: #ff9a8a; }
+body.undertale.theme-e33 { --t-plate: rgba(43, 16, 48, .82); --t-plate-line: #d9784a; --t-hot: #b3263e; }
+body.undertale .ut-top {
+  width: fit-content;
+  max-width: 100%;
+  padding: 8px 12px;
+  background: var(--t-plate, rgba(0, 0, 12, .62));
+  border: 1px solid var(--t-plate-line, rgba(255, 255, 255, .22));
+}
+body.undertale .ut-credit,
+body.undertale .ut-cue {
+  display: table;                      /* shrink-wraps the text so the plate is only as wide as the words */
+  padding: .25em .9em;
+  color: var(--t-page-text, #fff);
+  background: var(--t-plate, rgba(0, 0, 12, .68));
+  border: 1px solid var(--t-plate-line, rgba(255, 255, 255, .22));
+}
+body.undertale .ut-cue {
+  margin-left: auto;
+  margin-right: auto;
+}
+body.undertale .ut-title {
+  text-shadow: 0 0 10px rgba(0, 0, 0, .9), 0 2px 0 rgba(0, 0, 0, .7);
+}
+body.undertale.theme-deltarune .ut-title { text-shadow: 3px 3px 0 #ff4fb0, 6px 6px 0 #4de4ff, 0 0 16px rgba(0, 0, 0, .85); }
+body.undertale.theme-warframe .ut-title { text-shadow: 0 0 18px rgba(224, 184, 76, .5), 0 0 12px rgba(0, 0, 0, .9); }
+body.undertale.theme-e33 .ut-title { text-shadow: 2px 3px 0 rgba(120, 30, 50, .8), 0 0 16px rgba(0, 0, 0, .85); }
+body.undertale.ut-themed .ut-box .det,
+body.undertale.ut-themed .panel-modal__window .det {
+  color: var(--t-hot);                 /* the red [[word]] was hard to read on dark blue; each theme picks its own */
 }

@@ -32,7 +32,7 @@
 
 /* ---- 1. SETTINGS (safe to edit) ---- */
 const LENS_RADIUS = 200; // size of the area the cursor lens can bend, in px
-const LENS_STRENGTH = 64; // lens strength (Einstein radius in px): bigger = stronger, wider ring
+const LENS_STRENGTH = 84; // lens strength (Einstein radius in px): bigger = stronger, wider ring
 const RIPPLE_MS = 1500; // how long one ripple lasts, in ms
 const RIPPLE_STRENGTH = 16; // how hard a ripple bends the sky at the start, in px
 const RIPPLE_REACH = 0.7; // how far ripples travel, as a fraction of the screen's longest side
@@ -40,7 +40,7 @@ const RIPPLES_PER_CLICK = 1; // number of waves sent by each nav click
 const RIPPLE_GAP_MS = 200; // delay between those waves, in ms (only matters if RIPPLES_PER_CLICK is above 1)
 const RIPPLE_COOLDOWN_MS = 900; // a new ripple is ignored if another started less than this many ms ago
 const IDLE_SPEED = 0.35; // how fast the lens drifts when the mouse is idle (1 = original speed, smaller = slower)
-const IDLE_STRENGTH = 0.7; // lens strength while idle (1 = same as when following the mouse)
+const IDLE_STRENGTH = 1.0; // lens strength while idle (1 = same as when following the mouse)
 const PAGE_OUT_MS = 160; // old page fade-out time, in ms
 const PAGE_IN_MS = 600; // new page lensing-in time, in ms
 const PAGE_IN_WARP = 150; // how strongly the new page is warped when it first appears
@@ -120,7 +120,7 @@ void main(){vec2 p=vec2(gl_FragCoord.x,res.y-gl_FragCoord.y),o=vec2(0.);float gw
 for(int i=0;i<4;i++){vec4 k=w[i];if(k.w>0.){vec2 d=p-k.xy;float r=length(d)+1e-3,s=34.+.027*k.z,e=(r-k.z)/s,x=exp(-e*e);o+=d/r*k.w*e*x;gw+=x*k.w;}}
 // Step 2: the cursor lens. Pixels near L look up a different spot in the starfield.
 vec2 d=p-L;float r2=dot(d,d),u=clamp((sqrt(r2)/Rr-.45)/.55,0.,1.),wn=1.-u*u*(3.-2.*u),f=1.-wn*E*E/(r2+484.);
-vec3 c=texture2D(t,(L+d*f+o)/res).rgb;c=c*(1.+gw*.011)+vec3(.30,.26,.85)*gw*.006;
+vec3 c=texture2D(t,(L+d*f+o)/res).rgb;c=c*(1.+gw*.05)+vec3(.30,.26,.85)*gw*.006;
 // Step 3: a faint amber ring marks the lens edge.
 float rg=(sqrt(r2)-E)/1.4;c+=vec3(.89,.66,.34)*.35*exp(-rg*rg);gl_FragColor=vec4(c,1.);}`));
     g.linkProgram(pr);

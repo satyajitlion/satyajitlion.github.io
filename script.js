@@ -791,6 +791,9 @@ if (volSlider) {
     applyPlayingState();
   }
 
+  // switch song for theme
+  window.playThemeSong = switchSong; 
+
   // --- zoom window ---
   const modal   = document.getElementById("panelModal");
   if (!modal) return;
@@ -873,6 +876,18 @@ function setUtTheme(game) {
   if (game !== "undertale") document.body.classList.add("theme-" + game);
   document.body.classList.toggle("ut-themed", game !== "undertale"); // switches on the full theme (fonts, boxes, cursor): style.css section 21
   document.querySelectorAll("button.game").forEach((b) => b.classList.toggle("on", b.dataset.game === game));
+  
+  // play game ost for specific game theme
+  const THEME_SONGS = {
+    undertale: "undertale/waterfall.mp3",
+    deltarune: "songs/the_best_song_deltarune.mp3",
+    warframe: "songs/warframe_song.mp3",
+    e33: "songs/e33_song.mp3"
+  };
+  
+  if (window.playThemeSong && THEME_SONGS[game]) {
+    window.playThemeSong(THEME_SONGS[game]);
+  }
 }
 document.addEventListener("click", (e) => {
   const b = e.target.closest("button.game");

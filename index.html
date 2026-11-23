@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&family=VT323&family=Pixelify+Sans:wght@500;700&family=Orbitron:wght@500;700&family=Rajdhani:wght@500;600&family=Playfair+Display:ital,wght@0,600;1,600&family=Cormorant+Garamond:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Comic + pixel fonts for the Personal life page and its sidebar -->
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&family=VT323&family=Pixelify+Sans:wght@500;700&family=Orbitron:wght@500;700&family=Rajdhani:wght@500;600&family=Playfair+Display:ital,wght@0,600;1,600&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
     <!-- Your own files: styles and behaviour -->
@@ -35,16 +36,17 @@
         <!-- Pixel SOUL heart: replaces the star while I'm on the Personal life page -->
         <svg class="heart" viewBox="0 0 7 6" shape-rendering="crispEdges"><path fill="#f00" d="M1 0h2v1H1zM4 0h2v1H4zM0 1h7v2H0zM1 3h5v1H1zM2 4h3v1H2zM3 5h1v1H3z"/></svg>
         <!-- Cursor for each game theme (only the one for the current theme is shown): Deltarune spade, Warframe reticle, Expedition 33 flower -->
-        <svg class="tc tc-spade" viewBox="0 0 9 9" shape-rendering="crispEdges"><path fill="#ff4fb0" d="M4 0h1v1H4zM3 1h3v1H3zM2 2h5v1H2zM1 3h7v1H1zM0 4h9v2H0zM1 6h2v1H1zM4 6h1v1H4zM6 6h2v1H6zM4 7h1v1H4zM3 8h3v1H3z"/></svg>
-        <svg class="tc tc-reticle" viewBox="-10 -10 20 20"><path d="M0 -9L9 0L0 9L-9 0Z" fill="none" stroke="#5df2ff" stroke-width="1.6"/><path d="M0 -4L4 0L0 4L-4 0Z" fill="#e0b84c"/></svg>
-        <span class="tc tc-flower"></span>
+        <img class="tc tc-deltarune" src="cursors/deltarune_cursor.png" alt="">
+        <img class="tc tc-warframe" src="cursors/warframe_cursor.png" alt="">
+        <img class="tc tc-e33" src="cursors/e33_cursor.png" alt="">
       </div>
     </div>
     <!-- ============ TOP NAVIGATION: add or rename links here (href must match a page id below, e.g. #about) ============ -->
     <header class="nav">
       <div class="w"><a class="logo" href="#home" aria-label="Home">SG</a>
-        <nav aria-label="Primary"><a href="#about">About</a><a href="#research">Research</a><a href="#projects">Projects</a><a href="#contact">Contact</a><!-- Effects on/off: turns off the lens, ripples, star cursor and page transitions (script.js, section 2B). Remembered between visits. -->
-          <button id="fxToggle" class="fx" type="button" aria-pressed="true" title="Visual effects: on (click to change)"><span class="sw" aria-hidden="true"></span><span class="fxl">FX</span></button><a class="cta-nav" href="#contact">Contact Me</a></nav>
+        <nav aria-label="Primary"><a href="#about">About</a><a href="#research">Experience</a><a href="#projects">Projects</a><a href="#skills">Skills</a><!-- Effects on/off: turns off the lens, ripples, star cursor and page transitions (script.js, section 2B). Remembered between visits. -->
+          
+          <a class="cta-nav" href="#contact">Contact Me</a></nav>
       </div>
     </header>
     <!-- ============ PERSONAL LIFE: scene, sidebar button, dog wipe, music ============ -->
@@ -77,19 +79,24 @@
           <div>
             <p class="eye">Astrophysics &amp; Data Science</p>
             <h1>Satyajit “Chris” Gade</h1>
-            <p class="tag">I like Astrophysics and Computation.</p>
-            <p class="lede">I am interested in astrophysical research and computation. I have worked primarily on simulating lens systems and building machine learning models with the goal of constraining a value for the Hubble Constant using time-delay cosmography.</p>
+            <p class="tag">I am interested in Astrophysical Research and Computation.</p>
+            <p class="lede">I work on simulating lens systems and building ML models with the goal of constraining a value for the Hubble Constant using time-delay cosmography.</p>
             <a class="btn p" href="#research">See my work</a><a class="btn g" href="#contact">Contact Me</a>
-            <p class="hint">Move your mouse to bend background stars or click anywhere for a gravitational ripple (you can toggle off site fx at the top right).</p>
+          
+            <!-- Quick links, visible without scrolling -->
+            <p class="quick"><a href="Satyajit_Gade_Resume.pdf" download>Download résumé</a><a href="https://github.com/satyajitlion">GitHub</a><a href="https://www.linkedin.com/in/satyajitgade/">LinkedIn</a><a href="mailto:satyajitlion@gmail.com">Email</a></p>
           </div>
+
           <!-- Portrait: edit the photo by replacing edited-photo.png. The canvas is the lens layer; leave it. -->
           <div class="pt"><img id="ptimg" src="edited-photo.png" alt="Portrait of Satyajit Gade"><canvas id="ptc" width="380" height="460" aria-hidden="true"></canvas></div>
+          
         </div>
+
         <!-- Three headline numbers -->
         <div class="w stats">
-          <div><b>300,000</b><span>mock lensed systems generated on an HPC cluster</span></div>
-          <div><b>0.045</b><span>validation MAE for the best lens network</span></div>
-          <div><b>R² 0.9999</b><span>physics network trained on 1M trajectories</span></div>
+          <div><b>300,000</b><span>simulated lens systems generated on an HPC cluster</span></div>
+          <div><b>0.045</b><span>validation MAE on the best lens model</span></div>
+          <div><b>R² 0.9999</b><span>on 100K held-out physics trajectories (network trained on 1M)</span></div>
         </div>
         <!-- Researcher / Data scientist cards, value proposition, and start-the-journey button -->
         <div class="w dual">
@@ -128,7 +135,7 @@
           <div class="two">
             <div>
               <p>My name is <span class="hl">Satyajit</span>, and most people call me <span class="hl">Chris</span>. I graduated from Rutgers–New Brunswick with Honors in Astrophysics, a minor in Mathematics, and a thesis on applying machine learning to gravitational lens modeling.</p>
-              <p> I'm now looking for research opportunities in astrophysics and entry level roles in data science, where I can put data-driven methods to work on hard problems.</p>
+              <p> I'm now looking for research opportunities in astrophysics and entry-level roles in data science, where I can put data-driven methods to work on hard problems.</p>
               <p>Outside of coding and research, I spend my time listening to music, drawing, and gaming. When working, I research alongside my panda plush, Dr. Bubbles, who keeps me focused even during times of stress. I also frequent MeeTu and Utepia for bubble tea where I get an iced shaken matcha or strawberry matcha. </p>
             </div>
             <!-- Dr. Bubbles photo: replace drBubbles.jpg -->
@@ -149,34 +156,15 @@
             </div>
           </div>
           <!-- Toolkit -->
-          <h3 class="k">Toolkit</h3>
-          <div class="kit">
-            <div>
-              <h4>Languages</h4>
-              <ul><li>Python</li><li>SQL</li><li>MATLAB</li><li>Bash</li><li>LaTeX</li><li>Mathematica</li></ul>
-            </div>
-            <div>
-              <h4>Machine learning</h4>
-              <ul><li>TensorFlow</li><li>Keras</li><li>PyTorch</li><li>scikit-learn</li><li>feature engineering</li><li>hyperparameter tuning</li><li>cross-validation</li></ul>
-            </div>
-            <div>
-              <h4>Statistics</h4>
-              <ul><li>Hypothesis testing</li><li>residual analysis</li><li>MCMC with emcee</li><li>Monte Carlo</li></ul>
-            </div>
-            <div>
-              <h4>Data and compute</h4>
-              <ul><li>pandas</li><li>NumPy</li><li>SciPy</li><li>Astropy</li><li>Matplotlib</li><li>Git</li><li>Linux</li><li>SLURM</li></ul>
-            </div>
-          </div>
           <!-- Next-chapter button -->
-          <div class="next"><span>Next, chapter 2: the research.</span><a class="btn p" href="#research">See the research</a></div>
+          <div class="next"><span>Next, chapter 2: experience.</span><a class="btn p" href="#research">See the experience</a></div>
         </div>
       </section>
       <!-- ===== RESEARCH ( #research ): chapter 2 ===== -->
       <section class="page" id="p-research" hidden>
         <div class="w">
           <div class="ph">
-            <p class="eye">Chapter 2 · My work</p>
+            <p class="eye">Chapter 2 · Experience</p>
             <h2>Teaching networks to learn physics.</h2>
             <p class="sub">Two years of gravitational lens modeling at Rutgers, from thesis to cluster-scale simulation.</p>
           </div>
@@ -186,11 +174,11 @@
               <div class="job">
                 <h3>Post-Baccalaureate Researcher</h3>
                 <p class="when">Rutgers Physics &amp; Astronomy · Sep 2025 – Jun 2026</p>
+                <!-- Short on purpose: the technical depth lives in the case studies on the Projects page. -->
                 <ul>
-                  <li>Scaled mock-lens generation from a laptop to the Amarel cluster with SLURM job arrays: 300,000 raw systems (100,000 each of SIS+shear, SIE and SIE+shear), curated to 79,398 shear-model systems with a magnification threshold.</li>
-                  <li>Designed three Keras networks matched to lens multiplicity (4-, 7- and 13-feature inputs), trained with Adam, batch normalization and early stopping to a best validation loss of 0.0032 and MAE of 0.045 in 94–139 epochs.</li>
-                  <li>Tested a network trained on one lens model against another and measured the drop to MAE 0.85–0.92, marking the limit of transfer across the isothermal family.</li>
-                  <li>Built diagnostics (residual histograms, Q-Q plots, skew tests) and rotation and translation augmentation.</li>
+                  <li>Developed and scaled a gravitational lens simulation pipeline to generate 300,000 mock systems using SLURM on Rutgers’ Amarel HPC cluster.</li>
+                  <li>Designed and evaluated three neural network architectures for recovering lens parameters from simulated observations.</li>
+                  <li>Investigated cross-model generalization and identified substantial performance degradation when transferring between lens models.</li>
                 </ul>
               </div>
               <div class="job">
@@ -227,7 +215,7 @@
       <section class="page" id="p-projects" hidden>
         <div class="w">
           <div class="ph">
-            <p class="eye">Chapter 3 · My Personal Projects</p>
+            <p class="eye">Chapter 3 · Selected Projects &amp; Case Studies</p>
             <h2>Case studies</h2>
             <p class="sub">Open a case study to see the question, the method and the result. The first two are my research; the others show the same habits on other problems.</p>
           </div>
@@ -237,16 +225,27 @@
               <p>Can a neural network recover lens parameters from simulated lensed systems? Keras, SLURM, gravlens.</p>
               <i>+</i></summary>
             <div class="body">
+              <ul class="tags cs-tags"><li>ML architecture</li><li>HPC</li><li>Data engineering</li><li>Model evaluation</li><li>Scientific reasoning</li></ul>
               <div>
-                <h4>The question</h4>
+                <h4>Problem</h4>
                 <p>Can neural networks learn to recover lens parameters from simulated lensed systems, and how far can that be trusted?</p>
               </div>
               <div>
-                <h4>The approach</h4>
-                <p>Simulated lenses with the group’s gravlens library, scaled to the Amarel cluster with SLURM job arrays, then trained three Keras networks matched to lens multiplicity (4-, 7- and 13-feature inputs to 3, 6 and 12 outputs).</p>
+                <h4>My role</h4>
+                <p>I built the simulation pipeline on the group’s gravlens library, scaled data generation to the Amarel cluster with SLURM job arrays, designed the three Keras networks, and built the diagnostic suite.</p>
               </div>
               <div>
-                <h4>The result</h4>
+                <h4>Methodology</h4>
+                <p>Simulated lenses with the group’s gravlens library, scaled to the Amarel cluster with SLURM job arrays, then trained three Keras networks matched to lens multiplicity (4-, 7- and 13-feature inputs to 3, 6 and 12 outputs).</p>
+                <table class="arch">
+                  <caption>Three networks, matched to lens multiplicity</caption>
+                  <thead><tr><th>Network</th><th>Input features</th><th>Outputs</th></tr></thead>
+                  <tbody><tr><td>1</td><td>4</td><td>3</td></tr><tr><td>2</td><td>7</td><td>6</td></tr><tr><td>3</td><td>13</td><td>12</td></tr></tbody>
+                </table>
+                <!-- TODO (technical deep dive): add an architecture diagram, training/validation curves, residual plots and your GitHub link here. -->
+              </div>
+              <div>
+                <h4>Impact</h4>
                 <p>Best validation loss 0.0032 and MAE 0.045 in 94–139 epochs, checked with residual histograms, Q-Q plots, skew tests, and rotation and translation augmentation.</p>
               </div>
               <div class="bars">
@@ -261,16 +260,21 @@
               <p>A cross-model test that defined the transfer limit across isothermal lenses.</p>
               <i>+</i></summary>
             <div class="body">
+              <ul class="tags cs-tags"><li>Generalization</li><li>Robustness</li><li>Error analysis</li><li>Experimental design</li></ul>
               <div>
-                <h4>The question</h4>
+                <h4>Problem</h4>
                 <p>How far does a network trained on one lens model carry over to another?</p>
               </div>
               <div>
-                <h4>The approach</h4>
+                <h4>My role</h4>
+                <p>I designed the experiment: train a network on SIS+shear systems, test it on SIE systems, and measure how far its accuracy transfers within the isothermal family.</p>
+              </div>
+              <div>
+                <h4>Methodology</h4>
                 <p>Trained on SIS+shear systems, then tested on SIE systems from the same isothermal family, using the same residual and Q-Q diagnostics.</p>
               </div>
               <div>
-                <h4>The result</h4>
+                <h4>Impact</h4>
                 <p>Error rose from an MAE of 0.045 to 0.85–0.92, which defined the transfer limit across the isothermal model family.</p>
               </div>
               <div class="bars">
@@ -285,16 +289,21 @@
               <p>A projectile network checked against the closed-form solution.</p>
               <i>+</i></summary>
             <div class="body">
+              <ul class="tags cs-tags"><li>Regression</li><li>Supervised learning</li><li>Mathematical validation</li></ul>
               <div>
-                <h4>The question</h4>
+                <h4>Problem</h4>
                 <p>Does a neural network recover known physics, rather than just fit data?</p>
               </div>
               <div>
-                <h4>The approach</h4>
+                <h4>My role</h4>
+                <p>I built and trained the network on 1,000,000 simulated trajectories and validated it against the closed-form kinematic solution on a held-out set.</p>
+              </div>
+              <div>
+                <h4>Methodology</h4>
                 <p>A three-hidden-layer (64-neuron, ReLU) Keras regressor trained on 1,000,000 simulated trajectories to predict range from velocity and launch angle.</p>
               </div>
               <div>
-                <h4>The result</h4>
+                <h4>Impact</h4>
                 <p>Validated on 100,000 held-out trajectories against the kinematic solution: R² of 0.9999 and MAE of 0.86 m, converging in 10 epochs.</p>
               </div>
               <div class="bars">
@@ -305,25 +314,31 @@
           </details>
           <details class="cs">
             <summary>
-              <h3>What makes a track popular</h3>
+              <h3>Exploring audio characteristics associated with track popularity</h3>
               <p>Exploratory analysis of 586,672 Spotify tracks in pandas.</p>
               <i>+</i></summary>
             <div class="body">
+              <ul class="tags cs-tags"><li>Data cleaning</li><li>EDA</li><li>Statistics</li><li>Data visualization</li></ul>
               <div>
-                <h4>The question</h4>
+                <h4>Problem</h4>
                 <p>What separates the most popular tracks from the rest?</p>
               </div>
               <div>
-                <h4>The approach</h4>
+                <h4>My role</h4>
+                <p>I cleaned the 586,672-track Kaggle dataset in pandas, engineered a year field, and ran the comparison across six audio features.</p>
+              </div>
+              <div>
+                <h4>Methodology</h4>
                 <p>Cleaned a Kaggle dataset, engineered a year field, and compared 736 top-tier tracks (popularity above 80) with 585,936 others across six audio features using box plots, KDEs and a heatmap.</p>
               </div>
               <div>
-                <h4>The result</h4>
+                <h4>Impact</h4>
                 <p>Acousticness (r = −0.37) and loudness (r = 0.33) correlated most strongly with popularity, reported as correlation only.</p>
               </div>
             </div>
           </details>
-          <div class="row" style="margin-top:0;border-bottom:0">
+          <h3 class="k add-h">Additional computational projects</h3>
+          <div class="row" style="margin-top:0">
             <h3>Lorentz transform visualizer</h3>
             <div>
               <p>A Matplotlib animation of length contraction and time dilation as observers approach light speed.</p>
@@ -347,17 +362,53 @@
             <div class="lk"><a href="https://github.com/satyajitlion/PhysicsSimulations">Code</a><a href="https://github.com/satyajitlion/PhysicsSimulations/blob/main/Solar%20System%20Simulation.ipynb">Notebook</a></div>
           </div>
           <!-- Next-chapter button -->
-          <div class="next"><span>Next, chapter 4: working together.</span><a class="btn p" href="#contact">Interested in me as a collaborator or employee?</a></div>
+          <div class="next"><span>Next, chapter 4: technical skills.</span><a class="btn p" href="#skills">See my skills</a></div>
         </div>
       </section>
+      <!-- ===== SKILLS ( #skills ): chapter 4. Moved here from the About page so recruiters can find it directly. ===== -->
+      <section class="page" id="p-skills" hidden>
+        <div class="w">
+          <div class="ph">
+            <p class="eye">Chapter 4 · Technical skills</p>
+            <h2>Skills</h2>
+            <!-- EDIT: placeholder intro. Rewrite in your own words. Tip: only list what you could discuss in an interview. -->
+            <p class="sub">The languages, frameworks and methods I have used in my research and projects.</p>
+          </div>
+          <div class="kit">
+            <div>
+              <h4>Programming languages</h4>
+              <ul><li>Python</li><li>SQL</li><li>MATLAB</li><li>Bash</li><li>LaTeX</li><li>Mathematica</li></ul>
+            </div>
+            <div>
+              <h4>Machine learning</h4>
+              <ul><li>TensorFlow</li><li>Keras</li><li>PyTorch</li><li>scikit-learn</li><li>Neural networks</li><li>Supervised learning</li><li>Feature engineering</li><li>Hyperparameter tuning</li><li>Cross-validation</li><li>Model evaluation</li></ul>
+            </div>
+            <div>
+              <h4>Data and analytics</h4>
+              <ul><li>pandas</li><li>NumPy</li><li>SciPy</li><li>Astropy</li><li>Matplotlib</li><li>Seaborn</li><li>ETL and data pipelines</li><li>Data cleaning</li><li>Dataset curation</li></ul>
+            </div>
+            <div>
+              <h4>Statistics</h4>
+              <ul><li>Statistical inference</li><li>Hypothesis testing</li><li>Residual analysis</li><li>MCMC (emcee)</li><li>Monte Carlo simulation</li></ul>
+            </div>
+            <div>
+              <h4>Infrastructure and tools</h4>
+              <ul><li>Git and GitHub</li><li>Linux/Unix</li><li>SLURM</li><li>HPC (Amarel cluster)</li><li>Jupyter</li><li>Excel</li></ul>
+            </div>
+          </div>
+          <!-- Next-chapter button -->
+          <div class="next"><span>Next, chapter 5: working together.</span><a class="btn p" href="#contact">Interested in me as a collaborator or employee?</a></div>
+        </div>
+      </section>
+
       <!-- ===== CONTACT ( #contact ): chapter 4 ===== -->
       <section class="page" id="p-contact" hidden>
         <div class="w">
           <div class="ph">
-            <p class="eye">Chapter 4 · Collaboration Opportunities</p>
+            <p class="eye">Chapter 5 · Collaboration Opportunities</p>
             <h2>Let’s work together</h2>
             <!-- EDIT: the intro text on this page is placeholder wording. Rewrite it in your own words. -->
-            <p class="sub">I’m looking for for research opportunities in astrophysics and entry level roles in data science. If you're interested, please reach out to me using one of the options provided below. </p>
+            <p class="sub">I’m looking for research opportunities in astrophysics and entry-level roles in data science. If you're interested, please reach out to me using one of the options provided below. </p>
           </div>
 
           <p style="margin:48px 0 14px;color:var(--mut)">You can write to me directly using the following email, </p>
@@ -373,9 +424,9 @@
             </a><a href="mailto:satyajitlion@gmail.com?subject=Research%20collaboration">
             <h3>Collaborate</h3>
             <p>Computational astrophysics, lens modeling, or machine learning for physics.</p>
-            </a><a href="mailto:satyajitlion@gmail.com?subject=Resume%20request">
-            <h3>Request my resume</h3>
-            <p>I’ll send you the latest version.</p>
+            </a><a href="Satyajit_Gade_Resume.pdf" download>
+            <h3>Download résumé</h3>
+            <p>Grab the latest version (PDF).</p>
             </a></div>
           <!-- Contact form: sends the message to your inbox through a form service (see FORM_ENDPOINT in script.js, section 14). -->
           <form id="contactForm" class="cform" novalidate>
@@ -412,7 +463,7 @@
               <input id="volSlider" type="range" min="0" max="1" step="0.01" value="0.15">
             </label>
           </div>
-          <h2 class="ut-title">* More about Chris (after-hours)</h2>
+          <h2 class="ut-title">More About Chris </h2>
           <!-- Typed out letter by letter by script.js. Edit the text in data-text. -->
           <div class="ut-box"><p id="utTalk" data-text="* You are filled with [[CURIOSITY]]. Here are some of the things I do outside of work."></p></div>
           <div class="ut-grid">
@@ -470,6 +521,16 @@
         <div class="panel-modal__content" id="panelModalTitle"></div>
       </div>
     </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>Designed and built by Chris Gade · <span id="yr"></span></footer>
+        <!-- ... existing panelModal div ... -->
+
+    <!-- ============ FLOATING FX TOGGLE ============ -->
+    <button id="fxToggle" class="fx-floating" type="button" aria-pressed="true" title="Visual effects: on (click to change)">
+      <span class="fx-icon on" aria-hidden="true">✦</span>
+      <span class="fx-icon off" aria-hidden="true">○</span>
+    </button>
 
     <!-- ============ FOOTER ============ -->
     <footer>Designed and built by Chris Gade · <span id="yr"></span></footer>

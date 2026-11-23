@@ -2,7 +2,7 @@
    style.css: all visual styling
    Sections: 1 colours, 2 background, 3 type, 4 layout & nav, 5 pages, 6 home,
    7 headers & about, 8 research, 9 projects, 10 contact, 11 home cards,
-   12 next-chapter buttons, 13 footer, 14 custom cursor, 15 personal life (Undertale page), 16 sidebar button and dog wipe, 17 game buttons, 18 page themes per game, 19 feedback tweaks, 20 parallax background and game scenes, 21 full game themes (fonts, boxes, cursor), 22 GIF scenes and text legibility (education cards, bullets, FX switch, contact form), then phone layout.
+   12 next-chapter buttons, 13 footer, 14 custom cursor, 15 personal life (Undertale page), 16 sidebar button and dog wipe, 17 game buttons, 18 page themes per game, 19 feedback tweaks, 20 parallax background and game scenes, 21 full game themes (fonts, boxes, cursor), 22 GIF scenes and text legibility, 23 Deltarune fountain title and recruiter-friendly additions (education cards, bullets, FX switch, contact form), then phone layout.
    ===================================================================== */
 
 
@@ -18,6 +18,34 @@
   color-scheme: dark;
   box-sizing: border-box;
 }
+@font-face {
+  font-family: 'DeterminationFont';
+  src: url('fonts/determination.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DeltaruneFont';
+  src: url('fonts/deltarune.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OldRoboto';
+  src: url('fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'E33';
+  src: url('fonts/Cinzel.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Base page rules */
 *,*::before,*::after {
   box-sizing: inherit;
@@ -807,7 +835,7 @@ html.custom-cursor #cursor {
 body.undertale {
   background: #000;
   color: #fff;
-  font-family: 'VT323', monospace;
+  font-family: 'DeterminationFont', monospace;
   font-size: 22px;
   line-height: 1.35;
 }
@@ -879,7 +907,9 @@ body.undertale:not(.theme-deltarune):not(.theme-warframe):not(.theme-e33) .ut-bg
 }
 .ut-title {
   font-size: clamp(20px, 3vw, 30px);
-  margin: 26px 0;
+  margin: 26px auto 16px auto; /* 'auto' on left and right centers it */
+  width: fit-content;          /* Shrinks the box to fit the text perfectly */
+  text-align: center;          /* Centers multi-line text if it wraps on mobile */
 }
 .ut-sub {
   font-size: 16px;
@@ -890,6 +920,17 @@ body.undertale:not(.theme-deltarune):not(.theme-warframe):not(.theme-e33) .ut-bg
   background: rgba(0,0,0,.88);
   padding: 18px 22px;
   margin: 0 0 22px;
+}
+
+/* Make the list text in the panels smaller to fit long song/game names */
+body.undertale .ut-box ul {
+  font-size: 15px;      /* Reduced from 22px */
+  line-height: 1.25;    /* Brings the lines a bit closer together */
+}
+
+/* Make the game buttons match the new smaller size */
+body.undertale .ut-box button.game {
+  font-size: 18px;
 }
 
 #utTalk .det {
@@ -1666,51 +1707,82 @@ body.undertale.theme-e33 .ut-box h3 { color: #ffb36b; }
 .kit li::marker {
   color: var(--am);
 }
-/* FX switch in the nav bar (turns visual effects on/off) */
-.nav nav .fx {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-left: 22px;
-  padding: 4px 10px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--mut);
-  font: 500 13px 'Space Grotesk', sans-serif;
-  cursor: pointer;
-  vertical-align: middle;
-}
-.nav nav .fx:hover {
-  color: var(--ink);
-  border-color: var(--am);
-}
-.fx .sw {
-  position: relative;
-  width: 26px;
-  height: 14px;
-  border-radius: 999px;
-  background: var(--am);
-  transition: background .2s;
-}
-.fx .sw::after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 14px;
-  width: 10px;
-  height: 10px;
+
+/* Floating FX toggle (bottom right) */
+.fx-floating {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 10002; /* Above everything, including the custom cursor */
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: #1a1209;
-  transition: left .2s;
+  background: rgba(14, 12, 28, 0.85);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--am);
+  color: var(--am);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 15px rgba(227, 168, 87, 0.2);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
 }
-.fx[aria-pressed="false"] .sw {
-  background: #3a3550;
+.fx-floating:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 25px rgba(227, 168, 87, 0.4);
 }
-.fx[aria-pressed="false"] .sw::after {
-  left: 2px;
-  background: var(--mut);
+.fx-floating .fx-icon {
+  position: absolute;
+  font-size: 28px;
+  line-height: 1;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  user-select: none;
 }
+.fx-floating .fx-icon.on {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  text-shadow: 0 0 10px var(--am);
+}
+.fx-floating .fx-icon.off {
+  opacity: 0;
+  transform: scale(0.3) rotate(-90deg);
+}
+/* State: OFF */
+.fx-floating[aria-pressed="false"] {
+  border-color: var(--mut);
+  color: var(--mut);
+  background: rgba(14, 12, 28, 0.6);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+.fx-floating[aria-pressed="false"] .fx-icon.on {
+  opacity: 0;
+  transform: scale(0.3) rotate(90deg);
+}
+.fx-floating[aria-pressed="false"] .fx-icon.off {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* Hide the floating button on the Personal life page (fxToggle2 is there instead) */
+body.undertale .fx-floating {
+  display: none;
+}
+
+/* Mobile sizing */
+@media (max-width: 600px) {
+  .fx-floating {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+  }
+  .fx-floating .fx-icon {
+    font-size: 22px;
+  }
+}
+
 html.no-vfx #cursor {
   display: none;                       /* effects off = normal mouse cursor */
 }
@@ -1941,8 +2013,8 @@ body.undertale.theme-deltarune {
 }
 /* ---- Warframe: Orokin / Tenno HUD: gold and cyan, cut corners, Vitruvian geometry in the sky ---- */
 body.undertale.theme-warframe {
-  --t-body-font: 'Rajdhani', 'VT323', sans-serif;
-  --t-head-font: 'Orbitron', 'Press Start 2P', sans-serif;
+  --t-body-font: 'OldRoboto', sans-serif;
+  --t-head-font: 'OldRoboto', sans-serif;
   --t-body-size: 22px;
   --t-h3-size: 16px;
   --t-title-size: clamp(22px, 3.8vw, 38px);
@@ -1978,9 +2050,9 @@ body.undertale.theme-warframe {
 }
 /* ---- Clair Obscur: Expedition 33: painted cream canvases, hand-drawn edges, flowers, Belle Epoque serif ---- */
 body.undertale.theme-e33 {
-  --t-body-font: 'Cormorant Garamond', 'Playfair Display', serif;
-  --t-head-font: 'Playfair Display', serif;
-  --t-body-size: 24px;
+  --t-body-font: 'E33', serif;
+  --t-head-font: 'E33', serif;
+  --t-body-size: 20px;
   --t-h3-size: 24px;
   --t-title-size: clamp(30px, 5vw, 54px);
   --t-title-color: #fbe9cf;
@@ -1988,7 +2060,7 @@ body.undertale.theme-e33 {
   --t-title-style: italic;
   --t-title-case: none;
   --t-spacing: 0;
-  --t-page-text: #fbe9cf;
+  --t-page-text: #8a5a66;
   --t-page-dim: #e8c9a8;
   --t-text: #3a1b26;
   --t-dim: #8a5a66;
@@ -2135,29 +2207,48 @@ body.theme-swap .ut {
   opacity: 0;
 }
 /* cursor: each theme has its own shape (the markup is in index.html, inside #cursor) */
+/* cursor: each theme has its own shape (the images are in index.html, inside #cursor) */
 #cursor .tc {
   display: none;
   position: absolute;
   animation: none;
   filter: none;
+  image-rendering: pixelated; /* Keeps the Deltarune pixel art crisp */
 }
-#cursor .tc-spade { left: -11px; top: -11px; width: 22px; height: 22px; }
-#cursor .tc-reticle { left: -12px; top: -12px; width: 24px; height: 24px; filter: drop-shadow(0 0 5px rgba(93,242,255,.8)); }
-#cursor .tc-flower {
-  left: -15px;
-  top: -15px;
-  width: 30px;
-  height: 30px;
-  background: var(--e33-flower) center / contain no-repeat;   /* same flower as the panels */
+
+/* 
+   Adjust the 'left' and 'top' values so the tip of the arrow aligns with the exact mouse position.
+   The 'width' scales the image. 
+*/
+#cursor .tc-deltarune { 
+  left: -4px; 
+  top: -4px; 
+  width: 30px; /* Adjust based on how big you want it */
 }
+#cursor .tc-warframe { 
+  left: -3px; 
+  top: -3px; 
+  width: 28px; 
+  filter: drop-shadow(0 0 5px rgba(93,242,255,.8)); /* Adds a subtle sci-fi glow */
+}
+#cursor .tc-e33 { 
+  left: -30px; 
+  top: -30px; 
+  width: 60px; 
+  filter: drop-shadow(1px 1px 0px rgba(0,0,0,0.5)); /* Helps it stand out */
+}
+
+/* Hide the standard Undertale heart when a game theme is active */
 body.undertale.theme-deltarune #cursor .heart,
 body.undertale.theme-warframe #cursor .heart,
 body.undertale.theme-e33 #cursor .heart {
-  display: none;                        /* the Undertale heart is only for the Undertale look */
+  display: none;                        
 }
-body.undertale.theme-deltarune #cursor .tc-spade,
-body.undertale.theme-warframe #cursor .tc-reticle,
-body.undertale.theme-e33 #cursor .tc-flower {
+
+/* Show the correct image cursor based on the body class */
+body.undertale.theme-deltarune #cursor .tc-deltarune,
+body.undertale.theme-warframe #cursor .tc-warframe,
+body.undertale.theme-e33 #cursor .tc-e33 {
   display: block;
 }
 /* ===== 22. TEXT LEGIBILITY OVER BRIGHT BACKGROUNDS ===== */
@@ -2194,4 +2285,157 @@ body.undertale.theme-e33 .ut-title { text-shadow: 2px 3px 0 rgba(120, 30, 50, .8
 body.undertale.ut-themed .ut-box .det,
 body.undertale.ut-themed .panel-modal__window .det {
   color: var(--t-hot);                 /* the red [[word]] was hard to read on dark blue; each theme picks its own */
+}
+
+/* ===== 23. DELTARUNE FOUNTAIN TITLE AND RECRUITER-FRIENDLY ADDITIONS ===== */
+/* The "More about Chris" title cycles through the Dark Fountain colours (teal, blue, royal blue, magenta) while the
+   Deltarune theme is active, like the fountain in the game. Change --fountain-ms for faster or slower. */
+/* ===== 23. DELTARUNE FOUNTAIN TITLE ===== */
+
+@keyframes fountain-energy {
+  0% {
+    filter: 
+      hue-rotate(60deg) /* Shifted to start on blue */
+      drop-shadow(0 0 2px #fff) 
+      drop-shadow(0 0 12px #2d86f0) /* Blue glow */
+      drop-shadow(2px 2px 0 #000);
+  }
+  50% {
+    filter: 
+      hue-rotate(200deg) /* Shifts to magenta/purple */
+      drop-shadow(0 0 2px #fff) 
+      drop-shadow(0 0 12px #e03de0) /* Magenta glow */
+      drop-shadow(2px 2px 0 #000);
+  }
+  100% {
+    filter: 
+      hue-rotate(420deg) /* Full cycle back to blue */
+      drop-shadow(0 0 2px #fff) 
+      drop-shadow(0 0 12px #2d86f0) /* Blue glow */
+      drop-shadow(2px 2px 0 #000);
+  }
+}
+
+body.undertale.theme-deltarune .ut-title {
+  /* Font settings */
+  font-family: 'DeltaruneFont', serif !important;
+  font-size: clamp(40px, 6vw, 64px) !important; 
+  font-style: italic !important;
+  text-shadow: none !important;
+  
+  /* Texture settings */
+  background-color: #2d86f0; /* Changed fallback to blue */
+  background-image: url("undertale/fountain.gif"); 
+  background-size: 1000% 1000%;
+  background-position: center;
+  
+  /* Clipping */
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
+  
+  /* Animation and spacing */
+  animation: fountain-energy 10s linear infinite;
+  padding: 0 15px; 
+}
+
+/* Effects off: clean fallback */
+html.no-vfx body.undertale.theme-deltarune .ut-title {
+  animation: none;
+  background-image: none;
+  -webkit-text-fill-color: #b36bff;
+  color: #b36bff;
+  background-color: transparent;
+  text-shadow: 2px 2px 0 #000 !important;
+}
+/* Résumé button in the nav, and quick links under the hero text */
+.nav nav .resume-nav {
+  margin-left: 22px;
+  padding: 6px 14px;
+  border: 1px solid var(--am);
+  border-radius: 999px;
+  color: var(--am);
+}
+.nav nav .resume-nav:hover {
+  background: rgba(227, 168, 87, .15);
+  color: var(--ink);
+}
+.quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: 14px 0 4px;
+  font: 500 15px 'Space Grotesk', sans-serif;
+}
+.quick a {
+  color: var(--mut);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+.quick a:hover {
+  color: var(--ink);
+  border-color: var(--am);
+}
+/* Case studies: Problem / My role / Methodology / Impact in a 2 x 2 grid */
+.cs .body {
+  grid-template-columns: repeat(2, 1fr);
+}
+.cs-tags {
+  grid-column: 1 / -1;
+}
+.arch {
+  width: 100%;
+  margin-top: 12px;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  color: #d6d0e4;
+}
+.arch caption {
+  text-align: left;
+  color: var(--mut);
+  padding-bottom: 4px;
+}
+.arch th,
+.arch td {
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+.arch th {
+  color: var(--am);
+  font: 600 13px 'Space Grotesk', sans-serif;
+}
+.add-h {
+  margin-top: 56px;
+}
+@media (max-width: 860px) {
+  .cs .body { grid-template-columns: 1fr; }
+  .nav nav .resume-nav { display: none; }   /* phones: the résumé link is in the hero instead */
+}
+@media (max-width: 600px) {
+  .nav nav a { margin-left: 9px; font-size: 13px; }
+  .nav nav .fx { margin-left: 8px; }
+  .logo { font-size: 19px; }
+}
+
+/* ===== OVERRIDES FOR THE ZOOM WINDOW (Put at the very bottom) ===== */
+
+/* Make the list text bigger inside the pop-up window */
+.panel-modal__window .ut-box ul,
+.panel-modal__window .ut-box .song-choice {
+  font-size: 28px !important;      /* Change this to 32px or 40px if you want it even bigger */
+  line-height: 1.4 !important; 
+}
+
+/* Make the window wider so the 40px text has room to breathe */
+.panel-modal__window {
+  width: min(800px, 94vw) !important; 
+  max-height: 90vh !important;
+}
+
+/* Make the panel title (e.g. "Songs I like") bigger too */
+.panel-modal__window h3 {
+  font-size: 24px !important;
+  margin-bottom: 24px !important;
 }

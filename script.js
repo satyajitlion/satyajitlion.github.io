@@ -924,7 +924,7 @@ $("#utUp").addEventListener("click", () => scrollTo({ top: 0, behavior: vfxOn ? 
 /* ---- 12. PAGES & TRANSITIONS ---- */
 // Each page is a <section id="p-NAME"> in index.html, opened with a #NAME link.
 // Add a page: add its section, a nav link, and an entry in this list.
-const names = { home: "Home", about: "About", research: "Research", projects: "Projects", contact: "Contact",
+const names = { home: "Home", about: "About", research: "Experience", projects: "Projects", skills: "Skills", contact: "Contact",
   personal: "Personal life" };
 // Page-in animation: builds a lens-shaped displacement map centred on the click and
 // relaxes it to nothing, so the page appears to resolve out of a lensed image.
@@ -1092,6 +1092,7 @@ const FORM_ENDPOINT = "https://formsubmit.co/ajax/satyajitlion@gmail.com";
 const contactForm = $("#contactForm"), formStatus = $("#formStatus");
 // The three cards above the form pick the topic in the form (instead of opening an email).
 document.querySelectorAll(".paths a").forEach((a) => a.addEventListener("click", (e) => {
+  if (!a.getAttribute("href").startsWith("mailto:")) return; // the résumé card is a real download link
   e.preventDefault();
   const topic = decodeURIComponent((a.getAttribute("href").split("subject=")[1] || ""));
   if (topic) contactForm.elements.reason.value = topic;

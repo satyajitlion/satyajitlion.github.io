@@ -46,7 +46,7 @@
       <div class="w"><a class="logo" href="#home" aria-label="Home">SG</a>
         <nav aria-label="Primary"><a href="#about">About</a><a href="#research">Experience</a><a href="#projects">Projects</a><a href="#skills">Skills</a><!-- Effects on/off: turns off the lens, ripples, star cursor and page transitions (script.js, section 2B). Remembered between visits. -->
           
-          <a class="cta-nav" href="#contact">Contact Me</a></nav>
+          <a class="cta-nav" href="#contact">Contact<span class="cta-me"> Me</span></a></nav>
       </div>
     </header>
     <!-- ============ PERSONAL LIFE: scene, sidebar button, dog wipe, music ============ -->
@@ -95,7 +95,7 @@
         <!-- Three headline numbers -->
         <div class="w stats">
           <div><b>300,000</b><span>simulated lens systems generated on an HPC cluster</span></div>
-          <div><b>0.045</b><span>validation MAE on the best lens model</span></div>
+          <div><b>0.0032</b><span>best validation MSE (standardized units), double-image network</span></div>
           <div><b>R² 0.9999</b><span>on 100K held-out physics trajectories (network trained on 1M)</span></div>
         </div>
         <!-- Researcher / Data scientist cards, value proposition, and start-the-journey button -->
@@ -176,9 +176,9 @@
                 <p class="when">Rutgers Physics &amp; Astronomy · Sep 2025 – Jun 2026</p>
                 <!-- Short on purpose: the technical depth lives in the case studies on the Projects page. -->
                 <ul>
-                  <li>Developed and scaled a gravitational lens simulation pipeline to generate 300,000 mock systems using SLURM on Rutgers’ Amarel HPC cluster.</li>
-                  <li>Designed and evaluated three neural network architectures for recovering lens parameters from simulated observations.</li>
-                  <li>Investigated cross-model generalization and identified substantial performance degradation when transferring between lens models.</li>
+                  <li>Developed and scaled a gravitational lens simulation pipeline to generate 300,000 mock systems (SIS+shear, SIE and SIE+shear) using SLURM on Rutgers’ Amarel HPC cluster.</li>
+                  <li>Designed three neural networks, matched to single-, double- and quad-image lenses, that predict the lens potential and deflection from image positions, time delays and redshifts.</li>
+                  <li>Built a diagnostic suite (residual histograms, Q-Q plots and skewness tests) to evaluate the trained networks on held-out simulated systems.</li>
                 </ul>
               </div>
               <div class="job">
@@ -217,70 +217,58 @@
           <div class="ph">
             <p class="eye">Chapter 3 · Selected Projects &amp; Case Studies</p>
             <h2>Case studies</h2>
-            <p class="sub">Open a case study to see the question, the method and the result. The first two are my research; the others show the same habits on other problems.</p>
+            <p class="sub">Each case study covers the problem, my role, the methodology and the impact. The first is my main research project; the others show the same habits on other problems.</p>
           </div>
           <details class="cs" open>
             <summary>
-              <h3>Lens modeling at scale</h3>
-              <p>Can a neural network recover lens parameters from simulated lensed systems? Keras, SLURM, gravlens.</p>
+              <h3>Machine learning for gravitational lens modeling</h3>
+              <p>Training neural networks on 300,000 simulated lenses, toward time-delay cosmography. Keras, SLURM, pygravlens.</p>
               <i>+</i></summary>
             <div class="body">
-              <ul class="tags cs-tags"><li>ML architecture</li><li>HPC</li><li>Data engineering</li><li>Model evaluation</li><li>Scientific reasoning</li></ul>
+              <ul class="tags cs-tags"><li>Scientific computing</li><li>Neural networks</li><li>HPC</li><li>Data engineering</li><li>Model evaluation</li></ul>
               <div>
                 <h4>Problem</h4>
-                <p>Can neural networks learn to recover lens parameters from simulated lensed systems, and how far can that be trusted?</p>
+                <p>The time delays between the images of a strong gravitational lens can constrain the Hubble constant (H<sub>0</sub>), but fitting a detailed lens model to every system is computationally expensive. This project asks whether neural networks trained on simulated lenses can learn the mapping from observable quantities (image positions, time delays and redshifts) to the lens potential and deflection, as a faster route toward time-delay cosmography.</p>
+                <p class="status"><b>Status:</b> mock-lens generation is complete and network training and evaluation are ongoing. Applying the trained models to real lens systems to constrain H<sub>0</sub> is future work.</p>
               </div>
               <div>
                 <h4>My role</h4>
-                <p>I built the simulation pipeline on the group’s gravlens library, scaled data generation to the Amarel cluster with SLURM job arrays, designed the three Keras networks, and built the diagnostic suite.</p>
+                <p>Under Dr. Charles Keeton, I built the mock-lens generator on his pygravlens code, parallelized it with SLURM job arrays on Rutgers’ Amarel cluster, wrote the preprocessing, designed and trained the Keras networks, and built the diagnostics used to evaluate them.</p>
               </div>
-              <div>
+              <div class="cs-wide">
                 <h4>Methodology</h4>
-                <p>Simulated lenses with the group’s gravlens library, scaled to the Amarel cluster with SLURM job arrays, then trained three Keras networks matched to lens multiplicity (4-, 7- and 13-feature inputs to 3, 6 and 12 outputs).</p>
+                <ul class="cs-list">
+                  <li><b>Simulated data.</b> 300,000 lens systems: 100,000 each for three isothermal models (SIS + external shear, SIE, and SIE + shear), with lens redshift 0.2 to 0.5, source redshift 1 to 3, Einstein radius 1.0 to 1.5 arcsec and Planck18 distances. Ellipticity and shear are drawn from the distributions of Oguri &amp; Marshall (2010). For each system an image position is drawn at random and mapped back to the source, all images are then solved for, and images with |&mu;| &lt; 10<sup>-4</sup> are discarded.</li>
+                  <li><b>Preprocessing.</b> Each dataset is split 80/20 into training and test sets. Systems are grouped by image count (1, 2 or 4), and inputs and targets are standardized using scalers fit on the training set only. The SIS+shear training set contains 79,398 systems.</li>
+                  <li><b>Networks.</b> One feed-forward network per image count, with batch normalization and ReLU activations, trained with Adam on a mean-squared-error loss. The learning rate drops on plateaus and training stops early (with a minimum number of epochs); 10% of the training set is held out for validation.</li>
+                  <li><b>Evaluation.</b> Residual histograms, Q-Q plots and skewness on the held-out test set. Matching SIE and SIE+shear datasets of the same size were also generated, so that a network trained on one isothermal model can be tested on another.</li>
+                </ul>
                 <table class="arch">
-                  <caption>Three networks, matched to lens multiplicity</caption>
-                  <thead><tr><th>Network</th><th>Input features</th><th>Outputs</th></tr></thead>
-                  <tbody><tr><td>1</td><td>4</td><td>3</td></tr><tr><td>2</td><td>7</td><td>6</td></tr><tr><td>3</td><td>13</td><td>12</td></tr></tbody>
+                  <caption>Three networks, one per image count (targets: lens potential and deflection at each image)</caption>
+                  <thead><tr><th>Network</th><th>Inputs</th><th>Hidden layers</th><th>Outputs</th></tr></thead>
+                  <tbody>
+                    <tr><td>Single-image</td><td>4: position (x, y), z<sub>lens</sub>, z<sub>src</sub></td><td>32, 64, 32, 16</td><td>3</td></tr>
+                    <tr><td>Double-image</td><td>7: 2 positions, 1 time delay, 2 redshifts</td><td>32, 64</td><td>6</td></tr>
+                    <tr><td>Quad-image</td><td>13: 4 positions, 3 time delays, 2 redshifts</td><td>64, 128, 64, 32</td><td>12</td></tr>
+                  </tbody>
                 </table>
-                <!-- TODO (technical deep dive): add an architecture diagram, training/validation curves, residual plots and your GitHub link here. -->
+                <!-- TODO (technical deep dive): add training/validation curves, residual plots and your GitHub link here. -->
               </div>
-              <div>
+              <div class="cs-wide">
                 <h4>Impact</h4>
-                <p>Best validation loss 0.0032 and MAE 0.045 in 94–139 epochs, checked with residual histograms, Q-Q plots, skew tests, and rotation and translation augmentation.</p>
+                <ul class="cs-list">
+                  <li><b>Validation.</b> Best validation loss (MSE, standardized units): <b>0.003</b> for the double-image network (validation MAE 0.041; stopped at epoch 94, weights restored from epoch 79) and <b>0.010</b> for the quad-image network (validation MAE 0.070; stopped at epoch 139).</li>
+                  <li><b>Held-out test set (SIS+shear).</b> Residuals are close to unbiased with small scatter. Double-image: deflection-magnitude residual 0.007 &plusmn; 0.035 arcsec (mean &plusmn; standard deviation), potential residual 0.007 &plusmn; 0.061. Quad-image: -0.009 &plusmn; 0.060 arcsec and 0.024 &plusmn; 0.069.</li>
+                  <li><b>Overfitting check.</b> For double-image lenses, training and test scatter agree closely (potential 0.060 vs 0.061). For quads the test scatter is larger (0.049 vs 0.069), which is consistent with only 3,935 quad training systems.</li>
+                  <li><b>Scope.</b> These results are for networks trained and tested within the SIS+shear family. Testing across lens families and inferring H<sub>0</sub> from real systems are the next steps.</li>
+                </ul>
               </div>
               <div class="bars">
-                <div class="bar"><span>Raw systems</span><s style="--w:100%"></s><b>300,000</b></div>
-                <div class="bar"><span>Curated (shear model)</span><s style="--w:26.5%"></s><b>79,398</b></div>
+                <div class="bar"><span>Single-image systems</span><s style="--w:48%"></s><b>24,480</b></div>
+                <div class="bar"><span>Double-image systems</span><s style="--w:100%"></s><b>50,983</b></div>
+                <div class="bar"><span>Quad-image systems</span><s style="--w:7.7%"></s><b>3,935</b></div>
               </div>
-            </div>
-          </details>
-          <details class="cs">
-            <summary>
-              <h3>Where the network stops generalizing</h3>
-              <p>A cross-model test that defined the transfer limit across isothermal lenses.</p>
-              <i>+</i></summary>
-            <div class="body">
-              <ul class="tags cs-tags"><li>Generalization</li><li>Robustness</li><li>Error analysis</li><li>Experimental design</li></ul>
-              <div>
-                <h4>Problem</h4>
-                <p>How far does a network trained on one lens model carry over to another?</p>
-              </div>
-              <div>
-                <h4>My role</h4>
-                <p>I designed the experiment: train a network on SIS+shear systems, test it on SIE systems, and measure how far its accuracy transfers within the isothermal family.</p>
-              </div>
-              <div>
-                <h4>Methodology</h4>
-                <p>Trained on SIS+shear systems, then tested on SIE systems from the same isothermal family, using the same residual and Q-Q diagnostics.</p>
-              </div>
-              <div>
-                <h4>Impact</h4>
-                <p>Error rose from an MAE of 0.045 to 0.85–0.92, which defined the transfer limit across the isothermal model family.</p>
-              </div>
-              <div class="bars">
-                <div class="bar"><span>Same model (validation)</span><s style="--w:5%"></s><b>0.045</b></div>
-                <div class="bar"><span>Cross-model (SIE)</span><s style="--w:92%"></s><b>0.85–0.92</b></div>
-              </div>
+              <!-- The bars show the SIS+shear training set by number of images (79,398 systems in total). -->
             </div>
           </details>
           <details class="cs">

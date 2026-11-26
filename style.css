@@ -1713,7 +1713,7 @@ body.undertale.theme-e33 .ut-box h3 { color: #ffb36b; }
   position: fixed;
   bottom: 30px;
   right: 30px;
-  z-index: 10002; /* Above everything, including the custom cursor */
+  z-index: 10000; /* Just below the custom cursor (z-index 10001), so the star or heart always stays on top of this button */
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -2438,4 +2438,60 @@ html.no-vfx body.undertale.theme-deltarune .ut-title {
 .panel-modal__window h3 {
   font-size: 24px !important;
   margin-bottom: 24px !important;
+}
+/* ===== 24. MOBILE CONTACT BUTTON AND SKILLS LAYOUT ===== */
+/* Phones keep a (shorter) Contact button in the nav, so the Contact page is always one tap away. */
+@media (max-width: 860px) {
+  .nav nav .cta-nav {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 5px 11px !important;
+    font-size: 13px;
+  }
+}
+@media (max-width: 600px) {
+  .cta-me { display: none; }           /* "Contact Me" becomes "Contact" on small screens */
+  .nav nav a { margin-left: 8px; }
+}
+/* Skills page: five categories in a 3-column grid, one simple bullet list each */
+#p-skills .kit {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 32px;
+}
+#p-skills .kit ul {
+  columns: 1;
+}
+@media (max-width: 860px) {
+  #p-skills .kit { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  #p-skills .kit { grid-template-columns: 1fr; }
+}
+
+/* ===== 25. LENS RESEARCH CASE STUDY LAYOUT ===== */
+.cs-wide {
+  grid-column: 1 / -1;                 /* Methodology and Impact use the full width */
+}
+.cs-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 15.5px;
+  color: #d6d0e4;
+}
+.cs-list li {
+  margin-bottom: 8px;
+}
+.cs-list b {
+  color: var(--ink);
+}
+.status {
+  margin-top: 10px !important;
+  padding: 8px 12px;
+  border-left: 3px solid var(--am);
+  background: rgba(227, 168, 87, .08);
+  font-size: 14.5px !important;
+}
+.arch td,
+.arch th {
+  vertical-align: top;
 }
